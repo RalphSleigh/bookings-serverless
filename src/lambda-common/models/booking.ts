@@ -22,6 +22,7 @@ export interface BookingModel extends Model<InferAttributes<BookingModel>, Infer
     maxParticipants: number
     externalExtra: string
     internalExtra: string
+    villageId?: number
 }
 
 export function define(sequelize: Sequelize) {

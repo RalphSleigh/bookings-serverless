@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lambda_wrapper_raw, user } from '../../../../lambda-common'
 import { Op } from 'sequelize';
-import { google } from 'googleapis'
+import { auth } from '@googleapis/plus'
 
 /**
  *
@@ -16,7 +16,7 @@ import { google } from 'googleapis'
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     return lambda_wrapper_raw(async (db, config) => {
 
-        const oauth2Client = new google.auth.OAuth2(
+        const oauth2Client = new auth.OAuth2(
             config.GOOGLE_CLIENT_ID,
             config.GOOGLE_CLIENT_SECRET,
             `${config.BASE_URL}api/auth/google/callback`
@@ -24,7 +24,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
 
         // generate a url that asks permissions for Blogger and Google Calendar scopes
         const scopes = [
-            'https://www.googleapis.com/auth/userinfo.email'
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile',
         ];
 
         const url = oauth2Client.generateAuthUrl({

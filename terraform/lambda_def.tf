@@ -46,6 +46,12 @@ variable "lambda_definitions" {
       path     = "user/logout"
       method   = "post"
     },
+    user_list = {
+      name     = "user_list"
+      code_dir = "user/list"
+      path     = "users/{id}"
+      method   = "get"
+    },
     events = {
       name     = "events"
       code_dir = "events/get"
@@ -70,16 +76,22 @@ variable "lambda_definitions" {
       path     = "event/delete"
       method   = "post"
     },
+    events_details = {
+      name     = "events_details"
+      code_dir = "events/details"
+      path     = "event/{id}/details"
+      method   = "get"
+    },
+    apply = {
+      name     = "apply"
+      code_dir = "events/apply"
+      path     = "event/{id}/apply"
+      method   = "post"
+    },
     bookings_user = {
       name     = "bookings_user"
       code_dir = "bookings/user"
       path     = "booking/user"
-      method   = "get"
-    },
-    bookings_get = {
-      name     = "bookings_get"
-      code_dir = "bookings/get"
-      path     = "booking/{id}"
       method   = "get"
     },
     bookings_create = {
@@ -87,6 +99,12 @@ variable "lambda_definitions" {
       code_dir = "bookings/create"
       path     = "booking/{id}/create"
       method   = "post"
+    },
+    bookings_get = {
+      name     = "bookings_get"
+      code_dir = "bookings/get"
+      path     = "booking/{id}"
+      method   = "get"
     },
     bookings_edit = {
       name     = "bookings_edit"
@@ -98,6 +116,54 @@ variable "lambda_definitions" {
       name     = "bookings_delete"
       code_dir = "bookings/delete"
       path     = "booking/delete"
+      method   = "post"
+    },
+    bookings_event = {
+      name     = "bookings_event"
+      code_dir = "bookings/event"
+      path     = "booking/event/{id}"
+      method   = "get"
+    },
+    village_create = {
+      name     = "village_create"
+      code_dir = "village/create"
+      path     = "village/create"
+      method   = "post"
+    },
+    village_delete = {
+      name     = "village_delete"
+      code_dir = "village/delete"
+      path     = "village/delete"
+      method   = "post"
+    },
+    village_assign = {
+      name     = "village_assign"
+      code_dir = "village/assign"
+      path     = "village/assign"
+      method   = "post"
+    },
+    application_decline = {
+      name     = "application_decline"
+      code_dir = "application/decline"
+      path     = "application/decline"
+      method   = "post"
+    },
+    application_approve = {
+      name     = "application_approve"
+      code_dir = "application/approve"
+      path     = "application/approve"
+      method   = "post"
+    },
+    role_create = {
+      name     = "role_create"
+      code_dir = "role/create"
+      path     = "role/create"
+      method   = "post"
+    },
+    role_delete = {
+      name     = "role_delete"
+      code_dir = "role/delete"
+      path     = "role/delete"
       method   = "post"
     },
     auth_google_redirect = {

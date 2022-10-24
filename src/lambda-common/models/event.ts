@@ -1,7 +1,8 @@
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
+import { RoleModel } from "./role";
 
 export interface EventModel extends Model<InferAttributes<EventModel>, InferCreationAttributes<EventModel>> {
-   id: number
+    id: CreationOptional<number>
    name: string
    description: string
    startDate: Date,
@@ -17,6 +18,8 @@ export interface EventModel extends Model<InferAttributes<EventModel>, InferCrea
    paymentTypes: string
    paymentInfo: string
    customQuestions: string
+
+   roles?: RoleModel[]
 }
 
 export function define(sequelize: Sequelize) {

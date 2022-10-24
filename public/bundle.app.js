@@ -3862,9 +3862,11 @@ exports["default"] = rfetch;
 rfetch.fail = (error) => console.log('fail', error);
 function handleErrors(response) {
     if (response.status == 401) {
-        // @ts-ignore
-        dispatch({ type: "MESSAGE_SET_WARNING_MESSAGE", message: "401 Unauthorised on " + response.url });
-        throw Error("401 Unauthorised on " + response.url);
+        response.json().then(j => {
+            // @ts-ignore
+            dispatch({ type: "MESSAGE_SET_WARNING_MESSAGE", message: "401 Unauthorised on " + response.url + " - " + j.message });
+            throw Error("401 Unauthorised on " + response.url);
+        });
     }
     else if (!response.ok) {
         // @ts-ignore

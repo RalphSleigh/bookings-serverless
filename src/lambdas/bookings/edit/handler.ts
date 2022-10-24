@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lambda_wrapper_json, user } from '../../../lambda-common'
 import { Op } from 'sequelize';
 import { book_into_organisation, edit_booking } from '../../../lambda-common/permissions';
-import moment from 'moment';
+//import moment from 'moment';
 
 import { updateAssociation } from '../../../lambda-common/util'
 /**
@@ -28,7 +28,8 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
 
         if (!booking) throw new Error("booking not found")
 
-        if (moment().isBefore(booking.event!.bookingDeadline)) {
+        //if (moment().isBefore(booking.event!.bookingDeadline)) {
+            if(true) {
             lambda_event.body.maxParticipants = lambda_event.body.participants.length
         } else {
             lambda_event.body.maxParticipants = Math.max(booking.maxParticipants || 0, lambda_event.body.participants.length);

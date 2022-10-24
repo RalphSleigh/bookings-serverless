@@ -1,13 +1,33 @@
+import { NumberOfInvocations } from "aws-sdk/clients/computeoptimizer";
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional } from "sequelize";
+import { EventModel } from "./event";
+import { UserModel } from "./user";
 
 export interface ApplicationModel extends Model<InferAttributes<ApplicationModel>, InferCreationAttributes<ApplicationModel>> {
+    id: CreationOptional<number>
+    message: string
+    eventId: number
+	event?: EventModel
+    userId: number
+    user?: UserModel
 }
 
 export function define(sequelize: Sequelize) {
     return sequelize.define<ApplicationModel>('application', {
+        id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            primaryKey: true,
+            autoIncrement: true
+        },
         message: {
             type: DataTypes.STRING
         },
+        eventId: {
+			type: DataTypes.INTEGER
+		},
+        userId: {
+			type: DataTypes.INTEGER
+		}
     });
 }
 
