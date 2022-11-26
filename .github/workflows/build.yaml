@@ -23,3 +23,11 @@ jobs:
         working-directory: common-layer/nodejs
         run: |
           npm install --legacy-peer-deps
+
+      - name: build lambdas
+        run: |
+          node .\esbuild-lambda.js 
+
+      - name: build front
+        run: |
+          npx webpack         
