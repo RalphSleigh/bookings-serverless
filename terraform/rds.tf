@@ -1,8 +1,8 @@
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "database" {
   allocated_storage    = 20
   db_name              = "bookings"
   engine               = "mariadb"
-  engine_version       = "10.6.10"
+  engine_version       = "10.5.17"
   instance_class       = "db.t4g.micro"
   username             = "root"
   password             = random_password.db_password.result

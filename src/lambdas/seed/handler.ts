@@ -3,7 +3,7 @@ import { orm, lambda_wrapper_json } from '../../lambda-common'
 //@ts-ignore
 import  { faker } from '@faker-js/faker/locale/en_GB'
 //@ts-ignore
-import momentRandom from 'moment-random'
+//import momentRandom from 'moment-random'
 
 /**
  *
@@ -235,7 +235,7 @@ Woodchips are half price, and there is a £50 charge for cancelled bookings.`
             const promises = new Array(getRandomInt(290, 310)).fill("").map(() =>
                 db.participant.create({
                     name: faker.name.fullName(),
-                    age: new Date(momentRandom("2022-01-01T00:00:00Z", "1980-01-01T00:00:00Z").toISOString()),
+                    age: faker.date.between( "1980-01-01T00:00:00Z", "2022-01-01T00:00:00Z"),
                     diet: getRandomDiet(),
                     dietExtra: getRandomDietExtra(),
                     medical: getRandomMedical(),

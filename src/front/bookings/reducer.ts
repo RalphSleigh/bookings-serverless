@@ -15,8 +15,6 @@ export default function Bookings(state = initialBookingsState, action) {
             }, state.get("bookings") || Immutable.Map()));
         case a.DELETE_BOOKING:
             return state.deleteIn(["bookings", action.id]);
-        case user.actions.UPDATE_USER:
-            return state.set("bookings", null); //invalidates app render if the user changes until we can fetch more user bookings.
         case a.UPDATE_CURRENT_BOOKING:
             return state.set("currentBooking", Immutable.fromJS(action.booking));
         case manageActions.LOCAL_ASSIGN_VILLAGE:

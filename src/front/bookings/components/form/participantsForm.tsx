@@ -30,7 +30,7 @@ import {
 } from 'reactstrap';
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import  { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
 export default class ParticipantsForm extends React.Component<any, any> {
 

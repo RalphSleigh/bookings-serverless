@@ -1,6 +1,7 @@
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op, ForeignKey, BelongsTo } from "sequelize";
 import { EventModel } from "./event";
 import { OrganisationModel } from "./organisation";
+import { ParticipantModel } from "./participant";
 import { UserModel } from "./user";
 import { VillageModel } from "./village";
 
@@ -22,6 +23,8 @@ export interface BookingModel extends Model<InferAttributes<BookingModel>, Infer
     maxParticipants: number
     externalExtra: string
     internalExtra: string
+    villageId?: number
+    participants?: ParticipantModel[]
 }
 
 export function define(sequelize: Sequelize) {

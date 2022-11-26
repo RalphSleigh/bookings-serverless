@@ -38,9 +38,12 @@ export const doLogout = () => {
     return (dispatch) => {
         fetch('/api/user/logout', "POST")
             .then(j => {
+                window.location.reload()
+                /*
                 dispatch(updateUser(j));
                 dispatch(m.actions.setSuccess("Logged out"));
                 dispatch(push('/'));
+                */
             });
     };
 };

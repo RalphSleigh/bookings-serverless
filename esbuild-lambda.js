@@ -3,6 +3,8 @@ const path = require('path')
 const esbuild = require('esbuild')
 const ImportGlobPlugin = require('esbuild-plugin-import-glob')
 
+
+//(async () => {
 var walk = function (dir) {
     var results = [];
     var list = fs.readdirSync(dir);
@@ -28,7 +30,8 @@ const functionsDir = `src`;
 
 esbuild
     .build({
-        entryPoints: entrypoints,
+       entryPoints: entrypoints,
+       //entryPoints: ["src/lambdas/env/handler.ts"],
         bundle: true,
         minify: true,
         //splitting: true,
@@ -38,6 +41,14 @@ esbuild
         platform: 'node',
         //sourcemap: 'inline',
         target: ['node16'],
-        external: ['pg-hstore','aws-sdk'],
+        external: ['pg-hstore','aws-sdk','mariadb','sequelize'],
         plugins: [ImportGlobPlugin.default()],
-    });
+        metafile: true,
+    }).then(build => {
+        require('fs').writeFileSync('meta.json',
+  JSON.stringify(build.metafile))
+
+    })
+
+
+//})()

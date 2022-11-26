@@ -18,9 +18,6 @@ export default function Events(state = initalEventState, action) {
             }, state.get("events") || Immutable.fromJS({})));
         case a.REMOVE_EVENT:
             return state.deleteIn(["events", action.id]);
-        case user.actions.UPDATE_USER:
-            console.log("WIPING EVENTS DUE TO USE UPDATE")
-            return state.set("events", null);
     }
     return state;
 }

@@ -149,7 +149,7 @@ const ApplicationRow = props => {
             </Row>
         </CardBody>
     </Card>);
-
+/*
     return (<div className="col-sm-12">
             <div className="panel panel-default">
                 <div className="panel-heading">
@@ -173,6 +173,7 @@ const ApplicationRow = props => {
             </div>
         </div>
     )
+    */
 };
 
 

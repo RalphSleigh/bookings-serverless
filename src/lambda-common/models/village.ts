@@ -1,12 +1,25 @@
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
+import { EventModel } from "./event";
 
 export interface VillageModel extends Model<InferAttributes<VillageModel>, InferCreationAttributes<VillageModel>> {
+	id: CreationOptional<number>
+	name: string
+	eventId: number
+	event?: EventModel
 }
 
-export function define<VillageModel>(sequelize: Sequelize) {
-	return sequelize.define('village', {
+export function define(sequelize: Sequelize) {
+	return sequelize.define<VillageModel>('village', {
+		id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            primaryKey: true,
+            autoIncrement: true
+        },
 		name: {
 			type: DataTypes.STRING
+		},
+		eventId: {
+			type: DataTypes.INTEGER
 		}
 	});
 }

@@ -1,11 +1,23 @@
 
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
+import { BookingModel } from "./booking";
 
 export interface PaymentModel extends Model<InferAttributes<PaymentModel>, InferCreationAttributes<PaymentModel>> {
+    id: CreationOptional<number>
+    type: string,
+    amount: number,
+    note: string,
+    booking?: BookingModel,
+    bookingId: number
 }
 
-export function define<PaymentModel>(sequelize: Sequelize) {
-    return sequelize.define('payment', {
+export function define(sequelize: Sequelize) {
+    return sequelize.define<PaymentModel>('payment', {
+        id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            primaryKey: true,
+            autoIncrement: true
+        },
         type: {
             type: DataTypes.STRING,
             values: ['adjustment', 'payment'],

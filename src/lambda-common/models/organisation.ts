@@ -2,7 +2,7 @@
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
 
 export interface OrganisationModel extends Model<InferAttributes<OrganisationModel>, InferCreationAttributes<OrganisationModel>> {
-	id: number
+	id: CreationOptional<number>
 	name: string
 	eventId: number
 }

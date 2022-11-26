@@ -8,7 +8,7 @@ import feeFactory from '../../../shared/fee/feeFactory'
 import update     from 'immutability-helper';
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  { faTimes } from '@fortawesome/free-solid-svg-icons'
+import  { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
 import {
     Row,

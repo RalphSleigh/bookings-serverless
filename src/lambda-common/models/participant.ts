@@ -1,11 +1,25 @@
-
-import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
+import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op, StringDataType } from "sequelize";
 
 export interface ParticipantModel extends Model<InferAttributes<ParticipantModel>, InferCreationAttributes<ParticipantModel>> {
+    id: CreationOptional<number>
+    name: string
+    age: Date
+    diet: string
+    dietExtra: string
+    medical: string
+    days: number
+    externalExtra: any
+    internalExtra: any
+    bookingId: number
 }
 
-export function define<ParticipantModel>(sequelize: Sequelize) {
-    return sequelize.define('participant', {
+export function define(sequelize: Sequelize) {
+    return sequelize.define<ParticipantModel>('participant', {
+        id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            primaryKey: true,
+            autoIncrement: true
+        },
         name: {
             type: DataTypes.STRING
         },
@@ -29,7 +43,10 @@ export function define<ParticipantModel>(sequelize: Sequelize) {
         },
         internalExtra: {
             type: DataTypes.JSON
-        }
+        },
+        bookingId: {
+            type: DataTypes.INTEGER
+        },
     });
 }
 export function associate(models: any) {
