@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "lambda_exec_role_policy" {
       "secretsmanager:GetSecretValue"
     ]
     resources = [
-      "arn:aws:secretsmanager:eu-west-2:{{data.aws_caller_identity.current.account_id}}:secret:db_password_secret-MyBd3A",
+      "arn:aws:secretsmanager:eu-west-2:${data.aws_caller_identity.current.account_id}:secret:db_password_secret-MyBd3A",
       aws_secretsmanager_secret.db_password_secret.arn
     ]
   }
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "lambda_exec_role_policy" {
       "lambda:InvokeFunction",
       "lambda:InvokeAsync"
      ]
-     resources = ["arn:aws:lambda:eu-west-2:{{data.aws_caller_identity.current.account_id}}:*:*"]
+     resources = ["arn:aws:lambda:eu-west-2:${data.aws_caller_identity.current.account_id}:*:*"]
   }
 }
 
