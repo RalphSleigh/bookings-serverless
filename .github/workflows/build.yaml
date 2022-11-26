@@ -17,9 +17,9 @@ jobs:
 
       - name: install base
         run: |
-          npm install
+          npm install --legacy-peer-deps
 
       - name: install layer
         working-directory: common-layer/nodejs
         run: |
-          npm install
+          npm install --legacy-peer-deps
