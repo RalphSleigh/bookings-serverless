@@ -131,7 +131,7 @@ class App extends React.Component<any, any> {
                     {this.props.children}
                     <Row>
                         <Col>
-                            <footer><p className="small text-center">&copy; 2018 <a
+                            <footer><p className="small text-center">&copy; 2022 <a
                                 href="https://www.woodcraft.org.uk/">Woodcraft
                                 Folk</a>, Source on <a href="https://github.com/RalphSleigh/bookings">Github</a>.</p>
                             </footer>
