@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "lambda_code" {
-  bucket = "bookings-lambda-code-${terraform.workspace}"
+  bucket = "bookings-lambda-code-${data.aws_caller_identity.current.account_id}"
 
   tags = {
     Name        = "Lambda Code Bucket"
@@ -12,7 +12,7 @@ resource "aws_s3_bucket_acl" "private_acl_lambda_code" {
 }
 
 resource "aws_s3_bucket" "public_static" {
-  bucket = "bookings-public-${terraform.workspace}"
+  bucket = "bookings-public-${data.aws_caller_identity.current.account_id}"
 
   tags = {
     Name        = "Public Static Bucket"
