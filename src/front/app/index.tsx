@@ -66,10 +66,16 @@ class App extends React.Component<any, any> {
             exact:  true,
             strict: true
              });
+
+             const isUser = !!matchPath(location.pathname, {
+                path:   "/user",
+                exact:  true,
+                strict: true
+                 });    
     
 
         //prevent render until we have the basic data available, this makes child components much simpler.
-        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || (!isHome && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
+        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || ((!isHome && !isUser) && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
             
             console.log("NOT rendering, users:")
             console.log(this.props.User)
