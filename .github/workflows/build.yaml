@@ -26,7 +26,7 @@ jobs:
 
       - name: build lambdas
         run: |
-          node .\esbuild-lambda.js 
+          node esbuild-lambda.js 
 
       - name: build front
         run: |
