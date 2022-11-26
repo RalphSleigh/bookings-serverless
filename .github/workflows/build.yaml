@@ -48,3 +48,8 @@ jobs:
         working-directory: terraform
         run: |
           terraform init
+
+      - name: terraform apply
+        working-directory: terraform
+        run: |
+          terraform apply -auto-approve
