@@ -58,6 +58,8 @@ if(get_theme() === "dark") {
     })
 }
 
+document.styleSheets[2].disabled = true
+
 const history = History.createBrowserHistory()
 
 const middleware = routerMiddleware(history);
