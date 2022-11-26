@@ -15,17 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
-      AWS_ACCOUNT_SECRET_KEY: ${{ GITHUB_REF }}_aws_account
+      AWS_ACCOUNT_SECRET_KEY: ${{ github.ref_name }}_aws_account
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Create variables
-        id: vars 
-        run: |
-          branch=${GITHUB_REF##*/} 
-          echo "::set-output name=AWS_ACCOUNT_KEY::DB_USER_${branch^^}"
-          echo "::set-output name=DB_PASSWORD::DB_PASSWORD_${branch^^}"
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
