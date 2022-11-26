@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - vcamp
 
 permissions:
   id-token: write
@@ -47,7 +48,7 @@ jobs:
       - name: terraform init
         working-directory: terraform
         run: |
-          terraform init
+          terraform init -backend-config "bucket=bookings-terraform-state-${{ github.ref_name }}"
 
       - name: terraform apply
         working-directory: terraform

@@ -6,11 +6,17 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "bookings-terraform-state"
     key    = "bookings"
     region = "eu-west-2"
   }
 }
+
+#data "terraform_remote_state" "state" {
+#  backend = "s3"
+#  config {
+#    bucket     = "${var.tf_state_bucket}"
+#  }
+#}
 
 provider "aws" {
   region = "eu-west-2"

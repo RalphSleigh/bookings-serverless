@@ -8,4 +8,7 @@ resource "aws_db_instance" "database" {
   password             = random_password.db_password.result
   db_subnet_group_name = aws_db_subnet_group.db_subnet.name
   skip_final_snapshot  = true
+  backup_retention_period = 30
+  backup_window = "02:30-03:00"
+  maintenance_window = "Mon:00:00-Mon:02:00"
 }
