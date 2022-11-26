@@ -17,12 +17,12 @@ jobs:
 
       - name: install base
         run: |
-          npm ci --include=dev
+          npm ci --include=dev --legacy-peer-deps
 
       - name: install layer
         working-directory: common-layer/nodejs
         run: |
-          npm ci --include=dev
+          npm ci --include=dev --legacy-peer-deps
 
       - name: build lambdas
         run: |
