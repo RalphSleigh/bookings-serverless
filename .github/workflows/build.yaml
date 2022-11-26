@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     name: Build and Deploy
@@ -30,4 +34,16 @@ jobs:
 
       - name: build front
         run: |
-          npx webpack         
+          npx webpack      
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets[format('{0}_aws_account', env.branch_name)]}}:role/github-role
+          role-session-name: terraform-session
+          aws-region: eu-west-2
+
+      - name: terraform init
+        working-directory: terraform
+        run: |
+          terraform init
