@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lambda_wrapper_raw, user } from '../../../../lambda-common'
 import { Op } from 'sequelize';
 import { auth } from '@googleapis/plus'
+import { is_warmer_event, warm } from '../../../../lambda-common/warmer';
 
 /**
  *
@@ -13,8 +14,14 @@ import { auth } from '@googleapis/plus'
  *
  */
 
-export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => { //@ts-ignore
     return lambda_wrapper_raw(async (db, config) => {
+
+        console.log(event)
+
+        if(is_warmer_event(event)) return {}
+
+        await warm(["function_auth_google_callback"])
 
         const oauth2Client = new auth.OAuth2(
             config.GOOGLE_CLIENT_ID,

@@ -55,5 +55,8 @@ export function associate(models: any){
 
         },
         { override: true });
+
+        models.application.addScope('userScope',
+        {},{ override: true });    
 }
 

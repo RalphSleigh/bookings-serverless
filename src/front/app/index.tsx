@@ -31,8 +31,9 @@ class App extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) { //refresh bookings/events if we log in/out
-        console.log("App componentWillReceivePropss")
 
+        console.log("App componentWillReceivePropss now does nothing")
+        /*
         if(nextProps.User !== null && nextProps.Events === null){
             console.log("events refresh123")
             this.props.getEvents();
@@ -47,12 +48,28 @@ class App extends React.Component<any, any> {
             this.props.getUserBookings();
             this.props.getEvents(); //need to drop the detailed event models if present
         }
+        */
     }
 
     render() {
 
+
+        //@ts-ignore
+        const inManage = !!matchPath(location.pathname, {
+        path:   "/event/:eventId/manage",
+        exact:  false,
+        strict: false
+         });
+
+         const isHome = !!matchPath(location.pathname, {
+            path:   "/",
+            exact:  true,
+            strict: true
+             });
+    
+
         //prevent render until we have the basic data available, this makes child components much simpler.
-        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null) {
+        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || (!isHome && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
             
             console.log("NOT rendering, users:")
             console.log(this.props.User)
@@ -81,12 +98,6 @@ class App extends React.Component<any, any> {
         console.log("rendering")
 
         const envMarker = this.props.Env === 'dev' ? <div className="envMarker"><p>TEST</p></div> : null;
-            //@ts-ignore
-        const inManage = !!matchPath(location.pathname, {
-            path:   "/event/:eventId/manage",
-            exact:  false,
-            strict: false
-        });
 
         return (
             <React.Fragment>

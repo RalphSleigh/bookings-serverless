@@ -47,11 +47,11 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     max_ttl                = 3600
 
     forwarded_values {
-       cookies {
+      cookies {
         forward = "all"
-       }
-       query_string = true
-    } 
+      }
+      query_string = true
+    }
   }
 
   ordered_cache_behavior {
@@ -92,10 +92,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   }
 
   custom_error_response {
-     error_caching_min_ttl = 10
-     error_code = 403
-     response_code = 200
-     response_page_path = "/"
+    error_caching_min_ttl = 10
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/"
   }
 
   restrictions {
@@ -108,7 +108,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     cloudfront_default_certificate = true
   }
 
-   lifecycle {
+  lifecycle {
     ignore_changes = [
       aliases,
       viewer_certificate
@@ -121,15 +121,18 @@ resource "aws_cloudfront_origin_access_identity" "identity" {
 }
 
 resource "aws_cloudfront_origin_request_policy" "api_policy" {
-  name    = "api_policy"
-  
+  name = "api_policy"
+
   cookies_config {
     cookie_behavior = "all"
   }
   headers_config {
-    header_behavior = "none"
+    header_behavior = "whitelist"
+    headers {
+      items = ["User-Agent"]
+    }
   }
-  
+
   query_strings_config {
     query_string_behavior = "all"
   }

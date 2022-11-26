@@ -7,8 +7,8 @@ import reduce from 'lodash/reduce';
 import ReactMarkdown from 'react-markdown'
 //this implements a pricing policy for large camps
 
-import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import faTimes from '@fortawesome/free-solid-svg-icons/faTimes'
 
 import {
     Row,

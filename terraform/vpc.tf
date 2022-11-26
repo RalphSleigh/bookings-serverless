@@ -67,6 +67,7 @@ resource "aws_internet_gateway" "ig" {
   vpc_id = aws_vpc.main.id
 }
 
+/*
 resource "aws_eip" "nat_eip" {
   vpc        = true
   depends_on = [aws_internet_gateway.ig]
@@ -78,7 +79,7 @@ resource "aws_nat_gateway" "nat-gw" {
   allocation_id     = aws_eip.nat_eip.id
   depends_on        = [aws_internet_gateway.ig]
 }
-
+*/
 resource "aws_route_table" "private" {
   tags = {
     Name = "RT 1 - NAT - Private"
@@ -96,7 +97,8 @@ resource "aws_route_table" "public" {
 resource "aws_route" "private_nat_gateway" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat-gw.id
+  network_interface_id = aws_network_interface.nat.id
+  //nat_gateway_id         = aws_nat_gateway.nat-gw.id
 }
 
 resource "aws_route" "internet_gateway" {

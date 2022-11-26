@@ -22,6 +22,7 @@ data "aws_iam_policy_document" "lambda_exec_role_policy" {
   statement {
     actions = [
       "logs:CreateLogStream",
+      "logs:DescribeLogStreams",
       "logs:PutLogEvents"
     ]
     resources = [
@@ -44,6 +45,14 @@ data "aws_iam_policy_document" "lambda_exec_role_policy" {
         "appconfig:GetLatestConfiguration"
     ]
     resources = ["*"]
+  }
+
+  statement {
+     actions = [
+      "lambda:InvokeFunction",
+      "lambda:InvokeAsync"
+     ]
+     resources = ["arn:aws:lambda:eu-west-2:513250739252:*:*"]
   }
 }
 

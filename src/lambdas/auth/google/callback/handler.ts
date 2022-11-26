@@ -1,9 +1,10 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { lambda_wrapper_raw, user } from '../../../../lambda-common'
+import { lambda_wrapper_raw, log, user } from '../../../../lambda-common'
 import { Op } from 'sequelize';
 import { auth, plus } from '@googleapis/plus'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
+import { is_warmer_event } from '../../../../lambda-common/warmer';
 
 /**
  *
@@ -17,6 +18,8 @@ import cookie from 'cookie'
 
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {//@ts-ignore
     return lambda_wrapper_raw(async (db, config) => {
+
+        if(is_warmer_event(event)) return {}
 
         const oauth2Client = new auth.OAuth2(
             config.GOOGLE_CLIENT_ID,
@@ -54,6 +57,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             const jwt_token = jwt.sign({ id: user_instance.id }, config.JWT_SECRET, { expiresIn: 60 * 60 })
             const cookie_string = cookie.serialize("jwt", jwt_token, { maxAge: 60 * 60, httpOnly: true, sameSite: true, path: '/' })
 
+            log(`User Login from google ${user_instance.userName} from ${event.headers['X-Forwarded-For']} using ${event.headers['User-Agent']}`)
+
             return {
                 statusCode: 301,
                 headers: {
@@ -64,6 +69,9 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             }
         } catch (e) {
             if (e instanceof user.WrongProviderError) {
+
+                log(`Wrong provider login from google expected ${e.original} from ${event.headers['X-Forwarded-For']} using ${event.headers['User-Agent']}`)
+
                 return {
                     statusCode: 301,
                     headers: {

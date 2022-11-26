@@ -1,4 +1,4 @@
-import { Sequelize, Op, DataTypes, ModelStatic, Model  } from "sequelize";
+import { Sequelize, Op, DataTypes, ModelStatic, Model } from "sequelize";
 import fs from 'fs'
 import path from 'path'
 import { log } from './logging'
@@ -15,6 +15,7 @@ import * as role from "./models/role"
 import * as user from "./models/user"
 import * as village from "./models/village"
 import mariadb from "mariadb"
+import { since } from "./timer";
 
 //const models = [applications, booking, event, organisation, participant, payments, role, user, village]
 
@@ -32,18 +33,18 @@ export type db = {
     village: ModelStatic<village.VillageModel>
 }
 
-export const orm = async (): Promise<db> => {
+export const orm = async (password: Promise<any> | null = null): Promise<db> => {
     //cache this in the global scope to reuse between lambdas
     //@ts-ignore
-    if(global.orm) return global.orm
+    if (global.orm) return global.orm
 
-    console.log("making db")
+    //console.log("making db")
+
+    if(!password) password = SecretsManager.getSecret("db_password_secret")
 
     let db_string
     if (am_in_lambda()) {
-        console.log("getting password 123")
-        const db_password = await SecretsManager.getSecret("db_password_secret")
-        db_string = `mariadb://root:${db_password}@${process.env.database_url}/bookings`
+        db_string = `mariadb://root:BLANK@${process.env.database_url}/bookings`
     } else {
         db_string = 'mariadb://root:my-secret-pw@localhost/bookings'
     }
@@ -51,11 +52,28 @@ export const orm = async (): Promise<db> => {
     const sequelize = new Sequelize(db_string, {
         //operatorsAliases: Op.Aliases,
         logging: false,
-        dialectModule: mariadb
+        dialectModule: mariadb,
+        pool: {
+            max: 2,
+            min: 0,
+            idle: 0,
+            acquire: 10000,
+            evict: 60000
+        },
+        hooks: {
+            beforeConnect :async (config) => {
+                //console.log("resolving password")
+                const db_password = await password
+                const parsed_password = JSON.parse(db_password)
+                config.password = parsed_password.password
+              }
+        }
     });
 
+    since("created squelize")
+
     const db: db = {
-        Sequelize: Sequelize, 
+        Sequelize: Sequelize,
         sequelize: sequelize,
         application: application.define(sequelize),
         booking: booking.define(sequelize),

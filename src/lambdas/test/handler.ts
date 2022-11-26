@@ -1,9 +1,4 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import path from 'path'
-import { Umzug, SequelizeStorage } from 'umzug'
-import { test } from '../../lambda-common'
-import fetch from 'node-fetch'
-
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format

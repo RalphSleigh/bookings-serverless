@@ -5,12 +5,11 @@ import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
 import { get_config } from './config'
+import { since } from './timer'
  
-export async function get_user_from_event(event: APIGatewayProxyEvent): Promise<any> {
-    const db = await orm()
-    const config = await get_config()
+export async function get_user_from_event(event: APIGatewayProxyEvent, db, config): Promise<any> {
     try {
-        console.log(event)
+        //console.log(event)
 
         const cookie_string = event.headers["Cookie"] || event.headers["cookie"]
 
@@ -19,15 +18,19 @@ export async function get_user_from_event(event: APIGatewayProxyEvent): Promise<
         const jwt_string = cookie.parse(cookie_string)?.jwt
         const token = jwt.verify(jwt_string, config.JWT_SECRET) as {id: number}
         
+        since("Before user DB call")
         const user = await db.user.scope('withData').findOne({where: {id: token.id}})
-
+        since("After user DB call")
         if(!user) throw "no user found for ID???"
 
         return user.get({plain: true});
 
     } catch (e) {
         console.log(e)
+        since("Before user DB call")
+        //console.log(db.user)
         const user = await db.user.scope('withData').findOne({where: {userName: 'Guest'}})
+        since("After user DB call")
         //@ts-ignore
         return user.get({plain: true});
     }

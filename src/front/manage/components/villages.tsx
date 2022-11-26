@@ -20,8 +20,9 @@ import {
 } from 'reactstrap';
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  { faTimes } from '@fortawesome/free-solid-svg-icons'
-import  { faPlus } from '@fortawesome/free-solid-svg-icons'
+import faTimes from '@fortawesome/free-solid-svg-icons/faTimes'
+import faPlus from '@fortawesome/free-solid-svg-icons/faPlus'
+
 import { woodcraft as W } from '../../../shared/woodcraft.js'
 
 //import W from '../../../shared/woodcraft.js'

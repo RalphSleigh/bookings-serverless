@@ -14,7 +14,7 @@
             "program": "${workspaceFolder}\\dist-local\\local-server.js",
             "outFiles": [
                 "${workspaceFolder}/dist-local/**/*.js"
-            ]
+            ],
         }
     ]
 }

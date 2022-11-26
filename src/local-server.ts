@@ -85,6 +85,15 @@ handlerSetup('/api/role/delete', 'role/delete/handler', "POST")
 handlerSetup('/api/auth/google/redirect', 'auth/google/redirect/handler')
 handlerSetup('/api/auth/google/callback', 'auth/google/callback/handler')
 
+handlerSetup('/api/auth/facebook/redirect', 'auth/facebook/redirect/handler')
+handlerSetup('/api/auth/facebook/callback', 'auth/facebook/callback/handler')
+
+handlerSetup('/api/auth/yahoo/redirect', 'auth/yahoo/redirect/handler')
+handlerSetup('/api/auth/yahoo/callback', 'auth/yahoo/callback/handler')
+
+handlerSetup('/api/auth/microsoft/redirect', 'auth/microsoft/redirect/handler')
+handlerSetup('/api/auth/microsoft/callback', 'auth/microsoft/callback/handler')
+
 
 app.use('/', express.static(path.join(__dirname, '../public'), {fallthrough: true, index: "index.html"}));
 

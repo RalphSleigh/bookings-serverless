@@ -1,4 +1,8 @@
 import * as AWS from 'aws-sdk'
+import am_in_lambda from './am_in_lambda';
+import { since } from './timer';
+
+let secret_cache: undefined | string = undefined
 
 class SecretsManager {
 
@@ -6,17 +10,24 @@ class SecretsManager {
      * Uses AWS Secrets Manager to retrieve a secret
      */
     static async getSecret (secretName: string){
+
+        if(secret_cache) return secret_cache
+        if(!am_in_lambda())return '{"password":"my-secret-pw"}'
+
         const config = { region : process.env.AWS_REGION }
-        var secret, decodedBinarySecret;
+        var decodedBinarySecret;
         let secretsManager = new AWS.SecretsManager(config);
         try {
+            since("fetching secret:")
             let secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
             if ('SecretString' in secretValue) {
-                return secret = secretValue.SecretString;
+                since("returning secret:")
+                secret_cache = secretValue.SecretString
+                return secret_cache
             } else {
                 //@ts-ignore
                 let buff = new Buffer(secretValue.SecretBinary, 'base64');
-                return decodedBinarySecret = buff.toString('ascii');
+                return decodedBinarySecret = JSON.parse(buff.toString('ascii'));
             }
         } catch (err: any) {
             if (err.code === 'DecryptionFailureException')

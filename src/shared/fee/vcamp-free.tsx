@@ -9,7 +9,7 @@ import popcount      from '@f/popcount';
 //this implements a pricing policy for large camps
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  { faTimes }         from '@fortawesome/free-solid-svg-icons'
+import faTimes from '@fortawesome/free-solid-svg-icons/faTimes'
 
 import {
     Row,

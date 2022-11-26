@@ -1,4 +1,5 @@
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
+import { db } from "../orm";
 
 export interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
     id: CreationOptional<number>
@@ -35,7 +36,7 @@ export function define(sequelize: Sequelize) {
     });
 }
 
-export function associate(models: any) {
+export function associate(models: db) {
     models.user.hasMany(models.event);
     models.user.hasMany(models.role);
     models.user.hasMany(models.booking);
@@ -53,6 +54,6 @@ export function associate(models: any) {
 
     models.user.addScope('withData', {
         attributes: ['id', 'userName', 'email', 'remoteId', 'source'],
-        include: [{ model: models.role }, { model: models.application }]
+        include: [{ model: models.role }, { model: models.application.scope('userScope') }]
     });
 };

@@ -1,7 +1,6 @@
-/*
 data "archive_file" "node_modules_layer_zip" {
   type        = "zip"
-  source_dir = "${path.module}/../layers/external/"
+  source_dir = "${path.module}/../common-layer/"
   output_path = "${path.module}/files/node_modules_layer.zip"
 }
 

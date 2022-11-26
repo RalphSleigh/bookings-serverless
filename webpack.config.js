@@ -16,7 +16,7 @@ module.exports = {
 
     resolve: {
         alias: {
-            '@fortawesome/free-solid-svg-icons$': '@fortawesome/free-solid-svg-icons/shakable.es.js',
+            //'@fortawesome/free-solid-svg-icons$': '@fortawesome/free-solid-svg-icons/shakable.es.js',
             "react-html-email":'react'
         },
         fallback: {
@@ -98,8 +98,7 @@ module.exports = {
 
     plugins: [
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb/)
-    ],
-    devtool: 'inline-source-map'
+    ]
 };
 
 
@@ -107,9 +106,12 @@ if (PROD) module.exports.plugins.push(new webpack.DefinePlugin({
     'process.env': {
         NODE_ENV: JSON.stringify('production')
     }
-}), new MinifyPlugin());
+}), new BundleAnalyzerPlugin());
 
-else module.exports.plugins.push(new webpack.SourceMapDevToolPlugin({
+else{ 
+    module.exports.devtool = 'inline-source-map'
+    module.exports.plugins.push(new webpack.SourceMapDevToolPlugin({
     filename: "[file].map",
     exclude: "vendor"
 }), new BundleAnalyzerPlugin());
+}

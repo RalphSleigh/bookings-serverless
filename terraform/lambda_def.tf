@@ -7,8 +7,7 @@ variable "lambda_definitions" {
       name     = "test"
       code_dir = "test"
       path     = "test"
-      //dont_create_endpoint = true
-      method = "GET"
+      method = "get"
     },
     migrate = {
       name                 = "migrate"
@@ -176,6 +175,42 @@ variable "lambda_definitions" {
       name     = "auth_google_callback"
       code_dir = "auth/google/callback"
       path     = "auth/google/callback"
+      method   = "get"
+    },
+    auth_facebook_redirect = {
+      name     = "auth_facebook_redirect"
+      code_dir = "auth/facebook/redirect"
+      path     = "auth/facebook/redirect"
+      method   = "get"
+    },
+    auth_facebook_callback = {
+      name     = "auth_facebook_callback"
+      code_dir = "auth/facebook/callback"
+      path     = "auth/facebook/callback"
+      method   = "get"
+    },
+    auth_yahoo_redirect = {
+      name     = "auth_yahoo_redirect"
+      code_dir = "auth/yahoo/redirect"
+      path     = "auth/yahoo/redirect"
+      method   = "get"
+    },
+    auth_yahoo_callback = {
+      name     = "auth_yahoo_callback"
+      code_dir = "auth/yahoo/callback"
+      path     = "auth/yahoo/callback"
+      method   = "get"
+    },
+    auth_microsoft_redirect = {
+      name     = "auth_microsoft_redirect"
+      code_dir = "auth/microsoft/redirect"
+      path     = "auth/microsoft/redirect"
+      method   = "get"
+    },
+    auth_microsoft_callback = {
+      name     = "auth_microsoft_callback"
+      code_dir = "auth/microsoft/callback"
+      path     = "auth/microsoft/callback"
       method   = "get"
     }
   }
