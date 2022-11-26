@@ -19,6 +19,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets["${{env.branch_name}}_aws_account"] }}:role/github-role
+          role-session-name: terraform-session
+          aws-region: eu-west-2
+
       - name: install base
         run: |
           npm ci --include=dev --legacy-peer-deps
@@ -35,13 +42,6 @@ jobs:
       - name: build front
         run: |
           npx webpack      
-
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets[format('{0}_aws_account', env.branch_name)]}}:role/github-role
-          role-session-name: terraform-session
-          aws-region: eu-west-2
 
       - name: terraform init
         working-directory: terraform
