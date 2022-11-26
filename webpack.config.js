@@ -106,7 +106,7 @@ if (PROD) module.exports.plugins.push(new webpack.DefinePlugin({
     'process.env': {
         NODE_ENV: JSON.stringify('production')
     }
-}), new BundleAnalyzerPlugin());
+}));
 
 else{ 
     module.exports.devtool = 'inline-source-map'
