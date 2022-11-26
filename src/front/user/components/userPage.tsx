@@ -21,7 +21,7 @@ import {
 import {Route} from 'react-router-dom';
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  faYahoo  from '@fortawesome/free-brands-svg-icons/faYahoo'
+import   { faYahoo }  from '@fortawesome/free-brands-svg-icons/faYahoo'
 
 import { storageFactory } from "storage-factory";
 //@ts-ignore
