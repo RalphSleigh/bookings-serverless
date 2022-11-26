@@ -142,3 +142,31 @@ export async function delete_role(lambda_event: PermissionEvent, user: UserModel
     const event = await db.event.findOne({where: {id: {[Op.eq]: lambda_event.body.eventId}}});
     if(!P.createRole(user, event)) throw new Error("P.createRole failed")
 }
+
+export async function add_payment(lambda_event: PermissionEvent, user: UserModel, db: db) {
+
+    let booking
+
+    if(lambda_event.body.bookingId) {
+        booking = await db.booking.findOne({where: {id: {[Op.eq]: lambda_event.body.id}}, include: [{model: db.event}]})
+    } else {
+        const payment = await db.payment.findOne({
+            where: {id: {[Op.eq]: lambda_event.body.id}},
+            include: [{model: db.booking}]
+        });
+
+        booking = await db.booking.findOne({where: {id: {[Op.eq]: payment!.bookingId}}, include: [{model: db.event}]})
+    }
+
+    if(!P.addPayment(user, booking)) throw new Error("P.addPayment failed")
+}
+
+export async function update_membership(lambda_event: PermissionEvent, user: UserModel, db: db) {
+
+    const participant = (await db.participant.findOne({where: {id: {[Op.eq]: lambda_event.body.id}}}))!
+    const booking = (await db.booking.findOne({where: {id: {[Op.eq]: participant.bookingId}}}))!
+    const event = await db.event.findOne({where: {id: {[Op.eq]: booking.eventId}}});
+
+    if(!P.createRole(user, event)) throw new Error("P.createRole failed")
+}
+

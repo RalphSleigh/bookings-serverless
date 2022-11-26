@@ -16,7 +16,7 @@ import {
 } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faTimes from '@fortawesome/free-solid-svg-icons/faTimes'
+import  { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
 let orgkey = 0;
 

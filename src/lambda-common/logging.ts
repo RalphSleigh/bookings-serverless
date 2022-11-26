@@ -1,4 +1,5 @@
 import { CloudWatchLogs } from 'aws-sdk'
+import am_in_lambda from './am_in_lambda'
 
 let sequence_token: undefined | string
 let task: undefined | Promise<void>
@@ -25,6 +26,7 @@ async function get_sequence_token() {
 }
 
 export function log(message) {
+    if(!am_in_lambda()) return
     console.log(`Logging: ${message}`)
     if (task) { //@ts-ignore
         console.log("chaining onto task")

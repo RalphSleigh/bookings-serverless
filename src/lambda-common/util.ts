@@ -103,3 +103,18 @@ export async function getBookingsAndCombineScopes(db, user, event) {
 
     return flat
 }
+
+export async function getBookingAndCombineScopes(db, user, booking) {
+
+    const scopes = getUserScopes(db, user, booking.event);
+    const results = await Promise.all(scopes.map(s => db.booking.scope(s).findOne({where: {id: booking.id}})));
+
+    const obj = results.filter(r => r).reduce((a, c) => {
+
+        _.merge(a, c.get({plain: true}))
+        return a
+
+    }, {});
+
+    return [obj]
+}

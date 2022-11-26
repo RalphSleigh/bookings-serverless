@@ -30,6 +30,28 @@
 
         });
     </script>
+
+    <!-- Bootstrap CSS -->
+<!-- Inform modern browsers that this page supports both dark and light color schemes,
+  and the page author prefers light. -->
+<meta name="color-scheme" content="light dark">
+<script>
+  // If `prefers-color-scheme` is not supported, but @media query is, fall back to light mode.
+  // i.e. In this case, inject the `light` CSS before the others, with
+  // no media filter so that it will be downloaded with highest priority.
+  if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
+    document.documentElement.style.display = "none";
+    document.head.insertAdjacentHTML(
+      "beforeend",
+      "<link rel=\"stylesheet\" href=\"/css/bootstrap-light.min.css\" onload=\"document.documentElement.style.display = ''\">"
+    );
+  }
+</script>
+<!-- Load the alternate CSS first ... -->
+<link rel="stylesheet" href="/css/bootstrap-dark.min.css" media="(prefers-color-scheme: dark)">
+<!-- ... and then the primary CSS last for a fallback on very old browsers that don't support media filtering -->
+<link rel="stylesheet" href="/css/bootstrap-light.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+
     <style type="text/css">
         .lds-default {
             display: inline-block;

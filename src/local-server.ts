@@ -71,16 +71,27 @@ handlerSetup('/api/booking/:id', 'bookings/get/handler')
 handlerSetup('/api/booking/edit', 'bookings/edit/handler', "POST")
 handlerSetup('/api/booking/delete', 'bookings/delete/handler', "POST")
 handlerSetup('/api/booking/event/:id', 'bookings/event/handler')
+handlerSetup('/api/booking/syncmax', 'bookings/syncmax/handler', "POST")
 
 handlerSetup('/api/village/create', 'village/create/handler', "POST")
 handlerSetup('/api/village/delete', 'village/delete/handler', "POST")
 handlerSetup('/api/village/assign', 'village/assign/handler', "POST")
+handlerSetup('/api/village/rename', 'village/rename/handler', "POST")
 
 handlerSetup('/api/application/decline', 'application/decline/handler', "POST")
 handlerSetup('/api/application/approve', 'application/approve/handler', "POST")
 
 handlerSetup('/api/role/create', 'role/create/handler', "POST")
 handlerSetup('/api/role/delete', 'role/delete/handler', "POST")
+
+handlerSetup('/api/payment/add', 'payment/add/handler', "POST")
+handlerSetup('/api/payment/delete', 'payment/delete/handler', "POST")
+
+handlerSetup('/api/membership/approve', 'membership/approve/handler', "POST")
+handlerSetup('/api/membership/unapprove', 'membership/unapprove/handler', "POST")
+
+handlerSetup('/api/dbs/approve', 'dbs/approve/handler', "POST")
+handlerSetup('/api/dbs/unapprove', 'dbs/unapprove/handler', "POST")
 
 handlerSetup('/api/auth/google/redirect', 'auth/google/redirect/handler')
 handlerSetup('/api/auth/google/callback', 'auth/google/callback/handler')

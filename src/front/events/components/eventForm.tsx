@@ -23,8 +23,8 @@ import {
 }                      from 'reactstrap';
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faLock from '@fortawesome/free-solid-svg-icons/faLock'
-import faLockOpen from '@fortawesome/free-solid-svg-icons/faLockOpen'
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
+import { faLockOpen } from '@fortawesome/free-solid-svg-icons/faLockOpen'
 
 
 export default class EditForm extends React.Component<any, any> {

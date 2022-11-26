@@ -54,6 +54,7 @@ public/bundle.app.js.LICENSE.txt
 public/bundle.vendor.js.LICENSE.txt
 public/*.gif
 .idea*
+meta.json
 
 public/bundle.app.js
 public/bundle.app.js.map

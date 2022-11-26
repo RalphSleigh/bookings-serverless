@@ -2,7 +2,7 @@ import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, 
 import { RoleModel } from "./role";
 
 export interface EventModel extends Model<InferAttributes<EventModel>, InferCreationAttributes<EventModel>> {
-    id: CreationOptional<number>
+   id: CreationOptional<number>
    name: string
    description: string
    startDate: Date,

@@ -12,8 +12,8 @@ import Moment             from 'moment'
 import uuid               from 'uuid/v4';
 
 import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faLock from '@fortawesome/free-solid-svg-icons/faLock'
-import faLockOpen from '@fortawesome/free-solid-svg-icons/faLockOpen'
+import  { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
+import  {faLockOpen } from '@fortawesome/free-solid-svg-icons/faLockOpen'
 
 import {
     Button,

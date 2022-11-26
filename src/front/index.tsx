@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 import './lib/react-selectize/index.css';
 
 import * as React from 'react';
@@ -20,6 +20,43 @@ import * as user from './user'
 import * as messages from './messages'
 import * as events from './events'
 import * as bookings from './bookings'
+
+import { storageFactory } from "storage-factory";
+//@ts-ignore
+const local = storageFactory(() => localStorage);
+
+function get_theme(): string {
+    const stored = local.getItem("theme")
+    if(stored) return stored
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return "dark"
+    }
+
+    return "light"
+}
+//@ts-ignore
+const all_css = [...document.styleSheets]
+
+if(get_theme() === "dark") {
+    all_css.filter(s => s.href && s.href.includes("light")).forEach(s => {
+        s.disabled = true
+        s.media="NOT_ALL"
+    })
+    all_css.filter(s => s.href && s.href.includes("dark")).forEach(s => {
+        s.disabled = false
+        s.media="ALL"
+    })
+} else {
+    all_css.filter(s => s.href && s.href.includes("light")).forEach(s => {
+        s.disabled = false
+        s.media="ALL"
+    })
+    all_css.filter(s => s.href && s.href.includes("dark")).forEach(s => {
+        s.disabled = true
+        s.media="NOT_ALL"
+    })
+}
 
 const history = History.createBrowserHistory()
 
@@ -106,6 +143,9 @@ const provider = <Provider store={store}><ConnectedRouter history={history}>{Rou
 
 // @ts-ignore
 window.dispatch = store.dispatch;
+
+
+
 
 render(<ErrorBoundary>{provider}</ErrorBoundary>, document.getElementById('root'));
 

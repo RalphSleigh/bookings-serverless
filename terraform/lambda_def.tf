@@ -117,6 +117,12 @@ variable "lambda_definitions" {
       path     = "booking/delete"
       method   = "post"
     },
+    bookings_syncmax = {
+      name     = "bookings_syncmax"
+      code_dir = "bookings/syncmax"
+      path     = "booking/syncMax"
+      method   = "post"
+    },
     bookings_event = {
       name     = "bookings_event"
       code_dir = "bookings/event"
@@ -141,6 +147,12 @@ variable "lambda_definitions" {
       path     = "village/assign"
       method   = "post"
     },
+    village_rename = {
+      name     = "village_rename"
+      code_dir = "village/rename"
+      path     = "village/rename"
+      method   = "post"
+    },
     application_decline = {
       name     = "application_decline"
       code_dir = "application/decline"
@@ -163,6 +175,42 @@ variable "lambda_definitions" {
       name     = "role_delete"
       code_dir = "role/delete"
       path     = "role/delete"
+      method   = "post"
+    },
+    payment_add = {
+      name     = "payment_add"
+      code_dir = "payment/add"
+      path     = "payment/add"
+      method   = "post"
+    },
+    payment_delete = {
+      name     = "payment_delete"
+      code_dir = "payment/delete"
+      path     = "payment/delete"
+      method   = "post"
+    },
+    membership_approve = {
+      name     = "membership_approve"
+      code_dir = "membership/approve"
+      path     = "membership/approve"
+      method   = "post"
+    },
+    membership_unapprove = {
+      name     = "membership_unapprove"
+      code_dir = "membership/unapprove"
+      path     = "membership/unapprove"
+      method   = "post"
+    },
+    dbs_approve = {
+      name     = "dbs_approve"
+      code_dir = "dbs/approve"
+      path     = "dbs/approve"
+      method   = "post"
+    },
+    dbs_unapprove = {
+      name     = "dbs_unapprove"
+      code_dir = "dbs/unapprove"
+      path     = "dbs/unapprove"
       method   = "post"
     },
     auth_google_redirect = {
