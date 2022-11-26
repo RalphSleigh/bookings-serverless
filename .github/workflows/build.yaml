@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build and Upload Webpack Bundle
+    name: Build and Deploy
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
@@ -20,6 +20,6 @@ jobs:
           npm install
 
       - name: install layer
-        workdir: common-layer/nodejs
+        working-directory: common-layer/nodejs
         run: |
           npm install
