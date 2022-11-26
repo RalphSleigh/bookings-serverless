@@ -75,7 +75,7 @@ class App extends React.Component<any, any> {
     
 
         //prevent render until we have the basic data available, this makes child components much simpler.
-        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || ((!isHome || !isUser) && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
+        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || ((!isHome && !isUser) && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
             
             console.log("NOT rendering, users:")
             console.log(this.props.User)
