@@ -120,7 +120,7 @@ class App extends React.Component<any, any> {
                             <h2 className="align-middle">{window.location.hostname}</h2>
                         </Col>
                         <Col sm="auto">
-                            <img className="float-right" src="/logo.png" style={{ height: "75px" }} />
+                            <img className="float-right" src="/vcamplogo.svg" style={{ height: "75px" }} />
                         </Col>
                     </Row>
                     <Row>
