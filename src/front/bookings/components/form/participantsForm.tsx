@@ -2,7 +2,7 @@ import * as React from 'react'
 import Moment from 'moment'
 
 import attendance from '../../../attendance'
-import {ParticipantWidget} from "../../../attendance/presets";
+import { ParticipantWidget } from "../../../attendance/presets";
 
 import update from 'immutability-helper';
 
@@ -29,8 +29,8 @@ import {
     CardImgOverlay
 } from 'reactstrap';
 
-import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
 export default class ParticipantsForm extends React.Component<any, any> {
 
@@ -67,18 +67,29 @@ export default class ParticipantsForm extends React.Component<any, any> {
             this.props.updateValidation();
             const value = e.target.value;
             const participant = this.props.participants.find(p => p.id === k);
-            const newExtra = update(participant.externalExtra || {}, {[item]: {$set: value}});
+            const newExtra = update(participant.externalExtra || {}, { [item]: { $set: value } });
             this.props.update(k, 'externalExtra', newExtra);
             e.preventDefault();
         }
     }
+
+    updateExtraCheck(k) {
+        return item => e => {
+            this.props.updateValidation();
+            const participant = this.props.participants.find(p => p.id === k);
+            const existing_value = !!participant.externalExtra[item]
+            const newExtra = update(participant.externalExtra || {}, { [item]: { $set: !existing_value } });
+            this.props.update(k, 'externalExtra', newExtra);
+        }
+    }
+
 
     updateExtraNoPrevent(k) {
         return item => e => {
             this.props.updateValidation();
             const value = e.target.value;
             const participant = this.props.participants.find(p => p.id === k);
-            const newExtra = update(participant.externalExtra || {}, {[item]: {$set: value}});
+            const newExtra = update(participant.externalExtra || {}, { [item]: { $set: value } });
             this.props.update(k, 'externalExtra', newExtra);
         }
     }
@@ -116,27 +127,28 @@ export default class ParticipantsForm extends React.Component<any, any> {
 
 
         let rows = participants.map((p, i) => <ParticipantRow key={p.id}
-                                                              index={i}
-                                                              {...p}
-                                                              update={this.update(p.id)}
-                                                              updateAge={this.updateAge(p.id)}
-                                                              updateExtra={this.updateExtra(p.id)}
-                                                              updateExtraNoPrevent={this.updateExtraNoPrevent(p.id)}
-                                                              updateDirect={this.updateDirect(p.id)}
-                                                              delete={this.delete(p.id)}
-                                                              valid={this.valid}
-                                                              event={this.props.event}
-                                                              AttendanceWidget={AttendanceWidget}
-                                                              env={this.props.env}
-                                                              ageWidgets={ageWidgets}/>);
+            index={i}
+            {...p}
+            update={this.update(p.id)}
+            updateAge={this.updateAge(p.id)}
+            updateExtra={this.updateExtra(p.id)}
+            updateExtraNoPrevent={this.updateExtraNoPrevent(p.id)}
+            updateExtraCheck={this.updateExtraCheck(p.id)}
+            updateDirect={this.updateDirect(p.id)}
+            delete={this.delete(p.id)}
+            valid={this.valid}
+            event={this.props.event}
+            AttendanceWidget={AttendanceWidget}
+            env={this.props.env}
+            ageWidgets={ageWidgets} />);
         return (<React.Fragment>
-                {rows}
-                <Row className="mb-3">
-                    <Col>
-                        <Button color="info" onClick={this.add}>More People!</Button>
-                    </Col>
-                </Row>
-            </React.Fragment>
+            {rows}
+            <Row className="mb-3">
+                <Col>
+                    <Button color="info" onClick={this.add}>More People!</Button>
+                </Col>
+            </Row>
+        </React.Fragment>
         )
     }
 }
@@ -158,19 +170,154 @@ class ParticipantRow extends React.Component<any, any> {
     render() {
 
         const debugInfo = this.props.env === 'dev' ? <span
-            style={{color: 'red'}}>{'id: ' + this.props.id + ' updated: ' + Moment(this.props.updatedAt).format('YYYY-MM-DD')}</span> : null;
+            style={{ color: 'red' }}>{'id: ' + this.props.id + ' updated: ' + Moment(this.props.updatedAt).format('YYYY-MM-DD')}</span> : null;
 
         //{this.props.validating ? this.props.name === "" || this.props.age === "" || this.props.diet === "" ? invalid : valid : valid}
 
         const attendance = <this.props.AttendanceWidget days={this.props.days} event={this.props.event}
-                                                        update={this.props.update("days")}
-                                                        updateDirect={this.props.updateDirect("days")}/>;
+            update={this.props.update("days")}
+            updateDirect={this.props.updateDirect("days")} />;
+
+        const basic_kp_questions = <FormGroup row>
+            <Label sm={3}>Additional dietary requirement or food related allergies:</Label>
+            <Col sm={9}>
+                <Input type="textarea"
+                    value={this.props.dietExtra || ''}
+                    onChange={this.props.update("dietExtra")}
+                    placeholder="N/A"
+                    rows="3" />
+            </Col>
+        </FormGroup>
+
+        const vcamp_kp_questions = <React.Fragment>
+            <hr />
+            <Row>
+                <Col sm={12}><p>This year the KP team has expanded to make sure that we can cater to all diets and health conditions. The more accurate information that you can give us in this section, the easier it will be for both the central KP team and your village KPs
+                </p></Col>
+            </Row>
+            <FormGroup row>
+                <Label sm={6}>Go camp Veggie? If you would like to try out a Veggie or Vegan diet for this camp, go for it and choose that option here.:</Label>
+                <Col sm={3}>
+
+                    <Input type="select" value={this.props.diet || ''}
+                        onChange={this.props.update("diet")}
+                        vaild={this.props.valid(this.props.diet)}>
+                        <option value="">Please Select</option>
+                        <option value="omnivore">Omnivore</option>
+                        <option value="pescetarian ">Pescetarian</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                    </Input>
+                </Col>
+            </FormGroup>
+            <Row>
+                <Col sm={12}><p><b>Simple Dietary Requirements</b><br /> Please select all that apply:</p>
+                    </Col>
+                </Row>
+            <FormGroup row>
+                <Col sm={{ size: 2 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.dairy}
+                                onChange={this.props.updateExtraCheck('dairy')} />{' '}
+                            Lactose/Dairy free
+                        </Label>
+                    </FormGroup>
+                </Col>
+                <Col sm={{ size: 2 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.soya}
+                                onChange={this.props.updateExtraCheck('soya')} />{' '}
+                            Soya free
+                        </Label>
+                    </FormGroup>
+                </Col>
+                <Col sm={{ size: 2 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.egg}
+                                onChange={this.props.updateExtraCheck('egg')} />{' '}
+                            Egg free
+                        </Label>
+                    </FormGroup>
+                </Col>
+                <Col sm={{ size: 2 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.gluten}
+                                onChange={this.props.updateExtraCheck('gluten')} />{' '}
+                            Gluten free
+                        </Label>
+                    </FormGroup>
+                </Col>
+                <Col sm={{ size: 2 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.pork}
+                                onChange={this.props.updateExtraCheck('pork')} />{' '}
+                            Pork free
+                        </Label>
+                    </FormGroup>
+                </Col>
+                <Col sm={{ size: 2 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.nut}
+                                onChange={this.props.updateExtraCheck('nut')} />{' '}
+                            Nut free
+                        </Label>
+                    </FormGroup>
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label sm={12}><b>Food dislikes/preferences:</b><br />
+                E.g. “I really hate mushrooms”
+                </Label>
+                <Col sm={12}>
+                    <Input type="textarea"
+                        value={this.props.externalExtra.dietPreference || ''}
+                        onChange={this.props.updateExtra("dietPreference")}
+                        placeholder="N/A"
+                        rows="3" />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label sm={12}><b>Any other dietary restrictions, allergies, intolerances or elimination diets:</b><br/>
+                This is your everything else section for things that didn’t fit into the tick boxes above.</Label>
+                <Col sm={12}>
+                    <Input type="textarea"
+                        value={this.props.dietExtra || ''}
+                        onChange={this.props.update("dietExtra")}
+                        placeholder="N/A"
+                        rows="3" />
+                </Col>
+            </FormGroup>
+            <hr />
+        </React.Fragment>
+
+
+        const extra_kp = this.props.event.customQuestions.vcampKP ? vcamp_kp_questions : basic_kp_questions
+
+        const basic_diet = this.props.event.customQuestions.vcampKP ? null : <React.Fragment><Label sm={1}>Diet:</Label>
+            <Col sm={3}>
+
+                <Input type="select" value={this.props.diet || ''}
+                    onChange={this.props.update("diet")}
+                    vaild={this.props.valid(this.props.diet)}>
+                    <option value="">Please Select</option>
+                    <option value="omnivore">Omnivore</option>
+                    <option value="pescetarian ">Pescetarian</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                </Input>
+            </Col></React.Fragment>
 
         return (<Card id={`participant-${this.props.id}`} className="mb-3">
-            <CardImg top src="/participant-header.jpg" alt="Card image cap"/>
+            <CardImg top src="/participant-header.jpg" alt="Card image cap" />
             <CardImgOverlay>
                 <CardTitle style={{
-                    marginTop:  "-0.85em",
+                    marginTop: "-0.85em",
                     marginLeft: "-0.60em"
                 }}>#{this.props.index + 1} {debugInfo}</CardTitle>
             </CardImgOverlay>
@@ -179,11 +326,11 @@ class ParticipantRow extends React.Component<any, any> {
                     <Label sm={2}>Name:</Label>
                     <Col sm={10}>
                         <Input type="text"
-                               value={this.props.name || ''}
-                               onChange={this.props.update("name")}
-                               vaild={this.props.valid(this.props.name)}
-                               placeholder="Name"
-                               innerRef={this.nameInput}/>
+                            value={this.props.name || ''}
+                            onChange={this.props.update("name")}
+                            vaild={this.props.valid(this.props.name)}
+                            placeholder="Name"
+                            innerRef={this.nameInput} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -193,47 +340,27 @@ class ParticipantRow extends React.Component<any, any> {
                         valid={this.props.valid(this.props.age)}
                         event={this.props.event}
                     />
-                    <Label sm={1}>Diet:</Label>
-                    <Col sm={3}>
-
-                        <Input type="select" value={this.props.diet || ''}
-                               onChange={this.props.update("diet")}
-                               vaild={this.props.valid(this.props.diet)}>
-                            <option value="">Please Select</option>
-                            <option value="omnivore">Omnivore</option>
-                            <option value="vegetarian">Vegetarian</option>
-                            <option value="vegan">Vegan</option>
-                        </Input>
-                    </Col>
+                    {basic_diet}
                 </FormGroup>
-                <FormGroup row>
-                    <Label sm={3}>Additional dietary requirement or food related allergies:</Label>
-                    <Col sm={9}>
-                        <Input type="textarea"
-                               value={this.props.dietExtra || ''}
-                               onChange={this.props.update("dietExtra")}
-                               placeholder="N/A"
-                               rows="3"/>
-                    </Col>
-                </FormGroup>
+                {extra_kp}
                 <FormGroup row>
                     <Label sm={3}>Additional medical information &amp; medication taken:</Label>
                     <Col sm={9}>
                         <Input type="textarea"
-                               value={this.props.medical || ''}
-                               onChange={this.props.update("medical")}
-                               placeholder="N/A"
-                               rows="3"/>
+                            value={this.props.medical || ''}
+                            onChange={this.props.update("medical")}
+                            placeholder="N/A"
+                            rows="3" />
                     </Col>
                 </FormGroup>
                 <Over16Section event={this.props.event} age={this.props.age} values={this.props.externalExtra || {}}
-                               update={this.props.updateExtra}/>
-                <PhotoConsent event={this.props.event} update={this.props.updateExtraNoPrevent}  values={this.props.externalExtra || {}} id={this.props.id}/>
+                    update={this.props.updateExtra} />
+                <PhotoConsent event={this.props.event} update={this.props.updateExtraNoPrevent} values={this.props.externalExtra || {}} id={this.props.id} />
                 <FormGroup row>
                     {attendance}
                     <Col sm={1}>
                         <Button onClick={this.props.delete} color="warning">
-                            <span style={{color: 'white'}}><FontAwesomeIcon icon={faTimes}/></span>
+                            <span style={{ color: 'white' }}><FontAwesomeIcon icon={faTimes} /></span>
                         </Button>
                     </Col>
                 </FormGroup>
@@ -243,7 +370,7 @@ class ParticipantRow extends React.Component<any, any> {
 }
 
 const PhotoConsent = props => {
-  if(!props.event.customQuestions.photoConsent) return null;
+    if (!props.event.customQuestions.photoConsent) return null;
 
     return <FormGroup row>
         <Label sm={10}>I have permission for photographs, video and other media of this person to feature or be referred to on Woodcraft Folk social media, website and other publicity materials.</Label>
@@ -251,20 +378,20 @@ const PhotoConsent = props => {
             <FormGroup check inline key='yes'>
                 <Label check>
                     <Input type="radio"
-                           value='yes'
-                           name={props.id}
-                           onChange={props.update('photoConsent')}
-                           checked={props.values.photoConsent === 'yes'}/>
+                        value='yes'
+                        name={props.id}
+                        onChange={props.update('photoConsent')}
+                        checked={props.values.photoConsent === 'yes'} />
                     Yes
                 </Label>
             </FormGroup>
             <FormGroup check inline key='no'>
                 <Label check>
                     <Input type="radio"
-                           value='no'
-                           name={props.id}
-                           onChange={props.update('photoConsent')}
-                           checked={props.values.photoConsent === 'no'}/>
+                        value='no'
+                        name={props.id}
+                        onChange={props.update('photoConsent')}
+                        checked={props.values.photoConsent === 'no'} />
                     No
                 </Label>
             </FormGroup>
@@ -280,9 +407,9 @@ const Over16Section = props => {
             <Label sm={3}>Email address used for WCF membership:</Label>
             <Col sm={4}>
                 <Input type="email"
-                       value={props.values.adultEmail || ''}
-                       onChange={props.update("adultEmail")}
-                       placeholder="e-mail address"/>
+                    value={props.values.adultEmail || ''}
+                    onChange={props.update("adultEmail")}
+                    placeholder="e-mail address" />
             </Col>
         </React.Fragment> : null;
 
@@ -290,7 +417,7 @@ const Over16Section = props => {
             <Label sm={3}>Up to date first aid:</Label>
             <Col sm={2}>
                 <Input type="select" value={props.values.adultFirstAid || ''}
-                       onChange={props.update("adultFirstAid")}>
+                    onChange={props.update("adultFirstAid")}>
                     <option value='no'>No</option>
                     <option value="yes">Yes</option>
                 </Input>

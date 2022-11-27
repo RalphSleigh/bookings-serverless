@@ -249,6 +249,7 @@ export default class EditForm extends React.Component<any, any> {
                     {switchGroup("Over 16 First-Aid question", this.state.event.customQuestions.adultFirstAid, this.updateCustomChecked('adultFirstAid'))}
                     {switchGroup("Central Food Opt Out", this.state.event.customQuestions.foodOptOut, this.updateCustomChecked('foodOptOut'))}
                     {switchGroup("Photo consent question", this.state.event.customQuestions.photoConsent, this.updateCustomChecked('photoConsent'))}
+                    {switchGroup("VCamp complicated KP questions ", this.state.event.customQuestions.vcampKP, this.updateCustomChecked('vcampKP'))}
                     <Row>
                         <Col>
                             <Button color="success" onClick={this.clickSave}>Save</Button>
