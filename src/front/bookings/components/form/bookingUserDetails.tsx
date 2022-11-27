@@ -38,8 +38,8 @@ export default class BookingUserDetails extends React.Component<any, any> {
 
         const district = this.props.event.bigCampMode ?
             <FormGroup row>
-                <Label sm={2}>Group/District:</Label>
-                <Col sm={10}>
+                <Label sm={3}>Group/District:</Label>
+                <Col sm={9}>
                     <Input type="text"
                            placeholder="Group/District"
                            value={this.props.district || ''}
@@ -55,8 +55,8 @@ export default class BookingUserDetails extends React.Component<any, any> {
             if (this.props.organisations.length === 1) {
                 organisations =
                     <FormGroup row>
-                        <Label sm={2}>Organisation:</Label>
-                        <Col sm={10}>
+                        <Label sm={3}>Organisation:</Label>
+                        <Col sm={9}>
                             <Input type="text"
                                    value={this.props.organisations[0].name}
                                    disabled/>
@@ -65,8 +65,8 @@ export default class BookingUserDetails extends React.Component<any, any> {
             } else {
                 const options = this.props.organisations.map(o => <option key={o.id} value={o.id}>{o.name}</option>)
                 organisations = <FormGroup row>
-                    <Label sm={2}>Organisation:</Label>
-                    <Col sm={10}>
+                    <Label sm={3}>Organisation:</Label>
+                    <Col sm={9}>
                         <Input type="select" value={this.props.organisationId} onChange={this.updateOrg}>
                             {options}
                         </Input>
@@ -77,8 +77,8 @@ export default class BookingUserDetails extends React.Component<any, any> {
 
         return (<React.Fragment>
             <FormGroup row>
-                <Label sm={2}>Your Name:</Label>
-                <Col sm={10}>
+                <Label sm={3}>Your Name:</Label>
+                <Col sm={9}>
                     <Input
                         type="text"
                         placeholder="Name"
@@ -89,8 +89,8 @@ export default class BookingUserDetails extends React.Component<any, any> {
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label sm={2}>Your e-mail:</Label>
-                <Col sm={10}>
+                <Label sm={3}>Your e-mail:</Label>
+                <Col sm={9}>
                     <Input type="text"
                            placeholder="e-mail"
                            value={this.props.userEmail || ''}
@@ -99,8 +99,8 @@ export default class BookingUserDetails extends React.Component<any, any> {
                     /></Col>
             </FormGroup>
             <FormGroup row>
-                <Label sm={2}>Phone Number:</Label>
-                <Col sm={10}>
+                <Label sm={3}>Phone Number:</Label>
+                <Col sm={9}>
                     <Input type="text"
                            placeholder="Phone"
                            value={this.props.userContact || ''}
