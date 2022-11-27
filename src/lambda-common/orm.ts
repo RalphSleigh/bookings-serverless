@@ -48,7 +48,7 @@ export const orm = async (password: Promise<any> | null = null): Promise<db> => 
 
     const sequelize = new Sequelize(db_string, {
         //operatorsAliases: Op.Aliases,
-        logging: false,
+        logging: true,
         dialectModule: mariadb,
         pool: {
             max: 2,
@@ -65,7 +65,7 @@ export const orm = async (password: Promise<any> | null = null): Promise<db> => 
                 config.password = parsed_password.password
               }
         },
-        define: { charset: "utf8", collate: 'utf8_general_ci' }
+        define: { charset: "utf8mb4", collate: 'utf8mb4_general_ci' } //this
     });
 
     since("created squelize")
