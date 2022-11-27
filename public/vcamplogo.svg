@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="0 0 484.16 484.16"
+   version="1.1"
+   sodipodi:docname="vcamplogo.svg"
+   width="484.16"
+   height="484.16"
+   inkscape:version="0.92.1 r15371">
+  <metadata
+     id="metadata106">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="997"
+     id="namedview104"
+     showgrid="false"
+     inkscape:zoom="1.3529412"
+     inkscape:cx="362.55826"
+     inkscape:cy="206.83479"
+     inkscape:window-x="1432"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs51">
+    <style
+       id="style10">.cls-1,.cls-2{fill:none;}.cls-1,.cls-10,.cls-11,.cls-12,.cls-13,.cls-14,.cls-15,.cls-16,.cls-17,.cls-18,.cls-2,.cls-4,.cls-6,.cls-7,.cls-8,.cls-9{stroke:#231f20;}.cls-1,.cls-10,.cls-11,.cls-15,.cls-16,.cls-17,.cls-2,.cls-4,.cls-6,.cls-7,.cls-8,.cls-9{stroke-miterlimit:10;}.cls-1{stroke-width:4px;}.cls-10,.cls-11,.cls-12,.cls-13,.cls-14,.cls-15,.cls-16,.cls-17,.cls-18,.cls-2,.cls-4,.cls-6,.cls-7,.cls-8,.cls-9{stroke-width:3px;}.cls-3{clip-path:url(#clip-path);}.cls-4{fill:url(#radial-gradient);}.cls-5{clip-path:url(#clip-path-2);}.cls-6{fill:url(#New_Gradient_Swatch_3);}.cls-7{fill:#f5d068;}.cls-8{fill:url(#New_Gradient_Swatch_3-2);}.cls-9{fill:url(#New_Gradient_Swatch_3-3);}.cls-10{fill:url(#New_Gradient_Swatch_3-4);}.cls-11{fill:#b6252b;}.cls-12{fill:#597ebf;}.cls-12,.cls-13,.cls-14,.cls-18{stroke-linejoin:round;}.cls-13{fill:#2a539c;}.cls-14{fill:#243a74;}.cls-15{fill:#0c6a36;}.cls-16{fill:#808285;}.cls-17,.cls-18{fill:#588143;}</style>
+    <clipPath
+       id="clip-path">
+      <path
+         class="cls-1"
+         d="m 612,1184.44 c 0,-119.29 -96.71,-216 -216,-216 -119.29,0 -216,96.71 -216,216 a 216.94,216.94 0 0 0 4.93,46.12 c 21.13,97.13 107.6,169.88 211.07,169.88 119.29,0 216,-96.71 216,-216 z"
+         id="path12"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#231f20;stroke-width:4px;stroke-miterlimit:10" />
+    </clipPath>
+    <radialGradient
+       id="radial-gradient"
+       cx="396"
+       cy="317.32001"
+       r="240.58"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0.11"
+         stop-color="#0c6a36"
+         id="stop15" />
+      <stop
+         offset="0.95"
+         stop-color="#588143"
+         id="stop17" />
+      <stop
+         offset="1"
+         stop-color="#0c6a36"
+         id="stop19" />
+    </radialGradient>
+    <clipPath
+       id="clip-path-2">
+      <path
+         class="cls-2"
+         d="m 612,317.32 c 0,-119.29 -96.71,-216 -216,-216 -119.29,0 -216,96.68 -216,216 a 216.94,216.94 0 0 0 4.93,46.12 c 21.13,97.13 107.6,169.88 211.07,169.88 119.29,0 216,-96.7 216,-216 z"
+         id="path22"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    </clipPath>
+    <linearGradient
+       id="New_Gradient_Swatch_3"
+       x1="347.97"
+       y1="202.83"
+       x2="154.72"
+       y2="-168.97"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#f69489"
+         id="stop25" />
+      <stop
+         offset="0.01"
+         stop-color="#f28e84"
+         id="stop27" />
+      <stop
+         offset="0.07"
+         stop-color="#dd6864"
+         id="stop29" />
+      <stop
+         offset="0.14"
+         stop-color="#cc4b4b"
+         id="stop31" />
+      <stop
+         offset="0.2"
+         stop-color="#c03639"
+         id="stop33" />
+      <stop
+         offset="0.26"
+         stop-color="#b8292f"
+         id="stop35" />
+      <stop
+         offset="0.32"
+         stop-color="#b6252b"
+         id="stop37" />
+      <stop
+         offset="0.49"
+         stop-color="#af2329"
+         id="stop39" />
+      <stop
+         offset="0.72"
+         stop-color="#9c1e23"
+         id="stop41" />
+      <stop
+         offset="1"
+         stop-color="#7c161a"
+         id="stop43" />
+      <stop
+         offset="1"
+         stop-color="#7c161a"
+         id="stop45" />
+    </linearGradient>
+    <linearGradient
+       id="New_Gradient_Swatch_3-2"
+       x1="438.70001"
+       y1="354.79001"
+       x2="711.53998"
+       y2="105.54"
+       xlink:href="#New_Gradient_Swatch_3" />
+    <linearGradient
+       id="New_Gradient_Swatch_3-3"
+       x1="475.45999"
+       y1="252.92"
+       x2="490.13"
+       y2="702"
+       xlink:href="#New_Gradient_Swatch_3" />
+    <linearGradient
+       id="New_Gradient_Swatch_3-4"
+       x1="292.92999"
+       y1="222.27"
+       x2="-163.69"
+       y2="444.70999"
+       xlink:href="#New_Gradient_Swatch_3" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#New_Gradient_Swatch_3"
+       id="linearGradient130"
+       gradientUnits="userSpaceOnUse"
+       x1="347.97"
+       y1="202.83"
+       x2="154.72"
+       y2="-168.97" />
+  </defs>
+  <title
+     id="title53">Logo - Colour</title>
+  <g
+     class="cls-3"
+     clip-path="url(#clip-path)"
+     id="g59"
+     transform="translate(-33.441738,-28.674788)">
+    <path
+       class="cls-1"
+       d="M 319.76,1084.06 V 605.29 L -18.85,774.59 300.58,1094 a 29.69,29.69 0 0 1 19.18,-9.94 z"
+       id="path55"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#231f20;stroke-width:4px;stroke-miterlimit:10" />
+    <path
+       class="cls-1"
+       d="m 322.15,1083.94 a 27.34,27.34 0 0 1 19.16,7.71 L 658.37,774.59 319.76,605.29 v 478.77 a 23.76,23.76 0 0 1 2.39,-0.12 z"
+       id="path57"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#231f20;stroke-width:4px;stroke-miterlimit:10" />
+  </g>
+  <path
+     class="cls-1"
+     d="m 578.55826,1155.7652 c 0,-119.29 -96.71,-215.99999 -216,-215.99999 -119.29,0 -216,96.70999 -216,215.99999 a 216.94,216.94 0 0 0 4.93,46.12 c 21.13,97.13 107.6,169.88 211.07,169.88 119.29,0 216,-96.71 216,-216 z"
+     id="path61"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#231f20;stroke-width:4px;stroke-miterlimit:10" />
+  <g
+     id="g128"
+     transform="matrix(0.75268686,0,0,0.75268686,-55.983997,3.2374021)">
+    <circle
+       id="circle63"
+       r="240.58"
+       cy="317.32001"
+       cx="396"
+       class="cls-4"
+       style="fill:url(#radial-gradient);stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    <g
+       id="g81"
+       clip-path="url(#clip-path-2)"
+       class="cls-5">
+      <polygon
+         id="polygon65"
+         points="-18.85,-92.52 319.76,246.09 319.76,-261.83 "
+         class="cls-6"
+         style="fill:url(#linearGradient130);stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon67"
+         points="319.76,-261.83 658.37,-92.52 319.76,246.09 "
+         class="cls-7"
+         style="fill:#f5d068;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon69"
+         points="658.37,-92.52 827.67,246.09 319.76,246.09 "
+         class="cls-8"
+         style="fill:url(#New_Gradient_Swatch_3-2);stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon71"
+         points="827.67,246.09 658.37,584.7 319.76,246.09 "
+         class="cls-7"
+         style="fill:#f5d068;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon73"
+         points="658.37,584.7 319.76,754 319.76,246.09 "
+         class="cls-9"
+         style="fill:url(#New_Gradient_Swatch_3-3);stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon75"
+         points="319.76,754 -18.85,584.7 319.76,246.09 "
+         class="cls-7"
+         style="fill:#f5d068;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon77"
+         points="-18.85,584.7 -188.16,246.09 319.76,246.09 "
+         class="cls-10"
+         style="fill:url(#New_Gradient_Swatch_3-4);stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+      <polygon
+         id="polygon79"
+         points="-188.16,246.09 -18.85,-92.52 319.76,246.09 "
+         class="cls-7"
+         style="fill:#f5d068;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    </g>
+    <path
+       id="path83"
+       d="m 612,317.32 c 0,-119.29 -96.71,-216 -216,-216 -119.29,0 -216,96.68 -216,216 a 216.94,216.94 0 0 0 4.93,46.12 c 21.13,97.13 107.6,169.88 211.07,169.88 119.29,0 216,-96.7 216,-216 z"
+       class="cls-2"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    <circle
+       id="circle85"
+       r="26.540001"
+       cy="245.5"
+       cx="322.10001"
+       class="cls-11"
+       style="fill:#b6252b;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    <path
+       id="path87"
+       d="M 188.07,376 C 213.63,466.78 297,533.32 396,533.32 c 99,0 182.37,-66.54 207.93,-157.32 z"
+       class="cls-12"
+       inkscape:connector-curvature="0"
+       style="fill:#597ebf;stroke:#231f20;stroke-width:3px;stroke-linejoin:round" />
+    <path
+       id="path89"
+       d="m 211.68,430 a 216.07,216.07 0 0 0 368.64,0 l -69.12,6.24 c -16.85,1.52 -44.21,0.05 -60.8,-3.27 l -18.14,-3.63 c -22.93,-4.59 -60.46,-4.59 -83.39,0 l -17,3.39 c -17.23,3.45 -45.63,4.82 -63.11,3 z"
+       class="cls-13"
+       inkscape:connector-curvature="0"
+       style="fill:#2a539c;stroke:#231f20;stroke-width:3px;stroke-linejoin:round" />
+    <path
+       id="path91"
+       d="m 258.61,484 a 216,216 0 0 0 274.78,0 l -31.21,4 c -21.79,2.76 -57.05,0.67 -78.36,-4.66 l -2.42,-0.6 c -17,-4.24 -44.71,-4.24 -61.68,0 v 0 c -22.63,5.66 -60,7.46 -83.12,4 z"
+       class="cls-14"
+       inkscape:connector-curvature="0"
+       style="fill:#243a74;stroke:#231f20;stroke-width:3px;stroke-linejoin:round" />
+    <path
+       id="path93"
+       d="m 584.33,364 c 0,0 -3.86,19.31 -13.83,21 -9.97,1.69 -77.29,3.35 -83,-0.26 -5.71,-3.61 -18.23,-20.61 -18.45,-21 z"
+       class="cls-15"
+       inkscape:connector-curvature="0"
+       style="fill:#0c6a36;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    <line
+       id="line95"
+       y2="356.92999"
+       x2="533.78998"
+       y1="356.92999"
+       x1="533.78998"
+       class="cls-16"
+       style="fill:#808285;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    <polygon
+       id="polygon97"
+       points="535.91,356.93 586.03,356.93 535.91,257.77 "
+       class="cls-17"
+       style="fill:#588143;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+    <path
+       id="path99"
+       d="M 535.91,271.61 469,363.72 c 0,0 32.48,-18.32 64.76,-6.79 0.03,0 -16.3,-32.57 2.15,-85.32 z"
+       class="cls-18"
+       inkscape:connector-curvature="0"
+       style="fill:#588143;stroke:#231f20;stroke-width:3px;stroke-linejoin:round" />
+    <polygon
+       id="polygon101"
+       points="519.77,356.93 556.66,356.93 565.89,363.85 508.24,363.85 "
+       class="cls-15"
+       style="fill:#0c6a36;stroke:#231f20;stroke-width:3px;stroke-miterlimit:10" />
+  </g>
+</svg>
