@@ -105,6 +105,8 @@ handlerSetup('/api/auth/yahoo/callback', 'auth/yahoo/callback/handler')
 handlerSetup('/api/auth/microsoft/redirect', 'auth/microsoft/redirect/handler')
 handlerSetup('/api/auth/microsoft/callback', 'auth/microsoft/callback/handler')
 
+handlerSetup('/api/error', 'error/handler')
+
 
 app.use('/', express.static(path.join(__dirname, '../public'), {fallthrough: true, index: "index.html"}));
 

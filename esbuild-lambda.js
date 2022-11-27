@@ -41,12 +41,33 @@ esbuild
         platform: 'node',
         //sourcemap: 'inline',
         target: ['node16'],
-        external: ['pg-hstore','aws-sdk','mariadb','sequelize'],
+        external: ['pg-hstore','aws-sdk','mariadb','sequelize', 'lodash', 'aws-lambda'],
         plugins: [ImportGlobPlugin.default()],
         metafile: true,
     }).then(build => {
-        require('fs').writeFileSync('meta.json',
-  JSON.stringify(build.metafile))
+
+        return esbuild
+        .build({
+           entryPoints:['src/lambdas/test/handler.ts'
+           ],
+           //entryPoints: ["src/lambdas/env/handler.ts"],
+            bundle: true,
+            minify: false,
+            //splitting: true,
+            outdir: path.join(__dirname, outDir),
+            outbase: functionsDir,
+            //format: 'cjs',
+            platform: 'node',
+            //sourcemap: 'inline',
+            target: ['node16'],
+            external: ['pg-hstore','aws-sdk','mariadb','sequelize', 'lodash', 'aws-lambda'],
+            plugins: [ImportGlobPlugin.default()],
+            metafile: true,
+        }).then(build => {
+            require('fs').writeFileSync('meta.json',
+            JSON.stringify(build.metafile))
+        })
+
 
     })
 

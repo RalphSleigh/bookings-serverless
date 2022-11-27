@@ -260,6 +260,12 @@ variable "lambda_definitions" {
       code_dir = "auth/microsoft/callback"
       path     = "auth/microsoft/callback"
       method   = "get"
+    },
+      client_error = {
+      name     = "client_error"
+      code_dir = "error"
+      path     = "error"
+      method   = "post"
     }
   }
 }

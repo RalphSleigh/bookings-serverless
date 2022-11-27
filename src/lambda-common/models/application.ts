@@ -1,4 +1,3 @@
-import { NumberOfInvocations } from "aws-sdk/clients/computeoptimizer";
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional } from "sequelize";
 import { EventModel } from "./event";
 import { UserModel } from "./user";

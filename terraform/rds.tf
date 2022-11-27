@@ -11,4 +11,5 @@ resource "aws_db_instance" "database" {
   backup_retention_period = 30
   backup_window = "02:30-03:00"
   maintenance_window = "Mon:00:00-Mon:02:00"
+  apply_immediately = true
 }
