@@ -64,7 +64,8 @@ export const orm = async (password: Promise<any> | null = null): Promise<db> => 
                 const parsed_password = JSON.parse(db_password)
                 config.password = parsed_password.password
               }
-        }
+        },
+        define: { charset: "utf8", collate: 'utf8_general_ci' }
     });
 
     since("created squelize")
