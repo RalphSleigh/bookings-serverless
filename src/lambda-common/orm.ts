@@ -1,7 +1,4 @@
 import { Sequelize, Op, DataTypes, ModelStatic, Model } from "sequelize";
-import fs from 'fs'
-import path from 'path'
-import { log } from './logging'
 import SecretsManager from './secrets'
 import am_in_lambda from './am_in_lambda'
 

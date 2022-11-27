@@ -1,4 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { orm } from '../../lambda-common/orm'
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -13,13 +14,17 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
     let response: APIGatewayProxyResult;
     try {
 
-        console.log(JSON.stringify(event))
+        const db = await orm()
+
+        const [results, metadata] = await db.sequelize.query("select * from users");
+
+        for(const result of results) console.log(JSON.stringify(result))
+        
 
         response = {
             statusCode: 200,
             body: JSON.stringify(event)
         };
-
     } catch (err: unknown) {
         console.log(err);
         response = {
