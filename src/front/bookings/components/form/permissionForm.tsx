@@ -104,9 +104,7 @@ export default class PermissionForm extends React.Component<any, any> {
 
             <FormGroup row>
                 <Label sm={12}>
-                    Are there are any other IFM-SEI organisations or Woodcraft Folk districts you would like to camp
-                    with? We will do our best to accommodate this, and if you don’t know, then don’t worry! We will
-                    match international groups with a lovely Woodcraft Folk group and vice versa:
+                    Are there other groups you are planning to or would like to camp with?
                 </Label>
                 <Col sm={{size: 10, offset: 2}}>
                     <Input type="textarea"
@@ -123,10 +121,10 @@ export default class PermissionForm extends React.Component<any, any> {
                 </Col>
             </Row>
             <FormGroup row>
-                <Label sm={2}>
+                <Label sm={12}>
                     {customQuestions.extraQuestion ? customQuestions.extraQuestion : 'Anything else we need to know?:'}
                 </Label>
-                <Col sm={10}>
+                <Col sm={{size: 10, offset: 2}}>
                     <Input type="textarea"
                            placeholder=""
                            value={this.props.note || customQuestions.extraTemplate || ''}

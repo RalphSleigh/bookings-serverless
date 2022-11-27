@@ -1,14 +1,14 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import * as messages from '../messages'
 import * as user from '../user'
 import * as events from '../events'
 import * as bookings from '../bookings'
 
-import {withRouter} from 'react-router-dom';
-import {matchPath}  from 'react-router'
+import { withRouter } from 'react-router-dom';
+import { matchPath } from 'react-router'
 
 import {
     Container,
@@ -56,49 +56,55 @@ class App extends React.Component<any, any> {
 
         //@ts-ignore
         const inManage = !!matchPath(location.pathname, {
-        path:   "/event/:eventId/manage",
-        exact:  false,
-        strict: false
-         });
+            path: "/event/:eventId/manage",
+            exact: false,
+            strict: false
+        });
 
-         const isHome = !!matchPath(location.pathname, {
-            path:   "/",
-            exact:  true,
+        const isHome = !!matchPath(location.pathname, {
+            path: "/",
+            exact: true,
             strict: true
-             });
+        });
 
-             const isUser = !!matchPath(location.pathname, {
-                path:   "/user",
-                exact:  true,
-                strict: true
-                 });    
-    
+        const isUser = !!matchPath(location.pathname, {
+            path: "/user",
+            exact: true,
+            strict: true
+        });
+
+
+        const isCreate = !!matchPath(location.pathname, {
+            path: "/event/create",
+            exact: true,
+            strict: true
+        });
 
         //prevent render until we have the basic data available, this makes child components much simpler.
-        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || ((!isHome && !isUser) && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
-            
+        if (this.props.User === null || this.props.Events === null || this.props.Bookings === null || ((!isHome && !isUser && !isCreate) && this.props.Events !== null && Object.entries(this.props.Events.toJS()).length === 0)) {
+
             console.log("NOT rendering, users:")
             console.log(this.props.User)
             console.log("NOT rendering: events:")
             console.log(this.props.Events)
             console.log("NOT rendering: bookings")
             console.log(this.props.Bookings)
-            
+
             return (
-            <div className="lds-default">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>);
+                <div className="lds-default">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>);
         }
 
         console.log("rendering")
@@ -122,11 +128,11 @@ class App extends React.Component<any, any> {
                             <Link to="/">Home</Link>
                         </Col>
                         <Col sm="auto">
-                            <user.loginStatus/>
+                            <user.loginStatus />
                         </Col>
                     </Row>
                     <Row>
-                        <messages.messages/>
+                        <messages.messages />
                     </Row>
                     {this.props.children}
                     <Row>
@@ -150,7 +156,7 @@ const mapStateToProps = (state) => {
     let Events = state.getIn(["Events", "events"]);
     let Bookings = state.getIn(["Bookings", "bookings"]);
     let Env = state.get("App");
-    return {User, Events, Bookings, Env};
+    return { User, Events, Bookings, Env };
 };
 
 const mapDispatchToProps = {
