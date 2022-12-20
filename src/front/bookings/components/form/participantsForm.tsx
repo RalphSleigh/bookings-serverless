@@ -212,8 +212,8 @@ class ParticipantRow extends React.Component<any, any> {
             </FormGroup>
             <Row>
                 <Col sm={12}><p><b>Simple Dietary Requirements</b><br /> Please select all that apply:</p>
-                    </Col>
-                </Row>
+                </Col>
+            </Row>
             <FormGroup row>
                 <Col sm={{ size: 2 }}>
                     <FormGroup check>
@@ -272,7 +272,7 @@ class ParticipantRow extends React.Component<any, any> {
             </FormGroup>
             <FormGroup row>
                 <Label sm={12}><b>Food dislikes/preferences:</b><br />
-                E.g. “I really hate mushrooms”
+                    E.g. “I really hate mushrooms”
                 </Label>
                 <Col sm={12}>
                     <Input type="textarea"
@@ -283,8 +283,8 @@ class ParticipantRow extends React.Component<any, any> {
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label sm={12}><b>Any other dietary restrictions, allergies, intolerances or elimination diets:</b><br/>
-                This is your everything else section for things that didn’t fit into the tick boxes above.</Label>
+                <Label sm={12}><b>Any other dietary restrictions, allergies, intolerances or elimination diets:</b><br />
+                    This is your everything else section for things that didn’t fit into the tick boxes above.</Label>
                 <Col sm={12}>
                     <Input type="textarea"
                         value={this.props.dietExtra || ''}
@@ -293,9 +293,20 @@ class ParticipantRow extends React.Component<any, any> {
                         rows="3" />
                 </Col>
             </FormGroup>
+            <FormGroup>
+                <Col sm={{ size: 12 }}>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="checkbox" checked={!!this.props.externalExtra.nut}
+                                onChange={this.props.updateExtraCheck('dietContactMe')} />{' '}
+                            <b>My allergies or dietary needs are complicated and I would like to be contacted by the Allergy kitchen team. </b>
+                            The allergy kitchen team can provide partial or complete replacements of the main camp menu to meet the individual dietary needs
+                        </Label>
+                    </FormGroup>
+                </Col>
+            </FormGroup>
             <hr />
         </React.Fragment>
-
 
         const extra_kp = this.props.event.customQuestions.vcampKP ? vcamp_kp_questions : basic_kp_questions
 
@@ -356,6 +367,7 @@ class ParticipantRow extends React.Component<any, any> {
                 <Over16Section event={this.props.event} age={this.props.age} values={this.props.externalExtra || {}}
                     update={this.props.updateExtra} />
                 <PhotoConsent event={this.props.event} update={this.props.updateExtraNoPrevent} values={this.props.externalExtra || {}} id={this.props.id} />
+                <VCampConsent event={this.props.event} update={this.props.updateExtraNoPrevent} values={this.props.externalExtra || {}} id={this.props.id} />
                 <FormGroup row>
                     {attendance}
                     <Col sm={1}>
@@ -379,7 +391,7 @@ const PhotoConsent = props => {
                 <Label check>
                     <Input type="radio"
                         value='yes'
-                        name={props.id}
+                        name={props.id+'photo'}
                         onChange={props.update('photoConsent')}
                         checked={props.values.photoConsent === 'yes'} />
                     Yes
@@ -389,7 +401,7 @@ const PhotoConsent = props => {
                 <Label check>
                     <Input type="radio"
                         value='no'
-                        name={props.id}
+                        name={props.id+'photo'}
                         onChange={props.update('photoConsent')}
                         checked={props.values.photoConsent === 'no'} />
                     No
@@ -400,12 +412,98 @@ const PhotoConsent = props => {
 
 };
 
+const VCampConsent = props => {
+    if (!props.event.customQuestions.vcampConsent) return null;
+
+    return <React.Fragment>
+        <hr />
+        <FormGroup row>
+            <Label sm={10}><b>Image Consent:</b><br />I have permission for photos and recordings to be taken at the event and used by Woodcraft Folk and external bodies for publications.</Label>
+            <Col sm={2} className="pt-2">
+                <FormGroup check inline key='yes'>
+                    <Label check>
+                        <Input type="radio"
+                            value='yes'
+                            name={props.id+'photo'}
+                            onChange={props.update('photoConsent')}
+                            checked={props.values.photoConsent === 'yes'} />
+                        Yes
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline key='no'>
+                    <Label check>
+                        <Input type="radio"
+                            value='no'
+                            name={props.id+'photo'}
+                            onChange={props.update('photoConsent')}
+                            checked={props.values.photoConsent === 'no'} />
+                        No
+                    </Label>
+                </FormGroup>
+            </Col>
+        </FormGroup>
+        <hr />
+        <FormGroup row>
+            <Label sm={10}><b>Relations &amp; Sex Education Consent:</b><br />I have permission for this individual to take part in Relationship &amp; Sex Education workshops as part of Venturer Camp 2023. Everyone on camp will take part in a basic consent workshop, this consent is for content above and beyond that.</Label>
+            <Col sm={2} className="pt-2">
+                <FormGroup check inline key='yes'>
+                    <Label check>
+                        <Input type="radio"
+                            value='yes'
+                            name={props.id+'sre'}
+                            onChange={props.update('sreConsent')}
+                            checked={props.values.sreConsent === 'yes'} />
+                        Yes
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline key='no'>
+                    <Label check>
+                        <Input type="radio"
+                            value='no'
+                            name={props.id+'sre'}
+                            onChange={props.update('sreConsent')}
+                            checked={props.values.sreConsent === 'no'} />
+                        No
+                    </Label>
+                </FormGroup>
+            </Col>
+        </FormGroup>
+        <hr />
+        <FormGroup row>
+            <Label sm={10}><b>Activities Consent:</b><br />Can you confirm that the individual can swim 25m unaided</Label>
+            <Col sm={2} className="pt-2">
+                <FormGroup check inline key='yes'>
+                    <Label check>
+                        <Input type="radio"
+                            value='yes'
+                            name={props.id+'activity'}
+                            onChange={props.update('activityConsent')}
+                            checked={props.values.activityConsent === 'yes'} />
+                        Yes
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline key='no'>
+                    <Label check>
+                        <Input type="radio"
+                            value='no'
+                            name={props.id+'activity'}
+                            onChange={props.update('activityConsent')}
+                            checked={props.values.activityConsent === 'no'} />
+                        No
+                    </Label>
+                </FormGroup>
+            </Col>
+        </FormGroup>
+        <hr />
+    </React.Fragment>
+}
+
 const Over16Section = props => {
 
     if (Moment(props.event.startDate).diff(Moment(props.age), 'years') > 15 && (props.event.customQuestions.adultEmail || props.event.customQuestions.adultFirstAid)) {
         const emailForm = props.event.customQuestions.adultEmail ? <React.Fragment>
-            <Label sm={3}>Email address used for WCF membership:</Label>
-            <Col sm={4}>
+            <Label sm={12}><b>Email address:</b><br />This will be used to check the membership status of the participant and for them to receive mailings about the camp. To opt out, contact info@venturercamp.org.uk</Label>
+            <Col sm={7}>
                 <Input type="email"
                     value={props.values.adultEmail || ''}
                     onChange={props.update("adultEmail")}

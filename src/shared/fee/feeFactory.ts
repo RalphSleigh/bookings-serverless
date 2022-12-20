@@ -25,6 +25,11 @@ const feeMatrix = {
         free:    require('./vcamp-free'),
         presets: require('./free')
     },
+    vcamp2023:        {
+        whole:   require('./free'),
+        free:    require('./vcamp-2023'),
+        presets: require('./free')
+    },
     commonground: {
         whole:   require('./free'),
         free:    require('./free'),
