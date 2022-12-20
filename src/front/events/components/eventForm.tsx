@@ -116,6 +116,7 @@ export default class EditForm extends React.Component<any, any> {
             <option key={3} value="ealing">Ealing Pricing Policy</option>,
             <option key={4} value="big">Big Camp Policy</option>,
             <option key={5} value="vcamp">VCamp Policy</option>,
+            <option key={5} value="vcamp2023">VCamp 2023 Policy</option>,
             <option key={6} value="commonground">Common Ground Policy</option>];
 
         const attendanceOptions = map(attendance, a => <option value={a.name}
@@ -250,6 +251,7 @@ export default class EditForm extends React.Component<any, any> {
                     {switchGroup("Central Food Opt Out", this.state.event.customQuestions.foodOptOut, this.updateCustomChecked('foodOptOut'))}
                     {switchGroup("Photo consent question", this.state.event.customQuestions.photoConsent, this.updateCustomChecked('photoConsent'))}
                     {switchGroup("VCamp complicated KP questions ", this.state.event.customQuestions.vcampKP, this.updateCustomChecked('vcampKP'))}
+                    {switchGroup("VCamp complicated consent questions ", this.state.event.customQuestions.vcampConsent, this.updateCustomChecked('vcampConsent'))}
                     <Row>
                         <Col>
                             <Button color="success" onClick={this.clickSave}>Save</Button>
