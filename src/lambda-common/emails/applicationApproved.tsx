@@ -10,11 +10,9 @@ import React         from 'react'
 import ReactMarkdown from 'react-markdown'
 import feeFactory    from '../../shared/fee/feeFactory'
 
-const config = require('../../config');
-
 export const name = "application approved"
 
-export function html(values) {
+export function html(values, config) {
 
     let button = '';
 

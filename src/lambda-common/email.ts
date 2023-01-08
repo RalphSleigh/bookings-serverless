@@ -38,7 +38,7 @@ class realEmailSender {
 
 
         const subject = template.subject(values);
-        const htmlEmail = template.html(values);
+        const htmlEmail = template.html(values, this.config);
         const textEmail = htmlToText.fromString(htmlEmail);
 
         const mail = mailcomposer({
