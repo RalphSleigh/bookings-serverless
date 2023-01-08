@@ -7,6 +7,8 @@ import { get_email_client } from '../../../lambda-common/email';
 import * as applicationReceived from '../../../lambda-common/emails/applicationReceived'
 import * as managerApplicationReceived from '../../../lambda-common/emails/managerApplicationReceived'
 
+import { postToDiscord } from '../../../lambda-common/discord';
+
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -30,6 +32,8 @@ export const lambdaHandler = lambda_wrapper_json([apply_to_event],
     emailData.event = emailData;//todo fix this
     email.single(current_user.email, applicationReceived, emailData);
     email.toManagers(managerApplicationReceived, emailData);
+
+    await postToDiscord(config, "Test")
 
     return user
     })

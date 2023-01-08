@@ -36,6 +36,7 @@
     "css-loader": "^0.28.11",
     "csv-file-creator": "^1.0.7",
     "debounce": "^1.1.0",
+    "discord.js": "^14.7.1",
     "eol": "^0.9.1",
     "esbuild": "^0.15.11",
     "exponential-backoff": "^2.2.0",

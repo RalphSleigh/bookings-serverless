@@ -418,7 +418,7 @@ const VCampConsent = props => {
     return <React.Fragment>
         <hr />
         <FormGroup row>
-            <Label sm={10}><b>Image Consent:</b><br />I have permission for photos and recordings to be taken at the event and used by Woodcraft Folk and external bodies for publications.</Label>
+            <Label sm={10}><b>Image Consent:</b><br />I have permission for photos and recordings to be taken at the event and used by Woodcraft Folk and external bodies for publications and during the event on-site.</Label>
             <Col sm={2} className="pt-2">
                 <FormGroup check inline key='yes'>
                     <Label check>
@@ -470,7 +470,7 @@ const VCampConsent = props => {
         </FormGroup>
         <hr />
         <FormGroup row>
-            <Label sm={10}><b>Activities Consent:</b><br />Can you confirm that the individual can swim 25m unaided</Label>
+            <Label sm={10}><b>Adventurous Activities Consent:</b><br />I can confirm that this individual can swim 25m unaided</Label>
             <Col sm={2} className="pt-2">
                 <FormGroup check inline key='yes'>
                     <Label check>
