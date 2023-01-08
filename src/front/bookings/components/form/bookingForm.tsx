@@ -147,6 +147,10 @@ export default class BookingForm extends React.Component<any, any> {
             if (empty(p.diet)) results.push("Please select a diet for " + p.name);
             if (Moment(this.props.event.startDate).diff(Moment(p.age), 'years') > 15 && this.props.event.customQuestions.adultEmail && empty(p.externalExtra.adultEmail)) results.push("Please fill an e-mail address for " + p.name);
             if(this.props.event.customQuestions.photoConsent && empty(p.externalExtra.photoConsent)) results.push("Please answer the photo consent for " + p.name)
+
+            if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.photoConsent)) results.push("Please answer the photo consent for " + p.name)
+            if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.sreConsent)) results.push("Please answer the relations &amp; sex education consent consent for " + p.name)
+            if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.activityConsent)) results.push("Please answer the outdoor activities consent for " + p.name)
         });
 
         const lonePerson = this.props.booking.participants.filter(p => {
