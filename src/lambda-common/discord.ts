@@ -10,5 +10,3 @@ export async function postToDiscord(config, message) {
         await channel!.send(message);
     }
 }
-
-
