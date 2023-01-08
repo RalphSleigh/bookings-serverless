@@ -149,7 +149,7 @@ export default class BookingForm extends React.Component<any, any> {
             if(this.props.event.customQuestions.photoConsent && empty(p.externalExtra.photoConsent)) results.push("Please answer the photo consent for " + p.name)
 
             if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.photoConsent)) results.push("Please answer the photo consent for " + p.name)
-            if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.sreConsent)) results.push("Please answer the relations &amp; sex education consent consent for " + p.name)
+            if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.sreConsent)) results.push("Please answer the relations and sex education consent consent for " + p.name)
             if(this.props.event.customQuestions.vcampConsent && empty(p.externalExtra.activityConsent)) results.push("Please answer the outdoor activities consent for " + p.name)
         });
 
