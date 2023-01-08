@@ -5,6 +5,7 @@ import { book_into_organisation, edit_booking } from '../../../lambda-common/per
 import moment from 'moment';
 
 import { updateAssociation } from '../../../lambda-common/util'
+
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -38,6 +39,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         await updateAssociation(db, booking, 'participants', db.participant, lambda_event.body.participants)
         booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] })
         console.log(`User ${current_user.userName} Editing Booking id ${booking!.id}`);
+
         return { bookings: [booking] }
         /*
         if (req.user.id === booking.userId) {
