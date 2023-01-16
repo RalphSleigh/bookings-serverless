@@ -90,7 +90,9 @@ class ThanksPage extends React.Component<any, any> {
                 event={this.event}
                 booking={booking}/>
             <Row>
+                <Col sm={12}>
                 <ReactMarkdown  children={paymentText}/>
+                </Col>
             </Row>
             <Row>
                 <Col>
