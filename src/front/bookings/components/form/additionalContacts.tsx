@@ -55,7 +55,7 @@ export default class AdditionalForm extends React.Component<any, any> {
         return (<React.Fragment>
             <Row>
                 <Col>
-                    <p>Here you can supply contact details for additional people we can contact about your booking, this optional but may be useful.</p>
+                    <p>Here you can supply contact details for additional people we can contact about your booking, this is optional but may be useful.</p>
                 </Col>
             </Row>
             {rows}
