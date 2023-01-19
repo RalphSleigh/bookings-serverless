@@ -444,7 +444,7 @@ const VCampConsent = props => {
         </FormGroup>
         <hr />
         <FormGroup row>
-            <Label sm={10}><b>Relations &amp; Sex Education Consent:</b><br />I have permission for this individual to take part in Relationship &amp; Sex Education workshops as part of Venturer Camp 2023. Everyone on camp will take part in a basic consent workshop, this consent is for content above and beyond that.</Label>
+            <Label sm={10}><b>Relations &amp; Sex Education Consent:</b><br />I have permission for this individual to take part in Relationship &amp; Sex Education workshops as part of Venturer Camp 2023. Everyone on camp will take part in a basic consent workshop, this consent is for content above and beyond that. (<a href="https://woodcraft.org.uk/resources/relationship-sex-education-policy/">policy</a>)</Label>
             <Col sm={2} className="pt-2">
                 <FormGroup check inline key='yes'>
                     <Label check>
