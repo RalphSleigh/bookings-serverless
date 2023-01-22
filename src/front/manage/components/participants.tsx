@@ -5,6 +5,7 @@ import Moment from 'moment'
 import update from 'immutability-helper';
 import * as eol from 'eol'
 import map from 'lodash/map'
+import { fields } from './column_helper'
 
 //import bookings from '../bookings'
 //import { manageEventCheck } from '../permission.ts'
@@ -49,6 +50,17 @@ export default class Participants extends React.Component<any, any> {
     exportCSV() {
 
         const event = this.props.Event.toJS();
+
+        const used_fields = fields.filter(f => f.is_enabled(event))
+
+        const headers = used_fields.map(f => f.get_header()).flat()
+
+        const exportedData = this.props.participants.map(p => {
+            return used_fields.map(f => f.csv_value(p, event)).flat()
+         })
+
+
+        /*
 
         const startDate = Moment.utc(event.startDate).startOf('day');
         const endDate = Moment.utc(event.endDate).startOf('day').add(1, 'days');
@@ -109,6 +121,7 @@ export default class Participants extends React.Component<any, any> {
                 headers.push(d.label)
             })
         }
+        */
         const fileName = this.props.Event.get('name') + "-Participants-" + Moment().format('YYYY-MM-DD') + ".csv";
         csv(fileName, [headers, ...exportedData]);
     }

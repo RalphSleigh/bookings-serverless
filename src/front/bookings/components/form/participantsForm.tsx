@@ -297,7 +297,7 @@ class ParticipantRow extends React.Component<any, any> {
                 <Col sm={{ size: 12 }}>
                     <FormGroup check>
                         <Label check>
-                            <Input type="checkbox" checked={!!this.props.externalExtra.nut}
+                            <Input type="checkbox" checked={!!this.props.externalExtra.dietContactMe}
                                 onChange={this.props.updateExtraCheck('dietContactMe')} />{' '}
                             <b>My allergies or dietary needs are complicated and I would like to be contacted by the Allergy kitchen team. </b>
                             The allergy kitchen team can provide partial or complete replacements of the main camp menu to meet the individual dietary needs
