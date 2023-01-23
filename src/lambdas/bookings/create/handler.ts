@@ -7,6 +7,7 @@ import feeFactory from '../../../shared/fee/feeFactory';
 import { get_email_client } from '../../../lambda-common/email';
 import * as confirmation from '../../../lambda-common/emails/confirmation'
 import * as manager_booking_created from '../../../lambda-common/emails/managerBookingCreated'
+import { postToDiscord } from '../../../lambda-common/discord';
 
 /**
  *
@@ -41,6 +42,9 @@ export const lambdaHandler = lambda_wrapper_json([book_event, book_into_organisa
 
         const email = get_email_client(config)
         const fees = feeFactory(booking.event);
+
+        await postToDiscord(config, `${current_user.userName} created a booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people`)
+
         const emailData: any = booking.get({ plain: true });
         emailData.editURL = config.BASE_URL + "/event/" + emailData.eventId + "/book";
         emailData.user = current_user;

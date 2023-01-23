@@ -12,6 +12,8 @@ export interface BookingModel extends Model<InferAttributes<BookingModel>, Infer
     userName: string
     userEmail: string
     userContact: string
+    userId: number
+    user?: UserModel
     district: string
     paymentType: string
     paid: boolean
@@ -43,6 +45,9 @@ export function define(sequelize: Sequelize) {
         },
         userContact: {
             type: DataTypes.TEXT
+        },
+        userId: {
+            type: DataTypes.INTEGER
         },
         district: {
             type: DataTypes.TEXT
