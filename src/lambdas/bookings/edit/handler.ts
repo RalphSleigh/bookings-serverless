@@ -5,6 +5,10 @@ import { book_into_organisation, edit_booking } from '../../../lambda-common/per
 import moment from 'moment';
 
 import { updateAssociation } from '../../../lambda-common/util'
+import { BookingModel } from '../../../lambda-common/models/booking';
+import feeFactory from '../../../shared/fee/feeFactory';
+import { get_email_client } from '../../../lambda-common/email';
+import { postToDiscord } from '../../../lambda-common/discord';
 
 /**
  *
@@ -25,7 +29,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             delete p.internalExtra
         });
 
-        let booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.event }] })
+        let booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.event }] }) as BookingModel
 
         if (!booking) throw new Error("booking not found")
 
@@ -35,20 +39,25 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             lambda_event.body.maxParticipants = Math.max(booking.maxParticipants || 0, lambda_event.body.participants.length);
         }
         await booking.update(lambda_event.body)//this ignores partitipants!
-        booking = await db.booking.findOne({ where: { id: booking.id }, include: [{ model: db.participant }] })
+        booking = await db.booking.findOne({ where: { id: booking.id }, include: [{ model: db.participant }] }) as BookingModel
         await updateAssociation(db, booking, 'participants', db.participant, lambda_event.body.participants)
-        booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] })
+        booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] }) as BookingModel
         console.log(`User ${current_user.userName} Editing Booking id ${booking!.id}`);
 
-        return { bookings: [booking] }
-        /*
-        if (req.user.id === booking.userId) {
+        
+
+        if (current_user.id === booking.userId) {
+            const email = get_email_client(config)
             const fees = feeFactory(booking.event);
             const emailData = booking.get({ plain: true });
+            //@ts-ignore
             emailData.editURL = config.BASE_URL + '/' + (emailData.userId === 1 ? "guestUUID/" + emailData.eventId + "/" + emailData.guestUUID : "event/" + emailData.eventId + "/book");
-            emailData.user = req.user;
+            emailData.user = current_user;
             email.single(booking.userEmail, 'updated', emailData);
             email.toManagers('managerBookingUpdated', emailData);
+
+            await postToDiscord(config, `${current_user.userName} edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people`)
         }
-        */
+
+        return { bookings: [booking] }
     })
