@@ -36,7 +36,7 @@ export function html(values, config) {
             <Item>
                 <p> Hi {values.user.userName},</p>
                 <p>You have been approved to book into {values.event.name} and can do so at any time here:</p>
-                <p><A href={config.BASE_PATH}>{config.BASE_PATH}</A></p>
+                <p><A href={config.BASE_URL}>{config.BASE_URL}</A></p>
             </Item>
             <Item>
                 <p>Blue Skies</p>
