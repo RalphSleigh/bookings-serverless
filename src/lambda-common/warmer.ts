@@ -10,10 +10,12 @@ export function warm(functions: string[]) {
 
     if (!am_in_lambda()) return
 
+    log(`warming functions`)
+
     const lambda = new Lambda({})
 
     const promises = functions.map(f => new Promise((resolve, reject) =>{
-        log(`warming ${f}`)
+
         console.log(`warming ${f}`)
         const request = lambda.invoke({
             FunctionName: f,
