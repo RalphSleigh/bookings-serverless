@@ -58,18 +58,8 @@ export function html(values) {
                 <p>Woodcraft Folk</p>
             </Item>
             <Item>
-                <p>THIS IS YOUR INVOICE</p>
-
-                <p>DATE OF ISSUE: {new Date().toDateString()}</p>
-                Detail of product:
-
+                <small>When logging in again make sure to log in as {values.user.email} using the {button} button</small>
             </Item>
-            {fees}
-            <Item>
-                <ReactMarkdown children={values.event.paymentInfo.replace(/(%%%%)/g, paymentReference(payRef))}/>
-            </Item>
-
-
         </Email>
     )
 }
