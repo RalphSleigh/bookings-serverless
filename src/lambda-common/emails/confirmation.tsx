@@ -49,16 +49,23 @@ export function html(values) {
                 </p>
                 <p>You can come back and edit your booking <A href={values.editURL}>here</A>.</p>
             </Item>
-            {fees}
-            <Item>
-                <ReactMarkdown children={values.event.paymentInfo}/>
-            </Item>
             <Item>
                 <p>Blue Skies and Friendship,</p>
                 <p>Woodcraft Folk</p>
             </Item>
             <Item>
                 <small>When logging in again make sure to log in as {values.user.email} using the {button} button</small>
+            </Item>
+            <Item>
+                <p>THIS IS YOUR INVOICE</p>
+
+                <p>DATE OF ISSUE: {new Date().toDateString()}</p>
+                Detail of product:
+
+            </Item>
+            {fees}
+            <Item>
+                <ReactMarkdown children={values.event.paymentInfo.replace(/(%%%%)/g, paymentReference(payRef))}/>
             </Item>
         </Email>
     )
