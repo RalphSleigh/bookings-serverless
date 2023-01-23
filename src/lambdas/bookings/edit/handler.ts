@@ -10,6 +10,8 @@ import feeFactory from '../../../shared/fee/feeFactory';
 import { get_email_client } from '../../../lambda-common/email';
 import { postToDiscord } from '../../../lambda-common/discord';
 
+import * as updated from '../../../lambda-common/emails/updated'
+import * as managerBookingUpdated from '../../../lambda-common/emails/managerBookingUpdated'
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -53,8 +55,8 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             //@ts-ignore
             emailData.editURL = config.BASE_URL + '/' + (emailData.userId === 1 ? "guestUUID/" + emailData.eventId + "/" + emailData.guestUUID : "event/" + emailData.eventId + "/book");
             emailData.user = current_user;
-            email.single(booking.userEmail, 'updated', emailData);
-            email.toManagers('managerBookingUpdated', emailData);
+            email.single(booking.userEmail, updated, emailData);
+            email.toManagers(managerBookingUpdated, emailData);
 
             await postToDiscord(config, `${current_user.userName} edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people`)
         }

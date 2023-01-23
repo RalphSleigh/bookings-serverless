@@ -8,7 +8,7 @@ import {
 }                    from 'react-html-email'
 import React         from 'react'
 import ReactMarkdown from 'react-markdown'
-import feeFactory    from '../../shared/fee/feeFactory.ts'
+import feeFactory    from '../../shared/fee/feeFactory'
 import paymentReference from "../../shared/paymentReference";
 
 export const name = "booking updated"
@@ -51,7 +51,7 @@ export function html(values) {
             </Item>
             {fees}
             <Item>
-                <ReactMarkdown source={values.event.paymentInfo}/>
+            <ReactMarkdown children={values.event.paymentInfo}/>
             </Item>
             <Item>
                 <p>Blue Skies</p>
