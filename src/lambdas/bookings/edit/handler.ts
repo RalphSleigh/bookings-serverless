@@ -45,7 +45,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         if (req.user.id === booking.userId) {
             const fees = feeFactory(booking.event);
             const emailData = booking.get({ plain: true });
-            emailData.editURL = config.BASE_PATH + '/' + (emailData.userId === 1 ? "guestUUID/" + emailData.eventId + "/" + emailData.guestUUID : "event/" + emailData.eventId + "/book");
+            emailData.editURL = config.BASE_URL + '/' + (emailData.userId === 1 ? "guestUUID/" + emailData.eventId + "/" + emailData.guestUUID : "event/" + emailData.eventId + "/book");
             emailData.user = req.user;
             email.single(booking.userEmail, 'updated', emailData);
             email.toManagers('managerBookingUpdated', emailData);
