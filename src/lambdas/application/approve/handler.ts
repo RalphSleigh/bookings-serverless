@@ -7,6 +7,7 @@ import { get_email_client } from '../../../lambda-common/email';
 import * as applicationApproved from '../../../lambda-common/emails/applicationApproved'
 import { getEventDetails } from '../../../lambda-common/util';
 import { ApplicationModel } from '../../../lambda-common/models/application';
+import { postToDiscord } from '../../../lambda-common/discord';
 
 /**
  *
@@ -33,9 +34,15 @@ export const lambdaHandler = lambda_wrapper_json([decide_application],
             note: lambda_event.body.note
         });
 
-        const user = await db.user.scope('withData').findOne({ where: { id: { [Op.eq]: application.userId } } });
+        const user = await db.user.scope('withData').findOne({ where: { id: { [Op.eq]: application.userId } } })
         await application.destroy();
         const event = await getEventDetails(db, application.eventId)
+
+        const applications = await db.application.findAll() as ApplicationModel[]
+
+        const app_string = event.applications.length == 0 ? 'No outstanding applications remaining' : event.applications.length == 1 ? '1 outstanding application remains' : `${event.applications.length} outstanding applications remain`
+
+        await postToDiscord(config, `${current_user.userName} approved application from ${user!.userName}. ${app_string}`)
 
         const email = get_email_client(config)
         const values = { event: event, user: user };
