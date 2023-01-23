@@ -366,7 +366,7 @@ const owedFreeEvent = (event, participants, booking) => {
 
 
     const rawCostsu18 = u18participants.map(p => sortedBuckets.reduce((a, c) => {
-        if (new Date(p.updatedAt) < new Date(c.date)) return {
+        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type: p.days === wholeMask ? 'whole' : 'partial',
             days: popcount(p.days),
             date: c.date,
@@ -391,7 +391,7 @@ const owedFreeEvent = (event, participants, booking) => {
     }], [])], []);
 
     const rawCostso18 = o18participants.map(p => sortedBuckets.reduce((a, c) => {
-        if (new Date(p.updatedAt) < new Date(c.date)) return {
+        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type: p.days === wholeMask ? 'whole' : 'partial',
             days: popcount(p.days),
             date: c.date,
@@ -432,7 +432,7 @@ const owedWholeEvent = (event, participants, booking) => {
     });
 
     const rawCosts = filteredParticipants.map(p => sortedBuckets.reduce((a, c) => {
-        if (new Date(p.updatedAt) < new Date(c.date)) return {
+        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type:   isWoodchip(event, p) ? 'woodchip' : 'normal',
             date:   c.date,
             mask:   p.days,
@@ -467,7 +467,7 @@ const owedPresetEvent = (event, participants, booking) => {
     });
 
     const rawCosts = filteredParticipants.map(p => sortedBuckets.reduce((a, c) => {
-        if (new Date(p.updatedAt) < new Date(c.date)) return {
+        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type:   isWoodchip(event, p) ? 'woodchip' : 'normal',
             date:   c.date,
             mask:   p.days,

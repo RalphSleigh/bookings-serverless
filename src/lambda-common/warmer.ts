@@ -1,5 +1,6 @@
 import { Lambda } from "aws-sdk"
 import am_in_lambda from "./am_in_lambda"
+import { log } from "./logging"
 
 export function is_warmer_event(event) {
     return event.source === "warmer"
@@ -12,6 +13,7 @@ export function warm(functions: string[]) {
     const lambda = new Lambda({})
 
     const promises = functions.map(f => new Promise((resolve, reject) =>{
+        log(`warming ${f}`)
         console.log(`warming ${f}`)
         const request = lambda.invoke({
             FunctionName: f,
