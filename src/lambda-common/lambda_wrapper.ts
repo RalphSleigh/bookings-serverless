@@ -34,9 +34,13 @@ export function lambda_wrapper_json(
             //since("got config and password")    
             //const db = await orm(db_password)
             since("got db and config")    
-            //@ts-ignore
-            if(is_warmer_event(lambda_event)) return {}
-
+ 
+            if(is_warmer_event(lambda_event)) {
+                    
+                console.log("Evocation was a warmer event")
+                //@ts-ignore
+                return {}
+            }
             const user = await get_user_from_event(lambda_event, db, config)
             since("got user")
 

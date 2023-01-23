@@ -177,5 +177,12 @@ if (!(typeof document.addEventListener === "undefined" || hidden === undefined))
     }, false);
 }
 
+setInterval(() => {
+    if (!document[hidden]) {
+        // @ts-ignore
+        dispatch(user.actions.getUser())
+    }
+}, 180000)
+
 // @ts-ignore
 fetch('/api/env', "GET").then(j => dispatch({type: 'APP_UPDATE_ENV', env: j.env}));
