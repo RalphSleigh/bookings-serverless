@@ -39,7 +39,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         }
     }
     catch (e) {
-
+        log("General failure:")
+        log(e)
         await flush_logs()
         return {
             statusCode: 500,
