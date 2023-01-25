@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { get_config } from './config';
 import { flush_logs, log } from './logging';
 import { UserModel } from './models/user';
@@ -18,8 +18,8 @@ export type LambdaJSONHandlerFunction = (lambda_event: LambdaJSONHandlerEvent, d
 export function lambda_wrapper_json(
     permissions: PermissionFuntion[],
     handler: LambdaJSONHandlerFunction):
-    (event: APIGatewayProxyEvent) => Promise<APIGatewayProxyResult> {
-    return async (lambda_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    (event: APIGatewayProxyEvent, context: Context) => Promise<APIGatewayProxyResult> {
+    return async (lambda_event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
         start()
         //console.log("Entered handler code")
         try {
@@ -71,7 +71,7 @@ export function lambda_wrapper_json(
         catch (e) {
             console.log("General failure:")
             console.log(e)
-            log("General failure:")
+            log(`General failure in ${context.functionName }`)
             log(e)
             return {
                 statusCode: 500,

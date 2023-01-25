@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { get_config, lambda_wrapper_json, orm, user } from '../../../lambda-common'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
@@ -15,7 +15,7 @@ import { start } from '../../../lambda-common/timer';
  *
  */
 
-export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const lambdaHandler = async (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
     try {
         start()
         const config = await get_config()
@@ -41,7 +41,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         }
     }
     catch (e) {
-        log("General failure:")
+        log(`General failure in ${context.functionName }`)
         log(e)
         await flush_logs()
         return {
