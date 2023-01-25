@@ -59,7 +59,7 @@ export const orm = async (password: Promise<any> | null = null): Promise<db> => 
         },
         hooks: {
             beforeConnect :async (config) => {
-                //console.log("resolving password")
+                console.log("resolving password")
                 const db_password = await password
                 const parsed_password = JSON.parse(db_password)
                 config.password = parsed_password.password
