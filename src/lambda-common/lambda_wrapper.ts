@@ -71,6 +71,8 @@ export function lambda_wrapper_json(
         catch (e) {
             console.log("General failure:")
             console.log(e)
+            log("General failure:")
+            log(e)
             return {
                 statusCode: 500,
                 body: JSON.stringify({
