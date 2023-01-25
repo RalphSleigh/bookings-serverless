@@ -7,6 +7,6 @@ export function start(){
 
 export function since(event: string) {
     const now = Date.now()
-    //console.log(`${event} total: ${now - start_time!}, since: ${now - last!}`)
+    console.log(`${event} total: ${now - start_time!}, since: ${now - last!}`)
     last = now
 }
