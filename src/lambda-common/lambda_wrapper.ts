@@ -8,6 +8,7 @@ import SecretsManager from './secrets';
 import { since, start } from './timer';
 import { get_user_from_event } from './user';
 import { is_warmer_event } from './warmer';
+import {serializeError } from 'serialize-error';
 
 export type LambdaJSONHandlerEvent = Pick<APIGatewayProxyEvent, Exclude<keyof APIGatewayProxyEvent, 'body'>> & { 
     body: any
@@ -70,7 +71,7 @@ export function lambda_wrapper_json(
         }
         catch (e) {
             console.log("General failure:")
-            console.log(e)
+            console.log(serializeError(e))
             log(`General failure in ${context.functionName }`)
             log(e)
             return {

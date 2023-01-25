@@ -5,6 +5,7 @@ import cookie from 'cookie'
 import { flush_logs, log } from '../../../lambda-common/logging';
 import { start } from '../../../lambda-common/timer';
 import { is_warmer_event } from '../../../lambda-common/warmer';
+import {serializeError } from 'serialize-error';
 
 /**
  *
@@ -51,7 +52,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent, context: Contex
     }
     catch (e) {
         log(`General failure in ${context.functionName }`)
-        log(e)
+        log(serializeError(e))
         await flush_logs()
         return {
             statusCode: 500,
