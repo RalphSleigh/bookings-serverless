@@ -43,6 +43,7 @@ export function warm_frontend() {
         "function_bookings_edit",
         "function_bookings_get",
         "function_apply",
-        "function_user_logout"
+        "function_user_logout",
+        "function_role_create"
     ])
 }
