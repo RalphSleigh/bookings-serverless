@@ -9,7 +9,7 @@ class SecretsManager {
     /**
      * Uses AWS Secrets Manager to retrieve a secret
      */
-    static async getSecret (secretName: string){
+    static async getSecret (secretName: string): Promise<string> {
 
         if(secret_cache) return secret_cache
         if(!am_in_lambda())return '{"password":"my-secret-pw"}'
@@ -23,7 +23,7 @@ class SecretsManager {
             console.log(JSON.stringify(secretValue))
             if ('SecretString' in secretValue) {
                 since("returning secret:")
-                secret_cache = secretValue.SecretString
+                secret_cache = secretValue.SecretString!
                 return secret_cache
             } else {
                 //@ts-ignore
@@ -52,6 +52,7 @@ class SecretsManager {
                 // Deal with the exception here, and/or rethrow at your discretion.
                 throw err;
         }
+        return '{"password":"my-secret-pw"}'
     } 
 }
 
