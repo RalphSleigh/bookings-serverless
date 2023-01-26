@@ -21,7 +21,6 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent, context: Contex
     try {
 
         if(is_warmer_event(event)) {
-                    
             console.log("Evocation was a warmer event")
             //@ts-ignore
             return {}

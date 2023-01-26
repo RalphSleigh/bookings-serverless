@@ -37,7 +37,7 @@ export function lambda_wrapper_json(
             since("got db and config")    
  
             if(is_warmer_event(lambda_event)) {
-                    
+                await password
                 console.log("Evocation was a warmer event")
                 //@ts-ignore
                 return {}
