@@ -8,7 +8,7 @@ import SecretsManager from './secrets';
 import { since, start } from './timer';
 import { get_user_from_event } from './user';
 import { is_warmer_event } from './warmer';
-import {serializeError } from 'serialize-error';
+import { serializeError } from 'serialize-error';
 
 export type LambdaJSONHandlerEvent = Pick<APIGatewayProxyEvent, Exclude<keyof APIGatewayProxyEvent, 'body'>> & { 
     body: any

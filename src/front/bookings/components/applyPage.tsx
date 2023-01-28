@@ -14,6 +14,7 @@ import {
     Input,
     Form
 } from 'reactstrap';
+import { DebounceButton } from '../../debounceButton';
 
 
 //Apply to be able to book an event
@@ -59,10 +60,10 @@ Which Woodcraft District/IFM organisation are you booking:
 Approximately how many people are you planning to bring:`}
                                    onChange={this.updateMessage}/>
                         </FormGroup>
-                        <Button color="primary"
+                        <DebounceButton color="primary"
                                 onClick={this.apply}
                                 disabled={this.state.message === ''}
-                        >Submit</Button>
+                        >Submit</DebounceButton>
                     </Form>
                 </Col>
             </Row>

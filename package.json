@@ -88,7 +88,7 @@
     "redux-thunk": "^2.1.0",
     "resolve-url-loader": "^2.3.0",
     "sequelize": "^6.25.3",
-    "serialize-error": "^11.0.0",
+    "serialize-error": "^8.1.0",
     "storage-factory": "^0.1.0",
     "style-loader": "^0.19.1",
     "ts-loader": "^9.4.1",
