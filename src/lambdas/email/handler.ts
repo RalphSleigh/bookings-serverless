@@ -2,7 +2,7 @@ import { get_config } from "../../lambda-common"
 import { get_email_client } from "../../lambda-common/email"
 
 //@ts-ignore
-import emails from "../../lambda-common/email/*"
+import emails from "../../lambda-common/emails/*"
 
 
 export const lambdaHandler = async (event: any): Promise<any> => {
