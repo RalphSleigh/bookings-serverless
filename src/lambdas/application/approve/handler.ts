@@ -46,10 +46,8 @@ export const lambdaHandler = lambda_wrapper_json([decide_application],
 
         const email = get_email_client(config)
         const values = { event: event, user: user };
-        await email.single(user!.email, applicationApproved, values);
+        email.single(user!.email, applicationApproved, values);
 
         return { events: [event] }
-
-
     })
 
