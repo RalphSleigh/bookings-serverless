@@ -7,6 +7,7 @@ import mailcomposer from "mailcomposer";
 import htmlToText from 'html-to-text';
 
 import { auth, gmail } from '@googleapis/gmail'
+import { serializeError } from 'serialize-error';
 
 class realEmailSender {
     jwtClient: any;
@@ -69,7 +70,7 @@ class realEmailSender {
                         mimeType: "message/rfc822"
                     }
                 }), { startingDelay: 2000 })
-                .catch(e => console.log);
+                .catch(e => console.log(serializeError(e)));
         })
     }
 
