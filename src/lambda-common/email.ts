@@ -13,6 +13,7 @@ import { Lambda } from "aws-sdk"
 class realEmailSender {
     jwtClient: any;
     config: any;
+    authPromise: any;
 
     constructor(config) {
 
@@ -25,18 +26,15 @@ class realEmailSender {
             config.EMAIL_FROM
         );
 
-        this.jwtClient.authorize(function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
+        this.authPromise = this.jwtClient.authorize();
 
     }
 
     async single(to, template, values) {
-
         try {
             console.log(`Emailing ${to} template ${template.name}`)
+
+            await this.authPromise
 
             values.event.customQuestions.emailSubjectTag = values.event.customQuestions.emailSubjectTag || '';
 
@@ -72,12 +70,16 @@ class realEmailSender {
                     reject(err)
                 }
 
+                console.log("message is")
+                console.log("message")
                 resolve(message)
             }))
 
             const gmail_instance = gmail({ version: 'v1', auth: this.jwtClient });
 
-            await backOff(() => gmail_instance.users.messages.send(
+            await backOff(() => {
+                console.log("send attempt")
+                 return gmail_instance.users.messages.send(
                 {
                     auth: this.jwtClient,
                     userId: 'bookings-auto@woodcraft.org.uk',
@@ -85,7 +87,8 @@ class realEmailSender {
                         body: message,
                         mimeType: "message/rfc822"
                     }
-                }), { startingDelay: 2000 })
+                })
+            }, { startingDelay: 2000 })
         }
         catch (e) {
             console.log(serializeError(e))
