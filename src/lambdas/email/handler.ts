@@ -14,6 +14,9 @@ export const lambdaHandler = async (event: any): Promise<any> => {
     
     const template = emails.find(t => t.name == event.email.name)
 
+    console.log(emails)
+    console.log(template)
+
     switch(event.email.type) {
         case "single":
             await email.single(event.email.to, template, event.email.values)
