@@ -46,7 +46,7 @@ export function warm_frontend() {
         "function_apply",
         "function_user_logout",
         "function_events_details",
-        "functiun_bookings_event",
+        "function_bookings_event",
         "function_client_error"
     ])
 }
