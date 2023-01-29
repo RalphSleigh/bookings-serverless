@@ -71,7 +71,7 @@ class realEmailSender {
                 }
 
                 console.log("message is")
-                console.log("message")
+                console.log(message)
                 resolve(message)
             }))
 
@@ -91,6 +91,7 @@ class realEmailSender {
             }, { startingDelay: 2000 })
         }
         catch (e) {
+            console.log("error in email single")
             console.log(serializeError(e))
         }
     }
