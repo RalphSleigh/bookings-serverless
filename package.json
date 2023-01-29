@@ -53,6 +53,7 @@
     "moment": "^2.29.4",
     "moment-random": "^1.1.0",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^6.9.1",
     "path-parser": "^6.1.0",
     "react": "^16.8.6",
     "react-addons-shallow-compare": "^15.4.1",

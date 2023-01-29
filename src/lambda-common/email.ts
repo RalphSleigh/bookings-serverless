@@ -3,7 +3,10 @@ import { backOff } from 'exponential-backoff';
 import { Op } from 'sequelize';
 
 import path from 'path';
-import mailcomposer from "mailcomposer";
+//import mailcomposer from "mailcomposer";
+
+import MailComposer from 'nodemailer/lib/mail-composer'
+
 import htmlToText from 'html-to-text';
 
 import { auth, gmail } from '@googleapis/gmail'
@@ -43,7 +46,9 @@ class realEmailSender {
             const htmlEmail = template.html(values, this.config);
             const textEmail = htmlToText.fromString(htmlEmail);
 
-            const mail = mailcomposer({
+
+            console.log("building message")
+            const message = await new MailComposer({
                 from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
                 sender: this.config.emailFrom,
                 replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
@@ -51,7 +56,12 @@ class realEmailSender {
                 subject: subject,
                 text: textEmail,
                 html: htmlEmail
-            });
+            }).compile().build();
+            console.log("finished")
+            console.log(message)
+
+            /*
+            const message = mailcomposer();
 
             console.log({
                 from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
@@ -81,6 +91,7 @@ class realEmailSender {
                     resolve(message)
                 })
             })
+            */
 
             const gmail_instance = gmail({ version: 'v1', auth: this.jwtClient });
 
