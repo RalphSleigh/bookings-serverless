@@ -63,31 +63,38 @@ class realEmailSender {
                 html: htmlEmail
             })
 
-            const message = await new Promise((resolve, reject) => mail.build((err, message) => {
+            console.log("building message")
+            const message = await new Promise((resolve, reject) => {
+                console.log("message build running")
+                mail.build((err, message) => {
+                    console.log("finished")
+                    console.log(err)
+                    console.log(message)
+                    console.log("continuing")
+                    if (err) {
+                        console.log(err);
+                        reject(err)
+                    }
 
-                if (err) {
-                    console.log(err);
-                    reject(err)
-                }
-
-                console.log("message is")
-                console.log(message)
-                resolve(message)
-            }))
+                    console.log("message is")
+                    console.log(message)
+                    resolve(message)
+                })
+            })
 
             const gmail_instance = gmail({ version: 'v1', auth: this.jwtClient });
 
             await backOff(() => {
                 console.log("send attempt")
-                 return gmail_instance.users.messages.send(
-                {
-                    auth: this.jwtClient,
-                    userId: 'bookings-auto@woodcraft.org.uk',
-                    media: {
-                        body: message,
-                        mimeType: "message/rfc822"
-                    }
-                })
+                return gmail_instance.users.messages.send(
+                    {
+                        auth: this.jwtClient,
+                        userId: 'bookings-auto@woodcraft.org.uk',
+                        media: {
+                            body: message,
+                            mimeType: "message/rfc822"
+                        }
+                    })
             }, { startingDelay: 2000 })
         }
         catch (e) {
