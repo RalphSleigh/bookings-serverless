@@ -42,8 +42,35 @@ export function warm_frontend() {
         "function_bookings_create",
         "function_bookings_edit",
         "function_bookings_get",
+        "function_bookings_delete",
         "function_apply",
         "function_user_logout",
-        "function_role_create"
+        "function_events_details",
+        "functiun_bookings_event",
+        "function_client_error"
+    ])
+}
+
+export function warm_management() {
+    return warm([
+        "function_user_list",
+        "function_bookings_syncmax",
+        "function_bookings_event",
+        "function_village_create",
+        "function_village_delete",
+        "function_village_assign",
+        "function_village_rename",
+        "function_application_decline",
+        "function_application_approve",
+        "function_role_create",
+        "function_role_delete",
+        "function_payment_add",
+        "function_membership_approve",
+        "function_membership_unapprove",
+        "function_dbs_approve",
+        "function_dbs_unapprove",
+        "function_membership_approve",
+        "function_membership_approve",
+        "function_membership_approve",
     ])
 }
