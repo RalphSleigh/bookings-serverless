@@ -18,6 +18,7 @@ import {
 //import { manageEventCheck } from '../permission.ts'
 
 import ReactMarkdown from "react-markdown"
+import { DebounceButton } from '../../debounceButton';
 
 export default class Applications extends React.Component<any, any> {
 
@@ -139,10 +140,10 @@ const ApplicationRow = props => {
                     </FormGroup>
                     <FormGroup row>
                         <Col>
-                            <Button type="submit" color="success" onClick={props.approve}>Approve
-                            </Button>
-                            <Button type="submit" color="danger" className="ml-2" onClick={props.decline}>Decline
-                            </Button>
+                            <DebounceButton color="success" onClick={props.approve}>Approve
+                            </DebounceButton>
+                            <DebounceButton color="danger" className="ml-2" onClick={props.decline}>Decline
+                            </DebounceButton>
                         </Col>
                     </FormGroup>
                 </Col>
