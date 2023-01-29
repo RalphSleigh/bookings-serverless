@@ -28,8 +28,10 @@ export const lambdaHandler = lambda_wrapper_json([apply_to_event],
 
     const email = get_email_client(config)
     const emailData: any = event!.get({plain: true});
+    //oh god
     emailData.user = current_user;
-    emailData.event = emailData;//todo fix this
+    emailData.event = event!.get({plain: true});
+    emailData.event.user = current_user
     email.single(current_user.email, applicationReceived, emailData);
     email.toManagers(managerApplicationReceived, emailData);
 
