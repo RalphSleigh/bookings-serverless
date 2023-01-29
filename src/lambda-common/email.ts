@@ -55,6 +55,16 @@ class realEmailSender {
                 html: htmlEmail
             });
 
+            console.log({
+                from: "Woodcraft Folk Bookings <" + this.config.emailFrom + ">",
+                sender: this.config.emailFrom,
+                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.emailFrom,
+                to: to,
+                subject: subject,
+                text: textEmail,
+                html: htmlEmail
+            })
+
             const message = await new Promise((resolve, reject) => mail.build((err, message) => {
 
                 if (err) {
