@@ -20,5 +20,5 @@ export const DebounceButton = props => {
         setDisabled(true)
     }
 
-    return <Button color={props.color} disabled={!!(props.disabled || disabled)} onClick={onClick}>{props.children}</Button>
+    return <Button className = {props.className} color={props.color} disabled={!!(props.disabled || disabled)} onClick={onClick}>{props.children}</Button>
 }
