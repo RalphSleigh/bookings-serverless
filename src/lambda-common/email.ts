@@ -46,9 +46,9 @@ class realEmailSender {
             const textEmail = htmlToText.fromString(htmlEmail);
 
             const mail = mailcomposer({
-                from: "Woodcraft Folk Bookings <" + this.config.emailFrom + ">",
+                from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
                 sender: this.config.emailFrom,
-                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.emailFrom,
+                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
                 to: to,
                 subject: subject,
                 text: textEmail,
@@ -56,9 +56,9 @@ class realEmailSender {
             });
 
             console.log({
-                from: "Woodcraft Folk Bookings <" + this.config.emailFrom + ">",
-                sender: this.config.emailFrom,
-                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.emailFrom,
+                from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
+                sender: this.config.EMAIL_FROM,
+                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
                 to: to,
                 subject: subject,
                 text: textEmail,

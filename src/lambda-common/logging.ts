@@ -1,4 +1,5 @@
 import { CloudWatchLogs } from 'aws-sdk'
+import { serializeError } from 'serialize-error'
 import am_in_lambda from './am_in_lambda'
 
 let sequence_token: undefined | string
@@ -26,14 +27,19 @@ async function get_sequence_token() {
 }
 
 export function log(message) {
-    if(!am_in_lambda()) return
-    console.log(`Logging: ${message}`)
-    if (task) { //@ts-ignore
-        console.log("chaining onto task")
-        task = task.then(() => send_log(message))
-    } else {
-        console.log("setting task")
-        task = send_log(message)
+    try {
+        if (!am_in_lambda()) return
+        console.log(`Logging: ${message}`)
+        if (task) { //@ts-ignore
+            console.log("chaining onto task")
+            task = task.then(() => send_log(message))
+        } else {
+            console.log("setting task")
+            task = send_log(message)
+        }
+    } catch (e) {
+        console.log("Error logging to cloudwatch")
+        console.log(serializeError(e))
     }
 }
 
@@ -80,6 +86,11 @@ async function send_log(message: any, retry = 5) {
 }
 
 export async function flush_logs() {
-    await task
-    task = undefined
+    try {
+        await task
+        task = undefined
+    } catch (e) {
+        console.log("Error flushing logs to cloudwatch")
+        console.log(serializeError(e))
+    }
 }
