@@ -96,16 +96,12 @@ class realEmailSender {
             include: [{ model: db.user }]
         }); 
 
-        console.log(values.event)
-        console.log(owner)
-        console.log(managers)
-
         values.emailUser = owner;
         
-        //await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
-        //    values.emailUser = m.user;
-         //   return this.single(m.user!.email, template, values);
-        //})]);
+        await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
+            values.emailUser = m.user;
+           return this.single(m.user!.email, template, values);
+        })]);
     }
 }
 
