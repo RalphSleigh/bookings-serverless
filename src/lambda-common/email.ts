@@ -83,28 +83,18 @@ class realEmailSender {
         const db = await orm()
 
         const owner = await db.user.findOne({ where: { id: { [Op.eq]: values.event.userId } } });
-        /*
         const managers = await db.role.findAll({
+            //@ts-ignore
             where: {
                 [Op.and]: {
                     eventId: { [Op.eq]: values.event.id },
                     name: { [Op.eq]: 'Manage' },
-                    organisationId: { [Op.eq]: undefined },
-                    villageId: { [Op.eq]: undefined }
+                    organisationId: { [Op.eq]: null },
+                    villageId: { [Op.eq]: null }
                 }
             },
             include: [{ model: db.user }]
         }); 
-        */
-
-        const managers = await db.role.findAll({
-            where: {
-                [Op.and]: {
-                    eventId: { [Op.eq]: values.event.id }
-                }
-            },
-            include: [{ model: db.user }]
-        });
 
         console.log(values.event)
         console.log(owner)
