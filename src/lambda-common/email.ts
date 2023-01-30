@@ -46,17 +46,6 @@ class realEmailSender {
             const htmlEmail = template.html(values, this.config);
             const textEmail = htmlToText.fromString(htmlEmail);
 
-
-            const mail_options = {
-                from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
-                sender: this.config.EMAIL_FROM,
-                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
-                to: to,
-                subject: "test",
-                text:"test",
-                html: "test"
-            }
-/*
             const mail_options = {
                 from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
                 sender: this.config.EMAIL_FROM,
@@ -66,49 +55,10 @@ class realEmailSender {
                 text: textEmail,
                 html: htmlEmail
             }
-*/
-            console.log(mail_options)
-            console.log("building message")
+
             const message = await new MailComposer(mail_options).compile().build();
-            console.log("finished")
-            console.log(message)
-
-            /*
-            const message = mailcomposer();
-
-            console.log({
-                from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
-                sender: this.config.EMAIL_FROM,
-                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
-                to: to,
-                subject: subject,
-                text: textEmail,
-                html: htmlEmail
-            })
-
-            console.log("building message")
-            const message = await new Promise((resolve, reject) => {
-                console.log("message build running")
-                mail.build((err, message) => {
-                    console.log("finished")
-                    console.log(err)
-                    console.log(message)
-                    console.log("continuing")
-                    if (err) {
-                        console.log(err);
-                        reject(err)
-                    }
-
-                    console.log("message is")
-                    console.log(message)
-                    resolve(message)
-                })
-            })
-            */
-
             const gmail_instance = gmail({ version: 'v1', auth: this.jwtClient });
 
-            /*
             await backOff(() => {
                 console.log("send attempt")
                 return gmail_instance.users.messages.send(
@@ -121,7 +71,6 @@ class realEmailSender {
                         }
                     })
             }, { startingDelay: 2000 })
-            */
         }
         catch (e) {
             console.log("error in email single")
@@ -162,11 +111,11 @@ class nullEmailSender {
     constructor(config) {
     }
 
-    single(to, template, values) {
+    async single(to, template, values) {
         console.log(`NOT Emailing ${to} template ${template.name}`)
     }
 
-    toManagers(template, values) {
+    async toManagers(template, values) {
         console.log(`NOT Emailing managers of ${values.event.name} template ${template.name}`)
     }
 }

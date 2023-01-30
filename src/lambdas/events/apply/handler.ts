@@ -23,7 +23,7 @@ import { postToDiscord } from '../../../lambda-common/discord';
 export const lambdaHandler = lambda_wrapper_json([apply_to_event],
     async (lambda_event, db, config, current_user) => {
     lambda_event.body.userId = current_user.id;
-    // const application = await db.application.create(lambda_event.body)
+    const application = await db.application.create(lambda_event.body)
     const user = await get_user_from_event(lambda_event, db, config)
     const event = await db.event.findOne({where: {id: {[Op.eq]: lambda_event.body.eventId}}})
 
@@ -33,8 +33,8 @@ export const lambdaHandler = lambda_wrapper_json([apply_to_event],
     emailData.user = current_user;
     emailData.event = clone(event!.get({plain: true}))
     emailData.event.user = current_user
-    email.single(current_user.email, applicationReceived, emailData);
-    email.toManagers(managerApplicationReceived, emailData);
+    await email.single(current_user.email, applicationReceived, emailData);
+    await email.toManagers(managerApplicationReceived, emailData);
 
     await postToDiscord(config, `Application reveived from ${user.userName} (${user.email})`)
 
