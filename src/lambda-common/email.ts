@@ -47,8 +47,7 @@ class realEmailSender {
             const textEmail = htmlToText.fromString(htmlEmail);
 
 
-            console.log("building message")
-            const message = await new MailComposer({
+            const mail_options = {
                 from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
                 sender: this.config.emailFrom,
                 replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
@@ -56,7 +55,11 @@ class realEmailSender {
                 subject: subject,
                 text: textEmail,
                 html: htmlEmail
-            }).compile().build();
+            }
+
+            console.log(mail_options)
+            console.log("building message")
+            const message = await new MailComposer(mail_options).compile().build();
             console.log("finished")
             console.log(message)
 
