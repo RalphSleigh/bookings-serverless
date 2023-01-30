@@ -48,7 +48,7 @@ export const orm = async (password: Promise<any> | null = null): Promise<db> => 
 
     const sequelize = new Sequelize(db_string, {
         //operatorsAliases: Op.Aliases,
-        logging: true,
+        logging: false,
         dialectModule: mariadb,
         pool: {
             max: 2,
