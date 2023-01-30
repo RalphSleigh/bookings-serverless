@@ -83,7 +83,7 @@ class realEmailSender {
         const db = await orm()
 
         const owner = await db.user.findOne({ where: { id: { [Op.eq]: values.event.userId } } });
-
+        /*
         const managers = await db.role.findAll({
             where: {
                 [Op.and]: {
@@ -91,6 +91,16 @@ class realEmailSender {
                     name: { [Op.eq]: 'Manage' },
                     organisationId: { [Op.eq]: undefined },
                     villageId: { [Op.eq]: undefined }
+                }
+            },
+            include: [{ model: db.user }]
+        }); 
+        */
+
+        const managers = await db.role.findAll({
+            where: {
+                [Op.and]: {
+                    eventId: { [Op.eq]: values.event.id }
                 }
             },
             include: [{ model: db.user }]
@@ -102,10 +112,10 @@ class realEmailSender {
 
         values.emailUser = owner;
         
-        await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
-            values.emailUser = m.user;
-            return this.single(m.user!.email, template, values);
-        })]);
+        //await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
+        //    values.emailUser = m.user;
+         //   return this.single(m.user!.email, template, values);
+        //})]);
     }
 }
 
