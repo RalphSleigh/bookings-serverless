@@ -1,6 +1,7 @@
 import { db, orm } from './orm.js';
 import { backOff } from 'exponential-backoff';
 import { Op } from 'sequelize';
+import { clone } from 'lodash'
 
 import path from 'path';
 //import mailcomposer from "mailcomposer";
@@ -12,6 +13,7 @@ import htmlToText from 'html-to-text';
 import { auth, gmail } from '@googleapis/gmail'
 import { serializeError } from 'serialize-error';
 import { Lambda } from "aws-sdk"
+import { cloneDeep } from 'sequelize/types/utils.js';
 
 class realEmailSender {
     jwtClient: any;
@@ -99,8 +101,9 @@ class realEmailSender {
         values.emailUser = owner;
         
         await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
-            values.emailUser = m.user;
-           return this.single(m.user!.email, template, values);
+            const new_values = clone(values)
+            new_values.emailUser = m.user;
+           return this.single(m.user!.email, template, new_values);
         })]);
     }
 }
