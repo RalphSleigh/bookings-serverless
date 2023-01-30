@@ -49,14 +49,24 @@ class realEmailSender {
 
             const mail_options = {
                 from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
-                sender: this.config.emailFrom,
+                sender: this.config.EMAIL_FROM,
+                replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
+                to: to,
+                subject: "test",
+                text:"test",
+                html: "test"
+            }
+/*
+            const mail_options = {
+                from: "Woodcraft Folk Bookings <" + this.config.EMAIL_FROM + ">",
+                sender: this.config.EMAIL_FROM,
                 replyTo: values.event.customQuestions.emailReply ? values.event.customQuestions.emailReply : this.config.EMAIL_FROM,
                 to: to,
                 subject: subject,
                 text: textEmail,
                 html: htmlEmail
             }
-
+*/
             console.log(mail_options)
             console.log("building message")
             const message = await new MailComposer(mail_options).compile().build();
