@@ -2,6 +2,8 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lambda_wrapper_json, user } from '../../../lambda-common'
 import { Op } from 'sequelize';
 import { delete_booking } from '../../../lambda-common/permissions';
+import { get_email_client } from '../../../lambda-common/email';
+import * as managerBookingDeleted from '../../../lambda-common/emails/managerBookingDeleted'
 
 /**
  *
@@ -17,10 +19,13 @@ export const lambdaHandler = lambda_wrapper_json([delete_booking],
     async (lambda_event, db, config, current_user) => {
 
         const booking = await db.booking.findOne({where: {id: lambda_event.body.id},include: [{model:db.event}, {model: db.participant}]})
+
+        const email = get_email_client(config)
+
         const emailData: any = booking!.get({plain: true});
         emailData.user = current_user;
         //email.single(booking.userEmail, 'updated', emailData);
-        //email.toManagers('managerBookingDeleted', emailData);
+        await email.toManagers(managerBookingDeleted, emailData);
         await booking!.destroy()
         const bookings = await db.booking.findAll({
             where:

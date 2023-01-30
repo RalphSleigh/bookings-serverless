@@ -20,7 +20,7 @@ class SecretsManager {
         try {
             since("fetching secret:")
             let secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
-            console.log(JSON.stringify(secretValue))
+            //console.log(JSON.stringify(secretValue))
             if ('SecretString' in secretValue) {
                 since("returning secret:")
                 secret_cache = secretValue.SecretString!
