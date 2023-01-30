@@ -96,6 +96,7 @@ class realEmailSender {
             include: [{ model: db.user }]
         });
 
+        console.log(values.event)
         console.log(owner)
         console.log(managers)
 
