@@ -95,6 +95,7 @@ class realEmailSender {
 
             const gmail_instance = gmail({ version: 'v1', auth: this.jwtClient });
 
+            /*
             await backOff(() => {
                 console.log("send attempt")
                 return gmail_instance.users.messages.send(
@@ -107,6 +108,7 @@ class realEmailSender {
                         }
                     })
             }, { startingDelay: 2000 })
+            */
         }
         catch (e) {
             console.log("error in email single")
