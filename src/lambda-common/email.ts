@@ -96,6 +96,8 @@ class realEmailSender {
             include: [{ model: db.user }]
         });
 
+        console.log(owner)
+        console.log(managers)
 
         values.emailUser = owner;
         
