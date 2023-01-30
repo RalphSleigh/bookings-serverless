@@ -149,11 +149,11 @@ class realEmailSender {
 
 
         values.emailUser = owner;
-        this.single(owner!.email, template, values);
-        await Promise.all(managers.map(m => {
+        
+        await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
             values.emailUser = m.user;
             return this.single(m.user!.email, template, values);
-        }));
+        })]);
     }
 }
 
