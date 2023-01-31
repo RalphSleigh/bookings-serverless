@@ -17,12 +17,13 @@ export function log(message) {
         if (!am_in_lambda()) return
 
         tasks.push(cloudwatch.putLogEvents({
-        logEvents: [{
-            message: message,
-            timestamp: Date.now()
-        }],
-        logGroupName: log_group,
-        logStreamName: log_stream).promise())
+            logEvents: [{
+                message: message,
+                timestamp: Date.now()
+            }],
+            logGroupName: log_group,
+            logStreamName: log_stream
+        }).promise())
     } catch (e) {
         console.log("Error logging to cloudwatch")
         console.log(serializeError(e))
