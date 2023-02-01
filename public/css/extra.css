@@ -520,3 +520,8 @@ td.rdtYear:hover {
     overflow-y: auto;
     overflow-x: hidden;
  }
+
+ input.rbt-input-main {
+    color:black;
+    background: white;
+ }
