@@ -1,9 +1,10 @@
 import * as React                       from 'react'
-import {MultiSelect, SimpleSelect} from 'react-selectize'; //Local version to fix bootstrap dropdowns. REMOVE
 import update                      from 'immutability-helper';
 import * as P                      from '../../../shared/permissions'
 import debounce                    from 'debounce'
 import Moment     from 'moment'
+
+import Select from 'react-select'
 
 import {
     Button,
@@ -166,12 +167,12 @@ export default class Filter extends React.Component<any, any> {
         }).toArray();
 
         orgOptions.forEach(o => {
-            o.selectable = P.viewOrganisation(user, event, o)
+            o.isDisabled = !P.viewOrganisation(user, event, o)
         });
 
 
         villageOptions.forEach(v => {
-            v.selectable = P.viewVillage(user, event, v)
+            v.isDisabled = !P.viewVillage(user, event, v)
         });
 
         const startDate = Moment.utc(event.startDate).startOf('day');
@@ -194,34 +195,28 @@ export default class Filter extends React.Component<any, any> {
                             {event.organisationsEnabled ?
                                 <Col sm={3}>
                                     <Label>Filter by Organisation:</Label>
-                                    <MultiSelect
-                                        // @ts-ignore
-                                        values={this.state.orgs}
-                                        onValuesChange={this.updateOrgs}
+                                    <Select
+                                        isMulti
+                                        onChange={this.updateOrgs}
                                         placeholder={wholeEvent ? "All Organisations" : "All Permissible Organisations"}
                                         options={orgOptions}
-                                        theme="bootstrap3"
                                     />
                                 </Col> : null}
                             <Col sm={3}>
                                 <Label>Filter by Village:</Label>
-                                <MultiSelect
-                                    // @ts-ignore
-                                    values={this.state.villages}
-                                    onValuesChange={this.updateVillages}
+                                <Select
+                                    isMulti
+                                    onChange={this.updateVillages}
                                     placeholder={wholeEvent ? "All Villages" : "All Permissible Villages"}
                                     options={villageOptions}
-                                    theme="bootstrap3"
                                 />
                             </Col></React.Fragment> : null}
                         <Col sm={3}>
                             <Label>Filter by Day:</Label>
-                            <SimpleSelect
-                                value={this.state.day}
-                                onValueChange={this.updateDay}
+                            <Select
+                                onChange={this.updateDay}
                                 placeholder="Any"
                                 options={days}
-                                theme="bootstrap3"
                             />
                         </Col>
                         <Col sm={3}>
