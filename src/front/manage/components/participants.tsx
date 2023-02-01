@@ -295,7 +295,7 @@ export default class Participants extends React.Component<any, any> {
             accessor:   row => row,
             Cell:       row => row.original.p.externalExtra.activityConsent === 'yes' ? '✅' : '',
             Header:     "🛶 ",// @ts-ignore
-            sortMethod: photoSort,
+            sortMethod: activitySort,
             width:      40,
             sortable:   true
         },
@@ -304,7 +304,7 @@ export default class Participants extends React.Component<any, any> {
             accessor:   row => row,
             Cell:       row => row.original.p.externalExtra.sreConsent === 'yes' ? '✅' : '',
             Header:     "👩‍❤️‍👨 ",// @ts-ignore
-            sortMethod: photoSort,
+            sortMethod: sreSort,
             width:      40,
             sortable:   true
         });
@@ -357,6 +357,15 @@ const firstAidSort = (a, b) => {// @ts-ignore
 const photoSort = (a, b) => {// @ts-ignore
     return !!(a.p.externalExtra.photoConsent === 'yes') - !!(b.p.externalExtra.photoConsent === 'yes');
 }
+
+const activitySort = (a, b) => {// @ts-ignore
+    return !!(a.p.externalExtra.activityConsent === 'yes') - !!(b.p.externalExtra.activityConsent === 'yes');
+}
+
+const sreSort = (a, b) => {// @ts-ignore
+    return !!(a.p.externalExtra.sreConsent === 'yes') - !!(b.p.externalExtra.sreConsent === 'yes');
+}
+
 const daysSort = (a, b) => {
     return bitCount(a.p.days) - bitCount(b.p.days);
 }
