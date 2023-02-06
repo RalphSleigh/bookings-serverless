@@ -11,6 +11,7 @@ export async function postToDiscord(config, message) {
             const channel = await guild.channels.fetch(config.DISCORD_CHANNEL_ID)
             //@ts-ignore
             await channel!.send(message);
+            await client.destroy()
         }
     }
     catch (e) {
