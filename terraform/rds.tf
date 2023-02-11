@@ -12,11 +12,11 @@ resource "aws_db_instance" "database" {
   backup_window = "02:30-03:00"
   maintenance_window = "Mon:00:00-Mon:02:00"
   apply_immediately = true
-  parameter_group_name = aws_db_parameter_group.database_parameters
+  parameter_group_name = aws_db_parameter_group.database_parameters.name
 }
 
 resource "aws_db_parameter_group" "database_parameters" {
-  name   = "database_parameters"
+  name   = "database-parameters"
   family = "mariadb"
 
   parameter {
