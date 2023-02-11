@@ -21,19 +21,19 @@ resource "aws_db_parameter_group" "database_parameters" {
 
   parameter {
     name         = "character_set_server"
-    value        = "utf8"
+    value        = "utf8mb4"
     apply_method = "immediate"
   }
 
   parameter {
     name         = "collation_server"
-    value        = "utf8_general_ci"
+    value        = "utf8mb4_general_ci"
     apply_method = "immediate"
   }
 
   parameter {
     name         = "character_set_database"
-    value        = "utf8"
+    value        = "utf8mb4"
     apply_method = "immediate"
   }
 }
