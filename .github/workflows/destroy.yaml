@@ -3,13 +3,10 @@ name: Destroy
 on:
   workflow_dispatch:
     inputs:
-      name:
       branch:
         required: true
       confirm:
         required: true  
-
-
 
 permissions:
   id-token: write
@@ -60,7 +57,7 @@ jobs:
           terraform init -backend-config "bucket=bookings-terraform-state-${{ github.ref_name }}"
 
       - name: terraform destroy
-        if: github.ref_name == inputs.branch && inputs.confirm == "DESTROY"
+        if: github.ref_name == inputs.branch && inputs.confirm == 'DESTROY'
         working-directory: terraform
         run: |
           terraform destroy -auto-approve
