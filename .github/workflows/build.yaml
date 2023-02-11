@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - vcamp
+      - ealing
 
 permissions:
   id-token: write
