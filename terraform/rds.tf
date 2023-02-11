@@ -12,4 +12,28 @@ resource "aws_db_instance" "database" {
   backup_window = "02:30-03:00"
   maintenance_window = "Mon:00:00-Mon:02:00"
   apply_immediately = true
+  parameter_group_name = aws_db_parameter_group.database_parameters
+}
+
+resource "aws_db_parameter_group" "database_parameters" {
+  name   = "database_parameters"
+  family = "mariadb"
+
+  parameter {
+    name         = "character_set_server"
+    value        = "utf8"
+    apply_method = "immediate"
+  }
+
+  parameter {
+    name         = "collation_server"
+    value        = "utf8_general_ci"
+    apply_method = "immediate"
+  }
+
+  parameter {
+    name         = "character_set_database"
+    value        = "utf8"
+    apply_method = "immediate"
+  }
 }
