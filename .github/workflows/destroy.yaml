@@ -1,4 +1,4 @@
-name: Destroy
+name: 
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   destroy:
-    name: Build and Deploy
+    name: Destroy
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
