@@ -1,0 +1,40 @@
+name: Destroy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency: 
+  group: ${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  destroy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      AWS_ACCOUNT_SECRET_KEY: ${{ github.ref_name }}_aws_account
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets[env.AWS_ACCOUNT_SECRET_KEY] }}:role/github-role
+          role-session-name: terraform-session
+          aws-region: eu-west-2
+
+      - name: terraform init
+        working-directory: terraform
+        run: |
+          terraform init -backend-config "bucket=bookings-terraform-state-${{ github.ref_name }}"
+
+      - name: terraform destroy
+        working-directory: terraform
+        run: |
+          terraform destroy -auto-approve

@@ -17,7 +17,7 @@ resource "aws_db_instance" "database" {
 
 resource "aws_db_parameter_group" "database_parameters" {
   name   = "database-parameters"
-  family = "mariadb"
+  family = "mariadb10.5"
 
   parameter {
     name         = "character_set_server"
