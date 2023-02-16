@@ -84,6 +84,7 @@ export default class Graphs extends React.Component<any, any> {
 
         const dietData = [
             {name: 'omnivore', value: 0},
+            {name: 'pescetarian', value: 0},
             {name: 'vegetarian', value: 0},
             {name: 'vegan', value: 0},
         ];
