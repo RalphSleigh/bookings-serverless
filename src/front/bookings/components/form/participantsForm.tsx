@@ -204,7 +204,7 @@ class ParticipantRow extends React.Component<any, any> {
                         vaild={this.props.valid(this.props.diet)}>
                         <option value="">Please Select</option>
                         <option value="omnivore">Omnivore</option>
-                        <option value="pescetarian ">Pescetarian</option>
+                        <option value="pescetarian">Pescetarian</option>
                         <option value="vegetarian">Vegetarian</option>
                         <option value="vegan">Vegan</option>
                     </Input>
