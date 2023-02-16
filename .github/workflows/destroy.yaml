@@ -1,11 +1,12 @@
-name: Build and Deploy
+name: 
 
 on:
-  push:
-    branches:
-      - main
-      - vcamp
-      - ealing
+  workflow_dispatch:
+    inputs:
+      branch:
+        required: true
+      confirm:
+        required: true  
 
 permissions:
   id-token: write
@@ -16,8 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build and Deploy
+  destroy:
+    name: Destroy
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
@@ -48,14 +49,15 @@ jobs:
 
       - name: build front
         run: |
-          npx webpack      
+          npx webpack          
 
       - name: terraform init
         working-directory: terraform
         run: |
           terraform init -backend-config "bucket=bookings-terraform-state-${{ github.ref_name }}"
 
-      - name: terraform apply
+      - name: terraform destroy
+        if: github.ref_name == inputs.branch && inputs.confirm == 'DESTROY'
         working-directory: terraform
         run: |
-          terraform apply -auto-approve
+          terraform destroy -auto-approve
