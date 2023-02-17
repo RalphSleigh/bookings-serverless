@@ -1,0 +1,63 @@
+name: 
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        required: true
+      confirm:
+        required: true  
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency: 
+  group: ${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  destroy:
+    name: Destroy
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      AWS_ACCOUNT_SECRET_KEY: ${{ github.ref_name }}_aws_account
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets[env.AWS_ACCOUNT_SECRET_KEY] }}:role/github-role
+          role-session-name: terraform-session
+          aws-region: eu-west-2
+
+      - name: install base
+        run: |
+          npm ci --include=dev --legacy-peer-deps
+
+      - name: install layer
+        working-directory: common-layer/nodejs
+        run: |
+          npm ci --include=dev --legacy-peer-deps
+
+      - name: build lambdas
+        run: |
+          node esbuild-lambda.js 
+
+      - name: build front
+        run: |
+          npx webpack          
+
+      - name: terraform init
+        working-directory: terraform
+        run: |
+          terraform init -backend-config "bucket=bookings-terraform-state-${{ github.ref_name }}"
+
+      - name: terraform destroy
+        if: github.ref_name == inputs.branch && inputs.confirm == 'DESTROY'
+        working-directory: terraform
+        run: |
+          terraform destroy -auto-approve
