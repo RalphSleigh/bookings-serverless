@@ -386,7 +386,7 @@ const owedFreeEvent = (event, participants, booking) => {
     //@ts-ignore
     const linesu18 = reduce(combinedCostsu18, (a, c, i) => [...a, ...reduce(c, (a1, c1, i1) => [...a1, {
         //@ts-ignore
-        line:  `${c1.count} ${c1.count > 1 ? 'people' : 'person'} under 18 booked for ${c1.type === 'whole' ? 'whole event' : `${i1 - 1} nights`} before ${Moment(i).format('MMMM Do YYYY')} at £${c1.fee}`,
+        line:  `${c1.count} ${c1.count > 1 ? 'people' : 'person'} under 18 booked for ${c1.type === 'whole' ? 'whole event' : `${i1 - 1} nights`} before ${Moment(i).format('MMMM Do YYYY')} at £${c1.fee} (discounted ${c1.fee/5})`,
         total: c1.count * c1.fee
     }], [])], []);
 
