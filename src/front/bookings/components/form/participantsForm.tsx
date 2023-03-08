@@ -254,7 +254,7 @@ class ParticipantRow extends React.Component<any, any> {
                 <Col sm={{ size: 2 }}>
                     <FormGroup check>
                         <Label check>
-                            <Input type="checkbox" checked={!!this.props.externalExtra.pork}
+                            <Input disabled={this.props.diet === "vegan" || this.props.diet === "vegetarian" || this.props.diet === "pescetarian"} type="checkbox" checked={!!this.props.externalExtra.pork}
                                 onChange={this.props.updateExtraCheck('pork')} />{' '}
                             Pork free
                         </Label>

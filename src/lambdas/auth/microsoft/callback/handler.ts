@@ -49,7 +49,9 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         console.log(profile)
 
         try {
-            const user_instance = await user.get_user_from_login(profile.sub, profile.name, profile.email ? profile.email : "", "microsoft")
+            const name = profile.name ? profile.name : profile.given_name
+
+            const user_instance = await user.get_user_from_login(profile.sub, name, profile.email ? profile.email : "", "microsoft")
 
             if (!user_instance) {
                 return {
