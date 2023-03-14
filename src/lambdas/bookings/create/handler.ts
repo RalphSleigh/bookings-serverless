@@ -43,7 +43,7 @@ export const lambdaHandler = lambda_wrapper_json([book_event, book_into_organisa
         const email = get_email_client(config)
         const fees = feeFactory(booking.event);
 
-        await postToDiscord(config, `${current_user.userName} created a booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people`)
+        await postToDiscord(config, `${current_user.userName} (${booking.district}) created a booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people`)
 
         const emailData: any = booking.get({ plain: true });
         emailData.editURL = config.BASE_URL + "/event/" + emailData.eventId + "/book";
