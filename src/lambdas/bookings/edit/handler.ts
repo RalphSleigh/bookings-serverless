@@ -35,8 +35,6 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
 
         if (!booking) throw new Error("booking not found")
 
-        const previous_participant_count = booking.participants?.length
-
         if (moment().isBefore(booking.event!.bookingDeadline)) {
             lambda_event.body.maxParticipants = lambda_event.body.participants.length
         } else {
@@ -44,6 +42,9 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         }
         await booking.update(lambda_event.body)//this ignores partitipants!
         booking = await db.booking.findOne({ where: { id: booking.id }, include: [{ model: db.participant }] }) as BookingModel
+
+        const previous_participant_count = booking.participants?.length
+
         await updateAssociation(db, booking, 'participants', db.participant, lambda_event.body.participants)
         booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] }) as BookingModel
         console.log(`User ${current_user.userName} Editing Booking id ${booking!.id}`);
