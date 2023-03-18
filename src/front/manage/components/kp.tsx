@@ -39,6 +39,7 @@ export default class KP extends React.Component<any, any> {
             return (<tr key={w.name}>
                 <td>{w.name}</td>
                 <td>{people.filter(p => p.diet === "omnivore").length}</td>
+                <td>{people.filter(p => p.diet === "pescetarian").length}</td>
                 <td>{people.filter(p => p.diet === "vegetarian").length}</td>
                 <td>{people.filter(p => p.diet === "vegan").length}</td>
                 <td><b>{people.length}</b></td>
@@ -48,6 +49,7 @@ export default class KP extends React.Component<any, any> {
         groups.push(<tr key="total">
             <td><b>Total:</b></td>
             <td><b>{participants.filter(p => p.diet === "omnivore").length}</b></td>
+            <td><b>{participants.filter(p => p.diet === "pescetarian").length}</b></td>
             <td><b>{participants.filter(p => p.diet === "vegetarian").length}</b></td>
             <td><b>{participants.filter(p => p.diet === "vegan").length}</b></td>
             <td><b>{participants.length}</b></td>
@@ -67,6 +69,7 @@ export default class KP extends React.Component<any, any> {
                     <tr>
                         <th>Age Group</th>
                         <th>Omnivore</th>
+                        <th>Pescetarian</th>
                         <th>Vegetarian</th>
                         <th>Vegan</th>
                         <th><b>Total</b></th>
