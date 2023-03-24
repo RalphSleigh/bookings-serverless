@@ -146,8 +146,7 @@ export default class PermissionForm extends React.Component<any, any> {
                                    onChange={this.updatePermission}/>{' '}
                             I give permission for the people named above to
                             attend {this.props.event.name}.<br/><br/>
-                            I acknowledge it is my responsibility to ensure everyone over 16 attending has up-to-date
-                            Woodcraft Folk membership and completed a DBS check.
+                            I acknowledge it is my responsibility to ensure that everyone over 16 attending has an up-to-date Woodcraft Folk membership; everyone over the age of 18 has completed a DBS check; and anyone aged 16 or 17 taking on a position of responsibility has completed a DBS check. More information can be found on our <a href="https://venturercamp.org.uk/safeguarding/">safeguarding webpage</a>
                             <br/><br/>
                             I agree this information will be stored electronically and shared only with individuals who need this information to
                             engage your child safely in Woodcraft Folk activities. Based on the needs of your child we may also share any relevant
