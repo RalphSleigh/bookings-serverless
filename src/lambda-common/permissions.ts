@@ -139,8 +139,10 @@ export async function create_role_user_has_2fa(lambda_event: PermissionEvent, us
 }
 
 export async function delete_role(lambda_event: PermissionEvent, user: UserModel, db: db) {
-    const event = await db.event.findOne({where: {id: {[Op.eq]: lambda_event.body.eventId}}});
-    if(!P.createRole(user, event)) throw new Error("P.createRole failed")
+
+    const role = await db.role.findOne({ where: { id: { [Op.eq]: lambda_event.body.id } }, include: [{model: db.event}] })
+
+    if(!P.createRole(user, role!.event)) throw new Error("P.createRole failed")
 }
 
 export async function add_payment(lambda_event: PermissionEvent, user: UserModel, db: db) {

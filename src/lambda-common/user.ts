@@ -51,8 +51,14 @@ export async function get_user_from_login(id: string | undefined | null, display
             user: user.userName
         });
         */
+
+        if(user.userName !== displayName) {
+            user.userName = displayName
+            await user.save()
+        }
+
        log(`found user ${user.remoteId} ${user.userName}`)
-        return user;
+       return user;
     }
     //Do we have a user with the right email but no remote id?
     if (typeof email === 'string') {

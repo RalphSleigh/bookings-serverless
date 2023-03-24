@@ -1,4 +1,5 @@
 import { Sequelize, DataTypes, InferAttributes, Model, InferCreationAttributes, CreationOptional, Op } from "sequelize";
+import { EventModel } from "./event";
 import { OrganisationModel } from "./organisation";
 import { UserModel } from "./user";
 import { VillageModel } from "./village";
@@ -8,14 +9,13 @@ export interface RoleModel extends Model<InferAttributes<RoleModel>, InferCreati
 	name: string
 	note?: string
 	eventId?: number
+	event?: EventModel
 	organisationId?: number
 	villageId?: number
 	userId: number
-
 	user?: UserModel
 	village?: VillageModel
 	organisation?: OrganisationModel
-
 }
 
 export function define(sequelize: Sequelize) {

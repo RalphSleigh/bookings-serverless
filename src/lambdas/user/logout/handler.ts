@@ -1,8 +1,11 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { get_config, lambda_wrapper_json, orm, user } from '../../../lambda-common'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
 import { flush_logs, log } from '../../../lambda-common/logging';
+import { start } from '../../../lambda-common/timer';
+import { is_warmer_event } from '../../../lambda-common/warmer';
+import {serializeError } from 'serialize-error';
 
 /**
  *
@@ -14,8 +17,16 @@ import { flush_logs, log } from '../../../lambda-common/logging';
  *
  */
 
-export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const lambdaHandler = async (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
     try {
+
+        if(is_warmer_event(event)) {
+            console.log("Evocation was a warmer event")
+            //@ts-ignore
+            return {}
+        }
+
+        start()
         const config = await get_config()
         const db = await orm()
 
@@ -39,7 +50,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         }
     }
     catch (e) {
-
+        log(`General failure in ${context.functionName }`)
+        log(serializeError(e))
         await flush_logs()
         return {
             statusCode: 500,

@@ -49,7 +49,5 @@ export const lambdaHandler = lambda_wrapper_json([decide_application],
         await email.single(user!.email, applicationApproved, values);
 
         return { events: [event] }
-
-
     })
 

@@ -53,10 +53,11 @@ export default class Participants extends React.Component<any, any> {
 
         const used_fields = fields.filter(f => f.is_enabled(event))
 
-        const headers = used_fields.map(f => f.get_header()).flat()
+        const headers = used_fields.map(f => f.get_header(event)).flat()
 
         const exportedData = this.props.participants.map(p => {
-            return used_fields.map(f => f.csv_value(p, event)).flat()
+            const b = this.props.bookings.find(b => b.id === p.bookingId);
+            return used_fields.map(f => f.csv_value(p, b, event)).flat()
          })
 
 
@@ -264,7 +265,7 @@ export default class Participants extends React.Component<any, any> {
                                                                   id:         'firstaid',
                                                                   accessor:   row => row,
                                                                   Cell:       row => row.original.p.externalExtra.adultFirstAid === 'yes' ? '✅' : '',
-                                                                  Header:     "⚕️",// @ts-ignore
+                                                                  Header:     "🩹",// @ts-ignore
                                                                   sortMethod: firstAidSort,
                                                                   width:      40,
                                                                   sortable:   true
@@ -279,6 +280,35 @@ export default class Participants extends React.Component<any, any> {
             width:      40,
             sortable:   true
         });
+
+        if (event.customQuestions.vcampConsent) columns.push({
+            id:         'photo',
+            accessor:   row => row,
+            Cell:       row => row.original.p.externalExtra.photoConsent === 'yes' ? '✅' : '',
+            Header:     "📷 ",// @ts-ignore
+            sortMethod: photoSort,
+            width:      40,
+            sortable:   true
+        },
+        {
+            id:         'activity',
+            accessor:   row => row,
+            Cell:       row => row.original.p.externalExtra.activityConsent === 'yes' ? '✅' : '',
+            Header:     "🛶 ",// @ts-ignore
+            sortMethod: activitySort,
+            width:      40,
+            sortable:   true
+        },
+        {
+            id:         'sre',
+            accessor:   row => row,
+            Cell:       row => row.original.p.externalExtra.sreConsent === 'yes' ? '✅' : '',
+            Header:     "👩‍❤️‍👨 ",// @ts-ignore
+            sortMethod: sreSort,
+            width:      40,
+            sortable:   true
+        });
+
 
         const expanded = {[this.state.expanded]: true};
 
@@ -327,6 +357,15 @@ const firstAidSort = (a, b) => {// @ts-ignore
 const photoSort = (a, b) => {// @ts-ignore
     return !!(a.p.externalExtra.photoConsent === 'yes') - !!(b.p.externalExtra.photoConsent === 'yes');
 }
+
+const activitySort = (a, b) => {// @ts-ignore
+    return !!(a.p.externalExtra.activityConsent === 'yes') - !!(b.p.externalExtra.activityConsent === 'yes');
+}
+
+const sreSort = (a, b) => {// @ts-ignore
+    return !!(a.p.externalExtra.sreConsent === 'yes') - !!(b.p.externalExtra.sreConsent === 'yes');
+}
+
 const daysSort = (a, b) => {
     return bitCount(a.p.days) - bitCount(b.p.days);
 }

@@ -42,6 +42,9 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         }
         await booking.update(lambda_event.body)//this ignores partitipants!
         booking = await db.booking.findOne({ where: { id: booking.id }, include: [{ model: db.participant }] }) as BookingModel
+
+        const previous_participant_count = booking.participants?.length
+
         await updateAssociation(db, booking, 'participants', db.participant, lambda_event.body.participants)
         booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] }) as BookingModel
         console.log(`User ${current_user.userName} Editing Booking id ${booking!.id}`);
@@ -55,10 +58,10 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             //@ts-ignore
             emailData.editURL = config.BASE_URL + '/' + (emailData.userId === 1 ? "guestUUID/" + emailData.eventId + "/" + emailData.guestUUID : "event/" + emailData.eventId + "/book");
             emailData.user = current_user;
-            email.single(booking.userEmail, updated, emailData);
-            email.toManagers(managerBookingUpdated, emailData);
+            await email.single(booking.userEmail, updated, emailData);
+            await email.toManagers(managerBookingUpdated, emailData);
 
-            await postToDiscord(config, `${current_user.userName} edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people`)
+            await postToDiscord(config, `${current_user.userName} (${booking.district}) edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people (previously ${previous_participant_count})`)
         }
 
         return { bookings: [booking] }

@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { get_config } from './config';
 import { flush_logs, log } from './logging';
 import { UserModel } from './models/user';
@@ -8,6 +8,7 @@ import SecretsManager from './secrets';
 import { since, start } from './timer';
 import { get_user_from_event } from './user';
 import { is_warmer_event } from './warmer';
+import { serializeError } from 'serialize-error';
 
 export type LambdaJSONHandlerEvent = Pick<APIGatewayProxyEvent, Exclude<keyof APIGatewayProxyEvent, 'body'>> & { 
     body: any
@@ -18,8 +19,8 @@ export type LambdaJSONHandlerFunction = (lambda_event: LambdaJSONHandlerEvent, d
 export function lambda_wrapper_json(
     permissions: PermissionFuntion[],
     handler: LambdaJSONHandlerFunction):
-    (event: APIGatewayProxyEvent) => Promise<APIGatewayProxyResult> {
-    return async (lambda_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    (event: APIGatewayProxyEvent, context: Context) => Promise<APIGatewayProxyResult> {
+    return async (lambda_event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
         start()
         //console.log("Entered handler code")
         try {
@@ -36,7 +37,7 @@ export function lambda_wrapper_json(
             since("got db and config")    
  
             if(is_warmer_event(lambda_event)) {
-                    
+                await password
                 console.log("Evocation was a warmer event")
                 //@ts-ignore
                 return {}
@@ -70,7 +71,9 @@ export function lambda_wrapper_json(
         }
         catch (e) {
             console.log("General failure:")
-            console.log(e)
+            console.log(serializeError(e))
+            log(`General failure in ${context.functionName }`)
+            log(e)
             return {
                 statusCode: 500,
                 body: JSON.stringify({

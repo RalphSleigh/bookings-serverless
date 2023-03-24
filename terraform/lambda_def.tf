@@ -27,6 +27,12 @@ variable "lambda_definitions" {
       path                 = "seed"
       dont_create_endpoint = true
     },
+    email = {
+      name                 = "email"
+      code_dir             = "email"
+      path                 = "email"
+      dont_create_endpoint = true
+    },
     env = {
       name     = "env"
       code_dir = "env"
