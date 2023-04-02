@@ -38,7 +38,7 @@ terraform/files
 database.sqlite
 database.sqlite-journal
 bookings.sqlite
-config.ts
+/config.ts
 server/googlejwt.json
 npm-debug.log
 .eslintrc.json
