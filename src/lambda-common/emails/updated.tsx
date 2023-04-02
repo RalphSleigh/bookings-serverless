@@ -65,7 +65,7 @@ export function html(values) {
             </Item>
             {fees}
             <Item>
-                <ReactMarkdown children={values.event.paymentInfo.replace(/(%%%%)/g, paymentReference(payRef))}/>
+                <ReactMarkdown children={values.event.paymentInfo.replace(/(%%%%)/g, payRef)}/>
             </Item>
         </Email>
     )
