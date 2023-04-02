@@ -287,7 +287,7 @@ export class ThanksRow extends React.Component<any, any>{
         const feesOwed = getFeesOwed(this.props.event, this.props.booking.participants, this.props.booking);
         const tableLines = feesOwed.map(l => <tr key={l.line}>
             <td>{l.line}</td>
-            <td>£{l.total}</td>
+            <td>{l.total > 0 ? `£${l.total}` : `-£${l.total * -1}`}</td>
         </tr>);
 
         return (<Row>
