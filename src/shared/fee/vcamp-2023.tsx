@@ -343,7 +343,7 @@ export function getFeesOwed(event, participants, booking, payments = true) {
         case 'presets':
             return owedPresetEvent(event, participants, booking);
         case 'free':
-            return owedFreeEvent(event, participants, booking);
+            return owedFreeEvent(event, participants, booking, payments);
         default:
             return [{line: "Unsupported attendance/fee combo", total: 0}]
     }
