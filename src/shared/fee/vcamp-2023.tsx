@@ -290,6 +290,10 @@ export class ThanksRow extends React.Component<any, any>{
             <td>{l.total > 0 ? `£${l.total}` : `-£${l.total * -1}`}</td>
         </tr>);
 
+        const total = feesOwed.reduce((a, c) => {
+            return a + c.total
+        }, 0)    
+
         return (<Row>
             <Col>
                 <Table>
@@ -297,9 +301,7 @@ export class ThanksRow extends React.Component<any, any>{
                     <tbody>{tableLines}
                     <tr>
                         <td><b>Total:</b></td>
-                        <td><b>£{feesOwed.reduce((a, c) => {
-                            return a + c.total
-                        }, 0)}</b></td>
+                        <td><b>{total > 0 ? `£${total}` : `-£${total * -1}`}</b></td>
                     </tr>
                     </tbody>
                 </Table>
