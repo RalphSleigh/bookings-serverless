@@ -11,7 +11,6 @@ import ReactMarkdown from 'react-markdown'
 import feeFactory    from '../../shared/fee/feeFactory'
 import paymentReference from "../../shared/paymentReference";
 
-
 export const name = "booking updated"
 
 export function html(values) {
@@ -23,10 +22,6 @@ export function html(values) {
     let button = '';
 
     const payRef = paymentReference(values.id);
-
-    console.log("EMAIL VALUES")
-    console.log(values)
-    console.log(payRef)
 
     switch(values.user.remoteId.substr(0,4)) {
         case 'goog':
@@ -54,23 +49,16 @@ export function html(values) {
                 </p>
                 <p>You can come back and edit your booking <A href={values.editURL}>here</A>.</p>
             </Item>
+            {fees}
+            <Item>
+            <ReactMarkdown children={values.event.paymentInfo}/>
+            </Item>
             <Item>
                 <p>Blue Skies</p>
                 <p>Woodcraft Folk</p>
             </Item>
             <Item>
                 <small>When logging in again make sure to log in as {values.user.email} using the {button} button</small>
-            </Item>
-            <Item>
-                <p>THIS IS YOUR INVOICE</p>
-
-                <p>DATE OF ISSUE: {new Date().toDateString()}</p>
-                Detail of product:
-
-            </Item>
-            {fees}
-            <Item>
-                <ReactMarkdown children={values.event.paymentInfo.replace(/(%%%%)/g, paymentReference(payRef))}/>
             </Item>
         </Email>
     )
