@@ -287,8 +287,12 @@ export class ThanksRow extends React.Component<any, any>{
         const feesOwed = getFeesOwed(this.props.event, this.props.booking.participants, this.props.booking);
         const tableLines = feesOwed.map(l => <tr key={l.line}>
             <td>{l.line}</td>
-            <td>£{l.total}</td>
+            <td>{l.total > 0 ? `£${l.total}` : `-£${l.total * -1}`}</td>
         </tr>);
+
+        const total = feesOwed.reduce((a, c) => {
+            return a + c.total
+        }, 0)    
 
         return (<Row>
             <Col>
@@ -297,9 +301,7 @@ export class ThanksRow extends React.Component<any, any>{
                     <tbody>{tableLines}
                     <tr>
                         <td><b>Total:</b></td>
-                        <td><b>£{feesOwed.reduce((a, c) => {
-                            return a + c.total
-                        }, 0)}</b></td>
+                        <td><b>{total > 0 ? `£${total}` : `-£${total * -1}`}</b></td>
                     </tr>
                     </tbody>
                 </Table>
