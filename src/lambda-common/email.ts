@@ -178,7 +178,7 @@ class LambdaEmailSender {
 }
 
 
-export function get_email_client(config, wrapper = true) {
+export function get_email_client(config, wrapper = false) {
     if (wrapper && config.EMAIL) return new LambdaEmailSender(config)
     if (config.EMAIL) {
         return new realEmailSender(config);
