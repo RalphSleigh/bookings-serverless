@@ -28,6 +28,7 @@ import {
     A,
     Box
 } from 'react-html-email'
+import paymentLines from './payment-lines';
 
 let bucketKey = Math.random() * 10000
 
@@ -334,7 +335,7 @@ export function emailHTML(event, booking) {
 }
 
 
-export function getFeesOwed(event, participants, booking) {
+export function getFeesOwed(event, participants, booking, payments = true) {
 
     switch (event.partialDates) {
         case 'whole':
@@ -348,7 +349,7 @@ export function getFeesOwed(event, participants, booking) {
     }
 }
 
-const owedFreeEvent = (event, participants, booking) => {
+const owedFreeEvent = (event, participants, booking, payments) => {
 
     const wholeMask = 2 ** (Moment(event.endDate).diff(Moment(event.startDate), 'days') + 1) - 1
 
@@ -416,7 +417,7 @@ const owedFreeEvent = (event, participants, booking) => {
     }], [])], []);
 
 
-    return [...linesu18, ...lineso18];
+    return [...linesu18, ...lineso18, ...(payments ? paymentLines(event, participants, booking) : [])];
 
 };
 
