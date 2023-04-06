@@ -24,17 +24,21 @@ import { postToDiscord } from '../../../lambda-common/discord';
 export const lambdaHandler = lambda_wrapper_json([add_payment],
     async (lambda_event, db, config, current_user) => {
 
-        const payment = await db.payment.findOne({where: {id: {[Op.eq]: lambda_event.body.id}}})
+        const payment = await db.payment.findOne({ where: { id: { [Op.eq]: lambda_event.body.id } } })
         const booking = await db.booking.findOne({
-                                                 where:   {id: {[Op.eq]: payment!.bookingId}},
-                                                 include: [{model: db.event}]
-                                             }) //get the booking, but we can't send this as dangerous scope.
+            where: { id: { [Op.eq]: payment!.bookingId } },
+            include: [{ model: db.event }]
+        }) //get the booking, but we can't send this as dangerous scope.
 
         await payment!.destroy();
-        
+
         const bookings = await getBookingAndCombineScopes(db, current_user, booking)
 
-        await postToDiscord(config, `${current_user.userName} deleted a${lambda_event.body.type === 'adjustment' ? 'n': ''} ${payment!.type} from booking ${booking!.district} of £${payment!.amount} (${payment!.note})`)
-                                     
-        return {bookings: bookings}
+        await postToDiscord(config, `${current_user.userName} deleted a${lambda_event.body.type === 'adjustment' ? 'n' : ''} ${payment!.type} from booking ${booking!.district} of ${formatMoney(lambda_event.body.amount)} (${payment!.note})`)
+
+        return { bookings: bookings }
     })
+
+function formatMoney(amount: number) {
+    return amount > 0 ? `£${amount.toFixed(2)}` : `-£${(amount * -1).toFixed(2)}`
+}      
