@@ -33,7 +33,7 @@ export const lambdaHandler = lambda_wrapper_json([add_payment],
     
         const flat = await getBookingAndCombineScopes(db, current_user, booking)
 
-        await postToDiscord(config, `${current_user.userName} added a${lambda_event.body.type === 'adjustment' ? 'n': ''} ${lambda_event.body.type} to booking ${booking!.district} of ${formatMoney(lambda_event.body.amount)} (${lambda_event.body.note})`)
+        await postToDiscord(config, `${current_user.userName} added a${lambda_event.body.type === 'adjustment' ? 'n': ''} ${lambda_event.body.type} to booking ${booking!.district} of ${formatMoney(parseFloat(lambda_event.body.amount))} (${lambda_event.body.note})`)
 
         return {bookings: flat}
     })
