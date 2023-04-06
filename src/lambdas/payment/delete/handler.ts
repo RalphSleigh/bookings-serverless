@@ -9,6 +9,7 @@ import * as confirmation from '../../../lambda-common/emails/confirmation'
 import * as manager_booking_created from '../../../lambda-common/emails/managerBookingCreated'
 import { getEventDetails } from '../../../lambda-common/util';
 import { getBookingAndCombineScopes } from '../../../lambda-common/util';
+import { postToDiscord } from '../../../lambda-common/discord';
 
 /**
  *
@@ -32,5 +33,8 @@ export const lambdaHandler = lambda_wrapper_json([add_payment],
         await payment!.destroy();
         
         const bookings = await getBookingAndCombineScopes(db, current_user, booking)
+
+        await postToDiscord(config, `${current_user.userName} deleted a ${payment!.type} from booking ${booking!.district} of £${payment!.amount} (${payment!.note})`)
+                                     
         return {bookings: bookings}
     })
