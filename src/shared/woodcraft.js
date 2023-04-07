@@ -22,7 +22,7 @@ export const woodcraft = [
         name: "Pioneers",
         singular: "Pioneer",
         filter: age => {
-            return age > 9 && age < 13
+            return age > 9 && age < 12
         },
         getAge: event => Moment(event.startDate).subtract(11, 'years').toISOString()
     },
@@ -30,7 +30,7 @@ export const woodcraft = [
         name: "Venturers",
         singular: "Venturer",
         filter: age => {
-            return age > 12 && age < 16
+            return age > 11 && age < 16
         },
         getAge: event => Moment(event.startDate).subtract(14, 'years').toISOString()
     },
