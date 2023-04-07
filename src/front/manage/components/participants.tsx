@@ -178,11 +178,11 @@ export default class Participants extends React.Component<any, any> {
         const event = this.props.Event.toJS();
         const bookings = this.props.filteredBookings;
         const participants = this.props.filteredParticipants;
-        //@ts-ignore
-        const groups = W.reduce((a, w) => {
+
+        const groups = W.reduce<any[]>((a, w) => {
             const people = participants.filter((p) => p.ageGroup === '' ? false : p.ageGroup === w.singular);
-            if (people.length === 0) return a;
-            return [...a,` ${w.name}: `,<b>${people.length}</b>];
+            if (people.length === 0) return [...a];
+            return [...a, ` ${w.name}: `, <b>${people.length}</b>];
         }, []);
 
         //const prows = participants.sort(nameSort).map(p => <tr key={p.id}><td>{p.name}</td><td>{p.age}</td><td>{p.diet}</td><td>{bookings.find(b => b.id === p.bookingId).userName}</td></tr>)
