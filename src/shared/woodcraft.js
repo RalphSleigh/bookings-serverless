@@ -35,6 +35,14 @@ export const woodcraft = [
         getAge: event => Moment(event.startDate).subtract(14, 'years').toISOString()
     },
     {
+        name: "DFs 16-18",
+        singular: "DF 16-18",
+        filter: age => {
+            return age > 15 && age < 18
+        },
+        getAge: event => Moment(event.startDate).subtract(17, 'years').toISOString()
+    },
+    {
         name: "DFs/Adults",
         singular: "DF/Adult",
         filter: age => {
