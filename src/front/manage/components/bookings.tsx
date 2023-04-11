@@ -197,7 +197,8 @@ export default class Bookings extends React.Component<any, any> {
                         data={data}
                         columns={columns}
                         showPagination={true}
-                        showPageSizeOptions={false}/>
+                        showPageSizeOptions={false}
+                        defaultPageSize={50}/>
                 </Col>
             </Row>
         </React.Fragment>);
