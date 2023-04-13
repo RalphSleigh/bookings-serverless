@@ -20,6 +20,15 @@ export const approve = (id, org, note) => {
             dispatch(updateEvents(j));
         })
     }
+}; 
+
+export const update = (id, note) => {
+    return dispatch => {
+        fetch('/api/application/update', "POST", {id: id, note: note})
+        .then(j => {
+            dispatch(updateEvents(j));
+        })
+    }
 };
 
 export const decline = (id) => {
