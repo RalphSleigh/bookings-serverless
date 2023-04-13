@@ -90,6 +90,7 @@ export default class Applications extends React.Component<any, any> {
             note={this.state.notes[a.id]}
             approve={this.approve(a.id)}
             decline={this.decline(a.id)}
+            update={this.update(a.id)}
             setOrganisation={this.setOrganisation(a.id)}
             updateNote={this.updateNote(a.id)}
         />);
@@ -152,7 +153,7 @@ const ApplicationRow = props => {
                             </DebounceButton>
                             <DebounceButton color="danger" className="ml-2" onClick={props.decline}>Decline
                             </DebounceButton>
-                            <DebounceButton onClick={props.update}>Update
+                            <DebounceButton className="ml-2" onClick={props.update}>Update
                             </DebounceButton>
                         </Col>
                     </FormGroup>
