@@ -23,7 +23,8 @@ import {
     approveMembership,
     unapproveMembership,
     approveDBS,
-    unapproveDBS
+    unapproveDBS,
+    update
 } from '../actions'
 import {getUserList} from "../../user/actions";
 
@@ -236,6 +237,7 @@ const mapDispatchToProps = {
     togglePaid: togglePaid,
     approve: approve,
     decline: decline,
+    update: update,
     assignVillage: assignVillage,
     addVillage: addVillage,
     deleteVillage: deleteVillage,
