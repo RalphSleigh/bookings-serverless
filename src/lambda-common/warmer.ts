@@ -62,6 +62,7 @@ export function warm_management() {
         "function_village_rename",
         "function_application_decline",
         "function_application_approve",
+        "function_application_update",
         "function_role_create",
         "function_role_delete",
         "function_payment_add",
