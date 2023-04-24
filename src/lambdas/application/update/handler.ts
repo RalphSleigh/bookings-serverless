@@ -31,7 +31,7 @@ export const lambdaHandler = lambda_wrapper_json([decide_application],
         try {
             const user = await db.user.scope('withData').findOne({ where: { id: { [Op.eq]: application.userId } } })
             const bitOfMessage = application.message.split("\n")[0]
-            await postToDiscord(config, `${current_user.userName} updated application from ${user!.userName}: ${bitOfMessage}`)
+            await postToDiscord(config, `${current_user.userName} updated the application from ${user!.userName}: ${bitOfMessage}`)
         } catch(e) {
             //meh
         }
