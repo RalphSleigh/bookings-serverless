@@ -28,6 +28,13 @@ export const lambdaHandler = lambda_wrapper_json([decide_application],
 
         await application.save()
 
+        try {
+            const user = await db.user.scope('withData').findOne({ where: { id: { [Op.eq]: application.userId } } })
+            const bitOfMessage = application.message.split("\n")[0]
+            await postToDiscord(config, `${current_user.userName} updated application from ${user!.userName}: ${bitOfMessage}`)
+        } catch(e) {
+            //meh
+        }
         const event = await getEventDetails(db, application.eventId)
         return { events: [event] }
     })
