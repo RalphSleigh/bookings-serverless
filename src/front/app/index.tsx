@@ -137,9 +137,8 @@ class App extends React.Component<any, any> {
                     {this.props.children}
                     <Row>
                         <Col>
-                            <footer><p className="small text-center">&copy; 2023 <a
-                                href="https://www.woodcraft.org.uk/">Woodcraft
-                                Folk</a>, Source on <a href="https://github.com/RalphSleigh/bookings-serverless">Github</a>.</p>
+                            <footer><p className="small text-center">&copy; 2023 <a //@ts-ignore
+                                href="https://www.woodcraft.org.uk/">Woodcraft Folk</a>, Source on <a href="https://github.com/RalphSleigh/bookings-serverless">Github</a>, <span className="text-muted">Built {__BUILDDATE__}.</span></p>
                             </footer>
                         </Col>
                     </Row>
