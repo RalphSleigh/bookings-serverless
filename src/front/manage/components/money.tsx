@@ -120,7 +120,7 @@ export default class Money extends React.Component<any, any> {
 
         return <tr key={b.id} onClick={this.expand(b.id)} className={classNames}>
             <td>+</td>
-            <td>{payRef}</td>
+            <td>{event.bigCampMode ? payRef : ''}</td>
             <td>{name}</td>
             <td><Currency
                 quantity={owed}
@@ -278,7 +278,7 @@ export default class Money extends React.Component<any, any> {
                     <thead>
                     <tr>
                         <th></th>
-                        <th>Reference</th>
+                        <th>{event.bigCampMode ? 'Reference' : ''}</th>
                         <th>Booking</th>
                         <th>Fees</th>
                         <th>Payments</th>
