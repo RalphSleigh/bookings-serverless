@@ -65,4 +65,5 @@ resource "aws_s3_object" "static_files" {
   # Unless the bucket has encryption enabled, the ETag of each object is an
   # MD5 hash of that object.
   source_hash = each.value.digests.md5
+  cache_control = "max-age=3600, no-cache"
 }

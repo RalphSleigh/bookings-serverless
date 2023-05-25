@@ -150,7 +150,7 @@ export async function add_payment(lambda_event: PermissionEvent, user: UserModel
     let booking
 
     if(lambda_event.body.bookingId) {
-        booking = await db.booking.findOne({where: {id: {[Op.eq]: lambda_event.body.id}}, include: [{model: db.event}]})
+        booking = await db.booking.findOne({where: {id: {[Op.eq]: lambda_event.body.bookingId}}, include: [{model: db.event}]})
     } else {
         const payment = await db.payment.findOne({
             where: {id: {[Op.eq]: lambda_event.body.id}},

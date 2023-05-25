@@ -171,6 +171,12 @@ variable "lambda_definitions" {
       path     = "application/approve"
       method   = "post"
     },
+    application_update = {
+      name     = "application_update"
+      code_dir = "application/update"
+      path     = "application/update"
+      method   = "post"
+    },
     role_create = {
       name     = "role_create"
       code_dir = "role/create"

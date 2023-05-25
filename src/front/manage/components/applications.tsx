@@ -35,6 +35,7 @@ export default class Applications extends React.Component<any, any> {
 
         this.approve = this.approve.bind(this);
         this.decline = this.decline.bind(this);
+        this.update = this.update.bind(this)
         this.setOrganisation = this.setOrganisation.bind(this);
         this.updateNote = this.updateNote.bind(this);
     }
@@ -45,6 +46,13 @@ export default class Applications extends React.Component<any, any> {
             org = parseInt(org) ? parseInt(org) : null; //cast undefined/"any" to null, string from event to number
             this.props.approve(id, org, this.state.notes[id]);
             e.preventDefault()
+        }
+    }
+
+    update(id) {
+        return e => {
+            this.props.update(id, this.state.notes[id]);
+            e.preventDefault();
         }
     }
 
@@ -82,6 +90,7 @@ export default class Applications extends React.Component<any, any> {
             note={this.state.notes[a.id]}
             approve={this.approve(a.id)}
             decline={this.decline(a.id)}
+            update={this.update(a.id)}
             setOrganisation={this.setOrganisation(a.id)}
             updateNote={this.updateNote(a.id)}
         />);
@@ -143,6 +152,8 @@ const ApplicationRow = props => {
                             <DebounceButton color="success" onClick={props.approve}>Approve
                             </DebounceButton>
                             <DebounceButton color="danger" className="ml-2" onClick={props.decline}>Decline
+                            </DebounceButton>
+                            <DebounceButton className="ml-2" onClick={props.update}>Update
                             </DebounceButton>
                         </Col>
                     </FormGroup>

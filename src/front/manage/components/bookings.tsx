@@ -84,11 +84,12 @@ export default class Bookings extends React.Component<any, any> {
                 '£' + owed,
                 '£' + paid,
                 '£' + (owed - paid),
+            b.campWith,
             b.createdAt,
                 b.updatedAt]
         });
         const fileName = this.props.Event.get('name') + "-Bookings-" + Moment().format('YYYY-MM-DD') + ".csv";
-        csv(fileName, [['id', 'Name', 'District', 'e-mail', 'Phone', 'Participants', 'Payment type', 'Emergency name', 'Emergency Contact', 'Note', 'Money Owed', 'Money Paid', 'Outstanding Balance', 'Created', 'Updated'], ...exportedData]);
+        csv(fileName, [['id', 'Name', 'District', 'e-mail', 'Phone', 'Participants', 'Payment type', 'Emergency name', 'Emergency Contact', 'Note', 'Money Owed', 'Money Paid', 'Outstanding Balance', 'Camp with', 'Created', 'Updated'], ...exportedData]);
     }
 
     markPaid(id) {
@@ -197,7 +198,8 @@ export default class Bookings extends React.Component<any, any> {
                         data={data}
                         columns={columns}
                         showPagination={true}
-                        showPageSizeOptions={false}/>
+                        showPageSizeOptions={false}
+                        defaultPageSize={50}/>
                 </Col>
             </Row>
         </React.Fragment>);

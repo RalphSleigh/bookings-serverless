@@ -9,6 +9,7 @@ import * as confirmation from '../../../lambda-common/emails/confirmation'
 import * as manager_booking_created from '../../../lambda-common/emails/managerBookingCreated'
 import { getEventDetails } from '../../../lambda-common/util';
 import { getBookingAndCombineScopes } from '../../../lambda-common/util';
+import { postToDiscord } from '../../../lambda-common/discord';
 
 /**
  *
@@ -32,5 +33,12 @@ export const lambdaHandler = lambda_wrapper_json([add_payment],
     
         const flat = await getBookingAndCombineScopes(db, current_user, booking)
 
+        await postToDiscord(config, `${current_user.userName} added a${lambda_event.body.type === 'adjustment' ? 'n': ''} ${lambda_event.body.type} to booking ${booking!.district} of ${formatMoney(parseFloat(lambda_event.body.amount))} (${lambda_event.body.note})`)
+
         return {bookings: flat}
     })
+
+
+function formatMoney(amount: number) {
+    return amount > 0 ? `£${amount.toFixed(2)}` : `-£${(amount * -1).toFixed(2)}`
+}    

@@ -32,13 +32,13 @@ dist-local/
 dist-lambda/
 node_modules
 terraform/files
-config.js
+/config.js
 
 /node_modules
 database.sqlite
 database.sqlite-journal
 bookings.sqlite
-config.ts
+/config.ts
 server/googlejwt.json
 npm-debug.log
 .eslintrc.json

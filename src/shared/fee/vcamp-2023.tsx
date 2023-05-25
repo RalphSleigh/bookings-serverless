@@ -28,6 +28,7 @@ import {
     A,
     Box
 } from 'react-html-email'
+import paymentLines from './payment-lines';
 
 let bucketKey = Math.random() * 10000
 
@@ -286,8 +287,12 @@ export class ThanksRow extends React.Component<any, any>{
         const feesOwed = getFeesOwed(this.props.event, this.props.booking.participants, this.props.booking);
         const tableLines = feesOwed.map(l => <tr key={l.line}>
             <td>{l.line}</td>
-            <td>£{l.total}</td>
+            <td>{l.total > 0 ? `£${l.total}` : `-£${l.total * -1}`}</td>
         </tr>);
+
+        const total = feesOwed.reduce((a, c) => {
+            return a + c.total
+        }, 0)    
 
         return (<Row>
             <Col>
@@ -296,9 +301,7 @@ export class ThanksRow extends React.Component<any, any>{
                     <tbody>{tableLines}
                     <tr>
                         <td><b>Total:</b></td>
-                        <td><b>£{feesOwed.reduce((a, c) => {
-                            return a + c.total
-                        }, 0)}</b></td>
+                        <td><b>{total > 0 ? `£${total}` : `-£${total * -1}`}</b></td>
                     </tr>
                     </tbody>
                 </Table>
@@ -334,7 +337,7 @@ export function emailHTML(event, booking) {
 }
 
 
-export function getFeesOwed(event, participants, booking) {
+export function getFeesOwed(event, participants, booking, payments = true) {
 
     switch (event.partialDates) {
         case 'whole':
@@ -342,13 +345,13 @@ export function getFeesOwed(event, participants, booking) {
         case 'presets':
             return owedPresetEvent(event, participants, booking);
         case 'free':
-            return owedFreeEvent(event, participants, booking);
+            return owedFreeEvent(event, participants, booking, payments);
         default:
             return [{line: "Unsupported attendance/fee combo", total: 0}]
     }
 }
 
-const owedFreeEvent = (event, participants, booking) => {
+const owedFreeEvent = (event, participants, booking, payments) => {
 
     const wholeMask = 2 ** (Moment(event.endDate).diff(Moment(event.startDate), 'days') + 1) - 1
 
@@ -416,7 +419,7 @@ const owedFreeEvent = (event, participants, booking) => {
     }], [])], []);
 
 
-    return [...linesu18, ...lineso18];
+    return [...linesu18, ...lineso18, ...(payments ? paymentLines(event, participants, booking) : [])];
 
 };
 
