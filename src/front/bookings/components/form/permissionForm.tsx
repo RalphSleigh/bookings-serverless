@@ -68,7 +68,7 @@ export default class PermissionForm extends React.Component<any, any> {
                 <Row>
                     <Col>
                         <h4>Emergency Contact</h4>
-                        {lonePerson ? <p>As you have only booked in one adult, please provide some emergency contact details of someone not attending the event</p> : <p>Please provide details of someone we can contact in case of an emergency during the event (a
+                        {this.props.event.bigCampMode ? <p>As you have only booked in one adult, please provide some emergency contact details of someone not attending the event</p> : <p>Please provide details of someone we can contact in case of an emergency during the event (a
                             second
                             person is better even if you are not attending yourself)</p>}
                     </Col>
