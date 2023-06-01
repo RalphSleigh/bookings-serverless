@@ -168,12 +168,14 @@ class Villages extends React.Component<any, any> {
                             ...provided.draggableStyle,
                             cursor: 'pointer'
                         };
+                        
+                        const text = b.participants.length == 1 ? `${b.participants[0].name} (${(event.bigCampMode ? b.district : b.userName)})` : (event.bigCampMode ? b.district : b.userName) + ' (' + b.size + ')'
 
                         return (
                             <div ref={provided.innerRef}
                                  style={style}
                                  {...provided.dragHandleProps}>
-                                {(event.bigCampMode ? b.district : b.userName) + ' (' + b.size + ')'}
+                                {text}
                             </div>)
                     }}
                 </Draggable>
