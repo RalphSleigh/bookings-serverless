@@ -44,6 +44,7 @@ resource "aws_lambda_function" "lambda" {
       database_url = resource.aws_db_instance.database.endpoint
       workspace = terraform.workspace
       log_arm = resource.aws_cloudwatch_log_stream.booking_system_logs.arn
+      AWS_APPCONFIG_EXTENSION_POLL_INTERVAL_SECONDS = 3600
     }
   }
 
