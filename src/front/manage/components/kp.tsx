@@ -76,7 +76,7 @@ export default class KP extends React.Component<any, any> {
         
                 for (let m = startDate; m.isBefore(endDate); m.add(1, 'days')) {
                     //@ts-ignore
-                    days += p.days & Math.pow(2, mask) ? "⬤ " : "◯ "
+                    days += p.days & Math.pow(2, mask) ? "⬤ " : "○ "
                     mask++;
                 }
                 /*
@@ -97,7 +97,7 @@ export default class KP extends React.Component<any, any> {
                 [p.externalExtra.egg, "Egg"],
                 [p.externalExtra.gluteb, "Gluten"],
                 [p.externalExtra.pork, "Pork"],
-                [p.externalExtra.nuts, "Nuts"]].filter(i=> i[0]).map(i=>i[1]).join(", ")
+                [p.externalExtra.nut, "Nuts"]].filter(i=> i[0]).map(i=>i[1]).join(", ")
 
             return <tr
                 key={p.id}>
