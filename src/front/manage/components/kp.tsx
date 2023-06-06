@@ -14,6 +14,8 @@ import {
 } from 'reactstrap';
 
 import { woodcraft as W } from '../../../shared/woodcraft'
+import moment from 'moment';
+import popcount      from '@f/popcount';
 
 export default class KP extends React.Component<any, any> {
 
@@ -29,7 +31,7 @@ export default class KP extends React.Component<any, any> {
 
     render() {
 
-        //const event = this.props.Event.toJS();
+        const event = this.props.Event.toJS();
         //const bookings = this.props.Bookings.toJS();
         const participants = this.props.participants;
 
@@ -55,11 +57,65 @@ export default class KP extends React.Component<any, any> {
             <td><b>{participants.length}</b></td>
         </tr>);
 
-        const requirments = participants.filter(p => p.dietExtra !== null && p.dietExtra !== '').map(p => <tr
+        let requirments
+        if(event.customQuestions.vcampKP){
+            requirments = participants.filter(p => p.externalExtra.dairy ||
+                p.externalExtra.soya ||
+                p.externalExtra.egg ||
+                p.externalExtra.gluten ||
+                p.externalExtra.pork ||
+                p.externalExtra.nut ||                
+                (p.externalExtra.dietPreference && p.externalExtra.dietPreference !== '') ||
+                p.externalExtra.dietContactMe ||
+                (p.dietExtra !== null && p.dietExtra !== '')).map(p => {
+            
+                const startDate = moment.utc(event.startDate).startOf('day');
+                const endDate = moment.utc(event.endDate).startOf('day').add(1, 'days');
+                let days = ""
+                let mask = 0;
+        
+                for (let m = startDate; m.isBefore(endDate); m.add(1, 'days')) {
+                    //@ts-ignore
+                    days += p.days & Math.pow(2, mask) ? "⬤ " : "◯ "
+                    mask++;
+                }
+                /*
+                p.diet,
+                Boolean(p.externalExtra.dairy),
+                Boolean(p.externalExtra.soya),
+                Boolean(p.externalExtra.egg),
+                Boolean(p.externalExtra.gluten),
+                Boolean(p.externalExtra.pork),
+                Boolean(p.externalExtra.nut),
+                eol.crlf(p.externalExtra.dietPreference || ''),
+                eol.crlf(p.dietExtra || ''),
+                Boolean(p.externalExtra.dietContactMe)
+                */
+
+                const no = [[p.externalExtra.dairy, "Dairy"],
+                [p.externalExtra.soya, "Soya"],
+                [p.externalExtra.egg, "Egg"],
+                [p.externalExtra.gluteb, "Gluten"],
+                [p.externalExtra.pork, "Pork"],
+                [p.externalExtra.nuts, "Nuts"]].filter(i=> i[0]).map(i=>i[1]).join(", ")
+
+            return <tr
+                key={p.id}>
+                <td><p>{p.name}</p><p><span style={{color:'green'}}>{days}</span></p></td>
+                <td>
+                    {p.externalExtra.dietContactMe ? <p><b>Has requested to be contacted by allergy kitchen</b></p> : null}
+                    {no? <p><b>No: </b>{no}</p>: null}
+                    {p.dietExtra ? <><p><b>Requirement:</b></p><p>{p.dietExtra}</p></> : null }
+                    {p.externalExtra.dietPreference ? <><p><b>Preference:</b></p><p>{p.externalExtra.dietPreference}</p></> : null }
+                </td>
+            </tr>});
+        } else {
+        requirments = participants.filter(p => p.dietExtra !== null && p.dietExtra !== '').map(p => <tr
             key={p.id}>
             <td>{p.name}</td>
             <td>{p.dietExtra}</td>
         </tr>);
+        } 
 
         return (<Row>
             <Col>
@@ -84,7 +140,7 @@ export default class KP extends React.Component<any, any> {
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Requirement</th>
+                        <th>Requirements</th>
                     </tr>
                     </thead>
                     <tbody>
