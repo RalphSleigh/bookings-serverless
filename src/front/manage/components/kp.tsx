@@ -32,7 +32,7 @@ export default class KP extends React.Component<any, any> {
     render() {
 
         const event = this.props.Event.toJS();
-        //const bookings = this.props.Bookings.toJS();
+        const bookings =this.props.bookings;
         const participants = this.props.participants;
 
         const groups = W.map(w => {
@@ -99,9 +99,11 @@ export default class KP extends React.Component<any, any> {
                 [p.externalExtra.pork, "Pork"],
                 [p.externalExtra.nut, "Nuts"]].filter(i=> i[0]).map(i=>i[1]).join(", ")
 
+
+                const b = bookings.find(b => b.id === p.bookingId)
             return <tr
                 key={p.id}>
-                <td><p>{p.name}</p><p><span style={{color:'green'}}>{days}</span></p></td>
+                <td><p>{p.name} - {b.district} ({p.displayAge})</p><p><span style={{color:'green'}}>{days}</span></p></td>
                 <td>
                     {p.externalExtra.dietContactMe ? <p><b>Has requested to be contacted by allergy kitchen</b></p> : null}
                     {no? <p><b>No: </b>{no}</p>: null}
