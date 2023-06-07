@@ -77,7 +77,7 @@ export default class Bookings extends React.Component<any, any> {
             b.userEmail,
             b.userContact,
             b.participants.length,
-            event.villages.find(v => b.villageId === v.id).name,
+            (b.villageId && b.villageId !== 0) ? event.villages.find(v => b.villageId === v.id).name : "",
             b.paymentType,
             b.emergencyName,
             b.emergencyPhone,

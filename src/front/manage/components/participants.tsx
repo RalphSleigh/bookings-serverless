@@ -22,6 +22,7 @@ import {
 
 import { woodcraft as W } from '../../../shared/woodcraft'
 import ageFactory from "../../age";
+import moment from 'moment';
 
 export default class Participants extends React.Component<any, any> {
     private ageWidgets: { BookingFormWidget: (props) => JSX.Element; displayAgeParticipant: (p) => string; participantCardField: (p) => JSX.Element; displayAgeCSV: (p) => string; displayAgeMoment: (age, event) => string } | { BookingFormWidget: (props) => JSX.Element; displayAgeParticipant: (p) => any; participantCardField: (p) => JSX.Element; displayAgeCSV: (p) => string; displayAgeMoment: (age, event) => any };
@@ -143,6 +144,19 @@ export default class Participants extends React.Component<any, any> {
         const attendance = event.partialDates === "presets" ? event.partialDatesData.find(d => d.mask === row.original.p.days) : null;
 
 
+        const startDate = moment.utc(event.startDate).startOf('day');
+                const endDate = moment.utc(event.endDate).startOf('day').add(1, 'days');
+                let days = " "
+                let mask = 0;
+        
+                for (let m = startDate; m.isBefore(endDate); m.add(1, 'days')) {
+                    //@ts-ignore
+                    days += row.original.p.days & Math.pow(2, mask) ? "⬤ " : "○ "
+                    mask++;
+                }
+
+        const attendanceFree = event.partialDates === "free" ? <p><span style={{color:'green'}}>{days}</span></p> : null;
+
         return (<Card>
             <CardBody>
                 <CardTitle>
@@ -157,6 +171,7 @@ export default class Participants extends React.Component<any, any> {
                         {village ? <p><b>Village:</b> {village.name}</p> : null}
                         {organisation ? <p><b>Organisation:</b> {organisation.name}</p> : null}
                         {attendance ? <p><b>Attendance:</b> {attendance.name}</p> : null}
+                        {attendanceFree}
                         {!event.bigCampMode ? <p><b>Emergency Contact:</b> {row.original.b.emergencyName}</p> : null}
                         {!event.bigCampMode ? <p><b>Emergency Phone:</b> {row.original.b.emergencyPhone}</p> : null}
                     </Col>

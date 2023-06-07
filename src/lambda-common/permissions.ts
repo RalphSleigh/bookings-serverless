@@ -78,7 +78,8 @@ export async function add_village(lambda_event: PermissionEvent, user: UserModel
 }
 
 export async function delete_village(lambda_event: PermissionEvent, user: UserModel, db: db) {
-    const event = await db.event.findOne({where: {id: lambda_event.body.id}})
+    const village = await db.village.findOne({where: {id: {[Op.eq]: lambda_event.body.id}}});
+    const event = await db.event.findOne({where: {id: village!.eventId}})
     if(!P.addVillage(user, event)) throw new Error("P.addVillage failed")
 }
 
