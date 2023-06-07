@@ -103,7 +103,7 @@ export const fields = [
     new Column('Membership email', e => e.customQuestions.adultEmail, (p, b) => p.externalExtra.adultEmail),
     new Column('Photo consent', e => e.customQuestions.photoConsent, (p, b) => p.externalExtra.photoConsent),
     new Column(['Photo consent', 'Activity consent', 'SRE consent'], e => e.customQuestions.vcampConsent, (p, b) => [p.externalExtra.photoConsent,p.externalExtra.activityConsent,p.externalExtra.sreConsent]),
-    new Column('Village', true, (p, b, e) => e.villages.find(v => b.villageId === v.id).name),
+    new Column('Village', true, (p, b, e) => (b.villageId && b.villageId !== 0) ? e.villages.find(v => b.villageId === v.id).name : ""),
     new Column('Created at', true, (p, b) => p.createdAt),
     new Column('Updated at', true, (p, b) => p.updatedAt)
 ]
