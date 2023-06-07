@@ -3,9 +3,10 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
       - vcamp
       - ealing
+
+  workflow_dispatch:        
 
 permissions:
   id-token: write
