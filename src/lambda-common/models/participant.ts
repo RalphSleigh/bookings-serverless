@@ -57,6 +57,6 @@ export function associate(models: any) {
     });
 
     models.participant.addScope('Money', {
-        attributes: ['id', 'name', 'days', 'age', 'bookingId']
+        attributes: ['id', 'name', 'days', 'age', 'bookingId', 'createdAt', 'updatedAt']
     });
 };
