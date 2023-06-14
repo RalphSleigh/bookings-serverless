@@ -94,7 +94,7 @@ const mapStateToProps = (state, props) => {
 
     const prevBooking = (Event, Bookings, User) => {
 
-        if(Event.get("bigCampMode") === false) return null
+        if(Event.get("bigCampMode") === true) return null
 
         let prevBooking = Bookings.get("bookings")
             .filter(b => b.get("userId") === User.get("id"))
