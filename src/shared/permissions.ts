@@ -127,11 +127,11 @@ export const bookIntoOrganisation = (user, event, booking, organisation) => {
 };
 
 export const assignVillage = (user, event) => {
-    return manageEvent(user, event); //for now the same as an event manager, this will change
+    return createRole(user, event); //for now the same as an event manager, this will change
 };
 
 export const addVillage = (user, event) => {
-    return manageEvent(user, event); //for now the same as an event manager, this will change
+    return createRole(user, event); //for now the same as an event manager, this will change
 };
 
 export const getUserList = (user, event) => {

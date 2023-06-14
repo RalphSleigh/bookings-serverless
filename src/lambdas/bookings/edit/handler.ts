@@ -27,6 +27,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
 
         delete lambda_event.body.internalExtra; //delete the internal extra so user can't update.
         delete lambda_event.body.payments
+        delete lambda_event.body.villageId
         lambda_event.body.participants.forEach(p => {
             delete p.internalExtra
         });

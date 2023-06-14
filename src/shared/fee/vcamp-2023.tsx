@@ -249,7 +249,7 @@ export class BookingForm extends React.Component<any, any>{
         //this.props.feeData.amount
         //
         const feesOwed = getFeesOwed(this.props.event, this.props.participants, this.props.booking);
-        const tableLines = feesOwed.map(l => <tr key={l.line}>
+        const tableLines = feesOwed.map((l,i) => <tr key={l.line+i}>
             <td>{l.line}</td>
             <td>£{l.total}</td>
         </tr>);
@@ -285,7 +285,7 @@ export class ThanksRow extends React.Component<any, any>{
         //this.props.feeData.amount
         //
         const feesOwed = getFeesOwed(this.props.event, this.props.booking.participants, this.props.booking);
-        const tableLines = feesOwed.map(l => <tr key={l.line}>
+        const tableLines = feesOwed.map((l,i) => <tr key={l.line+i}>
             <td>{l.line}</td>
             <td>{l.total > 0 ? `£${l.total}` : `-£${l.total * -1}`}</td>
         </tr>);
@@ -369,7 +369,7 @@ const owedFreeEvent = (event, participants, booking, payments) => {
 
 
     const rawCostsu18 = u18participants.map(p => sortedBuckets.reduce((a, c) => {
-        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
+        if (Moment(p.createdAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type: p.days === wholeMask ? 'whole' : 'partial',
             days: popcount(p.days),
             date: c.date,
@@ -394,7 +394,7 @@ const owedFreeEvent = (event, participants, booking, payments) => {
     }], [])], []);
 
     const rawCostso18 = o18participants.map(p => sortedBuckets.reduce((a, c) => {
-        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
+        if (Moment(p.createdAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type: p.days === wholeMask ? 'whole' : 'partial',
             days: popcount(p.days),
             date: c.date,
@@ -435,7 +435,7 @@ const owedWholeEvent = (event, participants, booking) => {
     });
 
     const rawCosts = filteredParticipants.map(p => sortedBuckets.reduce((a, c) => {
-        if (Moment(p.updatedAt).isBefore(Moment(c.date).add(1,"days"))) return {
+        if (Moment(p.createdAt).isBefore(Moment(c.date).add(1,"days"))) return {
             type:   isWoodchip(event, p) ? 'woodchip' : 'normal',
             date:   c.date,
             mask:   p.days,
