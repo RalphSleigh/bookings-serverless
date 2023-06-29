@@ -1,8 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { lambda_wrapper_json, user } from '../../../lambda-common'
+import { lambda_wrapper_json, log, user } from '../../../lambda-common'
 import { Op } from 'sequelize';
 import { book_into_organisation, edit_booking } from '../../../lambda-common/permissions';
 import moment from 'moment';
+import { diffString } from 'json-diff';
 
 import { updateAssociation } from '../../../lambda-common/util'
 import { BookingModel } from '../../../lambda-common/models/booking';
@@ -34,6 +35,8 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
 
         let booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.event }] }) as BookingModel
 
+        const diff_booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] }) as BookingModel
+
         if (!booking) throw new Error("booking not found")
 
         if (moment().isBefore(booking.event!.bookingDeadline)) {
@@ -50,7 +53,10 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         booking = await db.booking.findOne({ where: { id: lambda_event.body.id }, include: [{ model: db.participant }, { model: db.payment }, { model: db.event }] }) as BookingModel
         console.log(`User ${current_user.userName} Editing Booking id ${booking!.id}`);
 
-        
+        const before = diff_booking.get({ plain: true })
+        const after = booking.get({ plain: true })
+
+        log(diffString(before, after ))
 
         if (current_user.id === booking.userId) {
             const email = get_email_client(config)
