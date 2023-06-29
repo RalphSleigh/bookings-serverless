@@ -56,7 +56,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         const before = diff_booking.get({ plain: true })
         const after = booking.get({ plain: true })
 
-        log(diffString(before, after ))
+        log(diffString(before, after, {outputKeys:['name'], maxElisions: 1}))
 
         if (current_user.id === booking.userId) {
             const email = get_email_client(config)
@@ -69,6 +69,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             await email.toManagers(managerBookingUpdated, emailData);
 
             await postToDiscord(config, `${booking.userName} (${booking.district}) edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people (previously ${previous_participant_count})`)
+            await postToDiscord(config, diffString(before, after, {outputKeys:['name'], maxElisions: 1}))
         }
 
         return { bookings: [booking] }
