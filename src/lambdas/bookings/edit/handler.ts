@@ -69,7 +69,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             await email.toManagers(managerBookingUpdated, emailData);
 
             await postToDiscord(config, `${booking.userName} (${booking.district}) edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people (previously ${previous_participant_count})`)
-            await postToDiscord(config, diffString(before, after, {outputKeys:['name'], maxElisions: 1}))
+            if(previous_participant_count === booking.participants!.length) await postToDiscord(config, diffString(before, after, {outputKeys:['name'], maxElisions: 1}))
         }
 
         return { bookings: [booking] }
