@@ -56,7 +56,11 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         const before = diff_booking.get({ plain: true })
         const after = booking.get({ plain: true })
 
-        const diffOutput = diffString(before, after, {outputKeys:['name'], color: false, maxElisions: 1, excludeKeys:['createdAt', 'updatedAt']}).split("\n").map(s => s.replace(/(.*\+.*\")(.*)\"/g,'$1***"').replace(/(.*\-.*\")(.*)\"/g,'$1***"')).join("\n")
+        const diffOutput = diffString(before, after, {outputKeys:['name'], color: false, maxElisions: 1, excludeKeys:['createdAt', 'updatedAt']})
+        .split("\n")
+        .slice(1,-2)
+        .map(s => s.includes("name") ? s : s.replace(/(.*\+.*\")(.*)\"/g,'$1***"').replace(/(.*\-.*\")(.*)\"/g,'$1***"'))
+        .join("\n")
 
         console.log(diffOutput)
         log(diffOutput)
@@ -72,7 +76,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
             await email.toManagers(managerBookingUpdated, emailData);
 
             await postToDiscord(config, `${booking.userName} (${booking.district}) edited their booking for event ${booking.event!.name}, they have booked ${booking.participants!.length} people (previously ${previous_participant_count})`)
-            if(previous_participant_count === booking.participants!.length) await postToDiscord(config, diffOutput)
+            if(previous_participant_count === booking.participants!.length) await postToDiscord(config, "```"+diffOutput+"```")
         }
 
         return { bookings: [booking] }
