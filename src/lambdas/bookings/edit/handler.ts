@@ -59,6 +59,7 @@ export const lambdaHandler = lambda_wrapper_json([edit_booking, book_into_organi
         const diffOutput = diffString(before, after, {outputKeys:['name'], color: false, maxElisions: 1, excludeKeys:['createdAt', 'updatedAt']})
         .split("\n")
         .slice(1,-2)
+        .filter(s => !s.includes("entries)"))
         .map(s => s.includes("name") ? s : s.replace(/(.*\+.*\")(.*)\"/g,'$1***"').replace(/(.*\-.*\")(.*)\"/g,'$1***"'))
         .join("\n")
 
