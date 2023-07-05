@@ -57,7 +57,7 @@ export default class Participants extends React.Component<any, any> {
         const headers = used_fields.map(f => f.get_header(event)).flat()
 
         const exportedData = this.props.filteredParticipants.map(p => {
-            const b = this.props.bookings.find(b => b.id === p.bookingId);
+            const b = this.props.filteredBookings.find(b => b.id === p.bookingId);
             return used_fields.map(f => f.csv_value(p, b, event)).flat()
          })
 
