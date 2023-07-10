@@ -37,6 +37,7 @@ export const lambdaHandler = lambda_wrapper_json([apply_to_event],
     await email.toManagers(managerApplicationReceived, emailData);
 
     await postToDiscord(config, `Application reveived from ${user.userName} (${user.email})`)
+    await postToDiscord(config, "```"+application.message+"```")
 
     return user
     })
