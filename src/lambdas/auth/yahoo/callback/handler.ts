@@ -42,6 +42,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         const profile_response = await fetch(`https://api.login.yahoo.com/openid/v1/userinfo`, {headers: profile_headers})
         const profile = await profile_response.json()
 
+        console.log(JSON.stringify(profile_response))     
+
         try {
             const user_instance = await user.get_user_from_login(profile.sub, profile.name, profile.email ? profile.email : "", "yahoo")
 

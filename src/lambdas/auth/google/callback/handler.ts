@@ -41,6 +41,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             // The ID of the person to get the profile for. The special value "me" can be used to indicate the authenticated user.
             userId: 'me'});
 
+        console.log(JSON.stringify(res.data))     
+
         try {
             const user_instance = await user.get_user_from_login(res.data.id, res.data.displayName ?? "default", res.data.emails?.[0].value ?? "default", "google")
 
