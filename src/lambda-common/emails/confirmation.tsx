@@ -54,7 +54,7 @@ export function html(values) {
                 <p>Woodcraft Folk</p>
             </Item>
             <Item>
-                <small>When logging in again make sure to log in as {values.user.email} using the {button} button</small>
+                <small>When logging in again make sure to log in as {values.user.email} using the {button} button.</small>
             </Item>
             <Item>
                 <p>THIS IS YOUR INVOICE</p>
