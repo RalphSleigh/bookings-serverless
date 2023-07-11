@@ -15,7 +15,7 @@ export const name = "role assigned"
 export function html(values, config) {
 
     return renderEmail(
-        <Email title={`${values.event.customQuestions.emailSubjectTag} You have been assigned a role for ${values.event.name}`}>
+        <Email title={`${values.event.customQuestions.emailSubjectTag} You have been granted access to data for ${values.event.name}`}>
             <Item>
                 <p>Hi {values.emailUser.userName},</p>
                 <p>You have been granted access to bookings data for {values.event.name}, to view it please log in and choose the "manage" link in bottom corner of the event card</p>
@@ -30,5 +30,5 @@ export function html(values, config) {
 }
 
 export function subject(values) {
-    return `${values.event.customQuestions.emailSubjectTag} You have been assigned a role for ${values.event.name}`
+    return `${values.event.customQuestions.emailSubjectTag} You have been granted access to data for ${values.event.name}`
 }
