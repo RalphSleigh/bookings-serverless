@@ -96,14 +96,14 @@ class realEmailSender {
                 }
             },
             include: [{ model: db.user }]
-        }); 
+        });
 
         values.emailUser = owner;
-        
+
         await Promise.all([this.single(owner!.email, template, values), ...managers.map(m => {
             const new_values = clone(values)
             new_values.emailUser = m.user;
-           return this.single(m.user!.email, template, new_values);
+            return this.single(m.user!.email, template, new_values);
         })]);
     }
 }
@@ -130,53 +130,68 @@ class LambdaEmailSender {
     }
 
     async single(to, template, values) {
+        try {
+            const lambda = new Lambda({})
 
-        const lambda = new Lambda({})
-
-        const data = {
-            email: {
-                to: to, name: template.name, values: values, type: 'single'
+            const data = {
+                email: {
+                    to: to, name: template.name, values: values, type: 'single'
+                }
             }
-        }
 
-        console.log(`invoking email lambda for Emailing ${to} template ${template.name}`)
+            console.log(`invoking email lambda for Emailing ${to} template ${template.name}`)
 
-        await new Promise((resolve, reject) => {
-            lambda.invoke({
-                FunctionName: 'function_email',
-                InvocationType: "Event",
-                Payload: JSON.stringify(data)
-            }, (err, data) => {
-                if (err) reject(err)
-                else resolve(data)
+            await new Promise((resolve, reject) => {
+                lambda.invoke({
+                    FunctionName: 'function_email',
+                    InvocationType: "Event",
+                    Payload: JSON.stringify(data)
+                }, (err, data) => {
+                    if (err) reject(err)
+                    else resolve(data)
+                })
             })
-        })
+        }
+        catch (e) {
+            console.log("Error evoking email lambda")
+            console.log(to)
+            console.log(template)
+            console.log(values)
+            console.log(e)
+        }
     }
 
     async toManagers(template, values) {
-        const lambda = new Lambda({})
+        try {
+            const lambda = new Lambda({})
 
-        const data = {
-            email: {
-                name: template.name, values: values, type: 'manager'
+            const data = {
+                email: {
+                    name: template.name, values: values, type: 'manager'
+                }
             }
-        }
 
-        console.log(`invoking email lambda for Emailing managers of ${values.event.name} template ${template.name}`)
+            console.log(`invoking email lambda for Emailing managers of ${values.event.name} template ${template.name}`)
 
-        await new Promise((resolve, reject) => {
-            lambda.invoke({
-                FunctionName: 'function_email',
-                InvocationType: "Event",
-                Payload: JSON.stringify(data)
-            }, (err, data) => {
-                if (err) reject(err)
-                else resolve(data)
+            await new Promise((resolve, reject) => {
+                lambda.invoke({
+                    FunctionName: 'function_email',
+                    InvocationType: "Event",
+                    Payload: JSON.stringify(data)
+                }, (err, data) => {
+                    if (err) reject(err)
+                    else resolve(data)
+                })
             })
-        })
+        }
+        catch (e) {
+            console.log("Error evoking email lambda")
+            console.log(template)
+            console.log(values)
+            console.log(e)
+        }
     }
 }
-
 
 export function get_email_client(config, wrapper = true) {
     if (wrapper && config.EMAIL) return new LambdaEmailSender(config)
