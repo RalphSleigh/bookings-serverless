@@ -133,11 +133,7 @@ class ManageContainerPage extends React.Component<any, any> {
         const MembershipsTab = manageWholeEventWrapper(() => event.customQuestions.adultEmail ? <CustomTab
             to={"/event/" + this.props.match.params.eventId + "/manage/memberships"} label="Memberships"
             activeOnlyWhenExact={undefined} /> : null);
-
-        const SignInOutTab = manageWholeEventWrapper(() => event.customQuestions.adultEmail ? <CustomTab
-            to={"/event/" + this.props.match.params.eventId + "/manage/signin"} label="Sign In/Out"
-            activeOnlyWhenExact={undefined} /> : null);
-
+  
         const { Bookings, ...props } = this.props;
         // @ts-ignore
         return (<React.Fragment>
@@ -161,7 +157,8 @@ class ManageContainerPage extends React.Component<any, any> {
                         <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/graphs"}
                             label="Graphs 📈" activeOnlyWhenExact={undefined} />
                         <MembershipsTab {...this.props} />
-                        <SignInOutTab {...this.props} />
+                        <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/signin"}
+                            label="Sign In/Out" activeOnlyWhenExact={undefined} />
                     </Nav>
                 </Col>
             </Row>
@@ -225,8 +222,6 @@ class ManageContainerPage extends React.Component<any, any> {
                 </Route>
             </Switch>
         </React.Fragment>
-
-
         );
     }
 }
