@@ -37,7 +37,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             }
         }
 
-        const jwt_token = jwt.sign({ id: current_user.id }, config.JWT_SECRET, { expiresIn: 60 * 60 })
+        const jwt_token = jwt.sign({ id: current_user.id }, config.JWT_SECRET, { expiresIn: 60 * 60 * 12 })
         const cookie_string = cookie.serialize("jwt", jwt_token, { maxAge: 60 * 60, httpOnly: true, sameSite: true, path: '/' })
 
         await promises
