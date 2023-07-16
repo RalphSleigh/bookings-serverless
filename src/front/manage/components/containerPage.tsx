@@ -1,12 +1,12 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as Immutable from 'immutable'
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import * as bookings from '../../bookings'
 import * as events from '../../events'
-import {manageEventCheck, manageWholeEventWrapper, manageMoneyWrapper, manageRolesWrapper} from '../permission'
+import { manageEventCheck, manageWholeEventWrapper, manageMoneyWrapper, manageRolesWrapper } from '../permission'
 import {
     togglePaid,
     approve,
@@ -26,20 +26,21 @@ import {
     unapproveDBS,
     update
 } from '../actions'
-import {getUserList} from "../../user/actions";
+import { getUserList } from "../../user/actions";
 
-import Filter           from './filter'
-import BookingsPage     from './bookings'
+import Filter from './filter'
+import BookingsPage from './bookings'
 import ParticipantsPage from './participants'
-import KpPage           from './kp'
-import ApplicationPage  from './applications'
-import VillagePage      from './villages'
-import RolesPage        from './roles'
-import MoneyPage        from './money'
-import EmailsPage       from './emails'
-import BirthdaysPage    from './birthdays'
-import GraphsPage       from './graphs'
-import MembershipsPage  from './membership'
+import KpPage from './kp'
+import ApplicationPage from './applications'
+import VillagePage from './villages'
+import RolesPage from './roles'
+import MoneyPage from './money'
+import EmailsPage from './emails'
+import BirthdaysPage from './birthdays'
+import GraphsPage from './graphs'
+import MembershipsPage from './membership'
+import SignInOutPage from './signin'
 
 import { woodcraft as W } from '../../../shared/woodcraft'
 
@@ -49,11 +50,11 @@ import {
     Nav,
     NavItem,
     NavLink
-}                 from 'reactstrap';
+} from 'reactstrap';
 
 import classnames from 'classnames';
 import ageFactory from "../../age";
-import Moment     from "moment/moment";
+import Moment from "moment/moment";
 import Memberships from "./membership";
 
 
@@ -100,7 +101,7 @@ class ManageContainerPage extends React.Component<any, any> {
             })
         });
 
-        this.setState({bookings: bookings})
+        this.setState({ bookings: bookings })
     }
 
     render() {
@@ -116,104 +117,114 @@ class ManageContainerPage extends React.Component<any, any> {
         const ApplicationsTab = showApplications ?
             manageWholeEventWrapper(() => <CustomTab
                 to={"/event/" + this.props.match.params.eventId + "/manage/applications"}
-                label={'Applications (' + event.applications.length + ')'} activeOnlyWhenExact={undefined}/>) : () => null;
+                label={'Applications (' + event.applications.length + ')'} activeOnlyWhenExact={undefined} />) : () => null;
 
         const VillagesTab = manageWholeEventWrapper(() => event.bigCampMode ? <CustomTab
-            to={"/event/" + this.props.match.params.eventId + "/manage/villages"} label="Villages"
-            activeOnlyWhenExact={undefined}/> : null);
+            to={"/event/" + this.props.match.params.eventId + "/manage/villages"} label="Villages 🏕️"
+            activeOnlyWhenExact={undefined} /> : null);
         const RolesTab = manageWholeEventWrapper(() => <CustomTab
             to={"/event/" + this.props.match.params.eventId + "/manage/roles"} label="Roles"
-            activeOnlyWhenExact={undefined}/>);
+            activeOnlyWhenExact={undefined} />);
 
         const MoneyTab = manageMoneyWrapper(() => <CustomTab
-            to={"/event/" + this.props.match.params.eventId + "/manage/money"} label="Money"
-            activeOnlyWhenExact={undefined}/>);
+            to={"/event/" + this.props.match.params.eventId + "/manage/money"} label="Money 💵"
+            activeOnlyWhenExact={undefined} />);
 
         const MembershipsTab = manageWholeEventWrapper(() => event.customQuestions.adultEmail ? <CustomTab
             to={"/event/" + this.props.match.params.eventId + "/manage/memberships"} label="Memberships"
-            activeOnlyWhenExact={undefined}/> : null);
+            activeOnlyWhenExact={undefined} /> : null);
 
-        const {Bookings, ...props} = this.props;
+        const SignInOutTab = manageWholeEventWrapper(() => event.customQuestions.adultEmail ? <CustomTab
+            to={"/event/" + this.props.match.params.eventId + "/manage/signin"} label="Sign In/Out"
+            activeOnlyWhenExact={undefined} /> : null);
+
+        const { Bookings, ...props } = this.props;
         // @ts-ignore
         return (<React.Fragment>
-                <Row>
-                    <Col>
-                        <Nav tabs>
-                            <CustomTab activeOnlyWhenExact to={"/event/" + this.props.match.params.eventId + "/manage"}
-                                       label="Participants"/>
-                            <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/bookings"}
-                                       label="Bookings" activeOnlyWhenExact={undefined}/>
-                            <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/kp"} label="Kp"
-                                       activeOnlyWhenExact={undefined}/>
-                            <VillagesTab {...this.props}/>
-                            <RolesTab {...this.props}/>
-                            <ApplicationsTab {...this.props}/>
-                            <MoneyTab {...this.props} />
-                            <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/emails"}
-                                       label="Emails" activeOnlyWhenExact={undefined}/>
-                            <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/birthdays"}
-                                       label="🎂" activeOnlyWhenExact={undefined}/>
-                            <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/graphs"}
-                                       label="📈" activeOnlyWhenExact={undefined}/>
-                            <MembershipsTab {...this.props} />
-                        </Nav>
-                    </Col>
-                </Row>
-                <Switch>
-                    <Route exact path="/event/:eventId(\d+)/manage">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <ParticipantsPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/participants">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <ParticipantsPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/bookings">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <BookingsPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/kp">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <KpPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/emails">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <EmailsPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/birthdays">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <BirthdaysPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/applications">
-                        <ApplicationPage bookings={this.state.bookings} {...props} />
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/villages">
-                        <VillagePage bookings={this.state.bookings} {...props} />
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/roles">
-                        <RolesPage bookings={this.state.bookings} {...props} />
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/money">
-                        <MoneyPage bookings={this.state.bookings} {...props} />
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/graphs">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <GraphsPage/>
-                        </Filter>
-                    </Route>
-                    <Route path="/event/:eventId(\d+)/manage/memberships">
-                        <Filter bookings={this.state.bookings} {...props} >
-                            <MembershipsPage/>
-                        </Filter>
-                    </Route>
-                </Switch>
-            </React.Fragment>
+            <Row>
+                <Col>
+                    <Nav tabs>
+                        <CustomTab activeOnlyWhenExact to={"/event/" + this.props.match.params.eventId + "/manage"}
+                            label="Participants" />
+                        <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/bookings"}
+                            label="Bookings" activeOnlyWhenExact={undefined} />
+                        <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/kp"} label="Kp"
+                            activeOnlyWhenExact={undefined} />
+                        <VillagesTab {...this.props} />
+                        <RolesTab {...this.props} />
+                        <ApplicationsTab {...this.props} />
+                        <MoneyTab {...this.props} />
+                        <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/emails"}
+                            label="Email 📧" activeOnlyWhenExact={undefined} />
+                        <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/birthdays"}
+                            label="Birthdays 🎂" activeOnlyWhenExact={undefined} />
+                        <CustomTab to={"/event/" + this.props.match.params.eventId + "/manage/graphs"}
+                            label="Graphs 📈" activeOnlyWhenExact={undefined} />
+                        <MembershipsTab {...this.props} />
+                        <SignInOutTab {...this.props} />
+                    </Nav>
+                </Col>
+            </Row>
+            <Switch>
+                <Route exact path="/event/:eventId(\d+)/manage">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <ParticipantsPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/participants">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <ParticipantsPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/bookings">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <BookingsPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/kp">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <KpPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/emails">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <EmailsPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/birthdays">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <BirthdaysPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/applications">
+                    <ApplicationPage bookings={this.state.bookings} {...props} />
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/villages">
+                    <VillagePage bookings={this.state.bookings} {...props} />
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/roles">
+                    <RolesPage bookings={this.state.bookings} {...props} />
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/money">
+                    <MoneyPage bookings={this.state.bookings} {...props} />
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/graphs">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <GraphsPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/memberships">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <MembershipsPage />
+                    </Filter>
+                </Route>
+                <Route path="/event/:eventId(\d+)/manage/signin">
+                    <Filter bookings={this.state.bookings} {...props} >
+                        <SignInOutPage />
+                    </Filter>
+                </Route>
+            </Switch>
+        </React.Fragment>
 
 
         );
@@ -228,7 +239,7 @@ const mapStateToProps = (state, props) => {
     const UserList = state.getIn(["User", "list"]);
     const Event = state.getIn(["Events", "events", parseInt(props.match.params.eventId)]);
     const Bookings = state.getIn(["Bookings", "bookings"]);
-    return {User, UserList, Event, Bookings};
+    return { User, UserList, Event, Bookings };
 };
 
 const mapDispatchToProps = {
@@ -261,13 +272,13 @@ const VisibleManageContainerPage = connect(
 
 export default VisibleManageContainerPage;
 
-const CustomTab = ({label, to, activeOnlyWhenExact}) => (
+const CustomTab = ({ label, to, activeOnlyWhenExact }) => (
     <Route
         path={to}
         exact={activeOnlyWhenExact}
-        children={({match}) => (
+        children={({ match }) => (
             <NavItem>
-                <NavLink className={classnames({active: match})} tag={Link} to={to}>
+                <NavLink className={classnames({ active: match })} tag={Link} to={to}>
                     {label}
                 </NavLink>
             </NavItem>)}
