@@ -36,7 +36,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent, context: Contex
         const current_user = await user.get_user_from_event(event, db, config)
         delete current_user.password
 
-        const cookie_string = cookie.serialize("jwt", "", { maxAge: 60 * 60, httpOnly: true, sameSite: true, path: '/' })
+        const cookie_string = cookie.serialize("jwt", "", { maxAge: 60 * 60 * 12, httpOnly: true, sameSite: true, path: '/' })
 
         log(`User logged out ${event.headers['X-Forwarded-For']} using ${event.headers['User-Agent']}`)
 
