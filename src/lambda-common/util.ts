@@ -60,7 +60,7 @@ export function getUserScopes(db, user, event, participants = true) {
         let includePayments = false;
         switch (r.name) {
             case "KP":
-                participantScope = "KP";
+                participantScope = "Kp";
                 break;
             case "Money":
                 participantScope = "Money";
