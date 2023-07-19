@@ -6,6 +6,8 @@ import update from 'immutability-helper';
 import * as eol from 'eol'
 import map from 'lodash/map'
 import { fields } from './column_helper'
+import { stringify } from 'csv-stringify/browser/esm/sync';
+import save from 'save-file'
 
 //import bookings from '../bookings'
 //import { manageEventCheck } from '../permission.ts'
@@ -56,8 +58,8 @@ export default class Participants extends React.Component<any, any> {
 
         const headers = used_fields.map(f => f.get_header(event)).flat()
 
-        const exportedData = this.props.participants.map(p => {
-            const b = this.props.bookings.find(b => b.id === p.bookingId);
+        const exportedData = this.props.filteredParticipants.map(p => {
+            const b = this.props.filteredBookings.find(b => b.id === p.bookingId);
             return used_fields.map(f => f.csv_value(p, b, event)).flat()
          })
 
@@ -125,7 +127,8 @@ export default class Participants extends React.Component<any, any> {
         }
         */
         const fileName = this.props.Event.get('name') + "-Participants-" + Moment().format('YYYY-MM-DD') + ".csv";
-        csv(fileName, [headers, ...exportedData]);
+        const csvData = stringify([headers, ...exportedData])
+        save(csvData, fileName)
     }
 
     updateExpanded(id) {

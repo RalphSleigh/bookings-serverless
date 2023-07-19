@@ -8,6 +8,7 @@ import { get_email_client } from '../../../lambda-common/email';
 import * as confirmation from '../../../lambda-common/emails/confirmation'
 import * as manager_booking_created from '../../../lambda-common/emails/managerBookingCreated'
 import { getEventDetails } from '../../../lambda-common/util';
+import * as roleAssigned from '../../../lambda-common/emails/roleAssigned'
 
 /**
  *
@@ -26,5 +27,17 @@ export const lambdaHandler = lambda_wrapper_json([create_role, create_role_user_
         await db.role.create(lambda_event.body);
         const event = await getEventDetails(db, lambda_event.body.eventId)
 
+        const user = await db.user.scope('withData').findOne({where: {id: lambda_event.body.userId}})
+
+        const email = get_email_client(config)
+            //@ts-ignore
+
+        const values = {
+            event: event,
+            emailUser: user
+        }  
+
+        await email.single(user!.email, roleAssigned, values);
+        
         return { events: [event] }
     })

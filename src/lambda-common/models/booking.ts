@@ -26,6 +26,7 @@ export interface BookingModel extends Model<InferAttributes<BookingModel>, Infer
     externalExtra: string
     internalExtra: string
     villageId?: number
+    village?: VillageModel
     participants?: ParticipantModel[]
 }
 

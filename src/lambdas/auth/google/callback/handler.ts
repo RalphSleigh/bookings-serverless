@@ -41,6 +41,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             // The ID of the person to get the profile for. The special value "me" can be used to indicate the authenticated user.
             userId: 'me'});
 
+        console.log(JSON.stringify(res.data))     
+
         try {
             const user_instance = await user.get_user_from_login(res.data.id, res.data.displayName ?? "default", res.data.emails?.[0].value ?? "default", "google")
 
@@ -54,8 +56,8 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
                 }
             }
             //@ts-ignore
-            const jwt_token = jwt.sign({ id: user_instance.id }, config.JWT_SECRET, { expiresIn: 60 * 60 })
-            const cookie_string = cookie.serialize("jwt", jwt_token, { maxAge: 60 * 60, httpOnly: true, sameSite: true, path: '/' })
+            const jwt_token = jwt.sign({ id: user_instance.id }, config.JWT_SECRET, { expiresIn: 60 * 60 * 12 })
+            const cookie_string = cookie.serialize("jwt", jwt_token, { maxAge: 60 * 60 * 12, httpOnly: true, sameSite: true, path: '/' })
 
             log(`User Login from google ${user_instance.userName} from ${event.headers['X-Forwarded-For']} using ${event.headers['User-Agent']}`)
 
