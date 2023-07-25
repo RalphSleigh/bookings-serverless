@@ -136,10 +136,10 @@ export default class SignIn extends React.Component<any, any> {
 
         const rowsArriving = arriving.map(b => {
 
-            const prows = b.participants.map((p, i) => <tr key={i}><td>{p.name}</td></tr>)
+            const prows = b.participants.map((p, i) => <tr key={i}><td>{p.name} {p.externalExtra.photoConsent? "📷" : "🚫"}</td></tr>)
             prows.shift()
 
-            return <React.Fragment><tr><td rowSpan={b.participants.length}>{b.district} ({b.participants.length})</td><td>{b.participants[0].name}</td></tr>{prows}</React.Fragment>
+            return <React.Fragment><tr><td rowSpan={b.participants.length}>{b.district} ({b.participants.length}) - {event.villages.find(v => b.villageId === v.id).name}</td><td>{b.participants[0].name} {b.participants[0].externalExtra.photoConsent? "📷" : "🚫"}</td></tr>{prows}</React.Fragment>
         })
 
         const departing = bookings.map(b => {
@@ -153,7 +153,7 @@ export default class SignIn extends React.Component<any, any> {
             const prows = b.participants.map((p, i) => <tr key={i}><td>{p.name}</td></tr>)
             prows.shift()
 
-            return <React.Fragment><tr><td rowSpan={b.participants.length}>{b.district} ({b.participants.length})</td><td>{b.participants[0].name}</td></tr>{prows}</React.Fragment>
+            return <React.Fragment><tr><td rowSpan={b.participants.length}>{b.district} ({b.participants.length}) - {event.villages.find(v => b.villageId === v.id).name}</td><td>{b.participants[0].name}</td></tr>{prows}</React.Fragment>
         })
 
         const arrivingTotal = arriving.reduce((a, c) => a += c.participants.length, 0)
