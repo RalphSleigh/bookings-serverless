@@ -136,10 +136,10 @@ export default class SignIn extends React.Component<any, any> {
 
         const rowsArriving = arriving.map(b => {
 
-            const prows = b.participants.map((p, i) => <tr key={i}><td>{p.name} {p.externalExtra.photoConsent === 'yes'? "📷" : "🚫"}</td></tr>)
+            const prows = b.participants.map((p, i) => <tr key={i}><td>{p.name}</td><td>{p.externalExtra.photoConsent === 'yes'? "📷" : "🚫"}</td></tr>)
             prows.shift()
 
-            return <React.Fragment><tr><td rowSpan={b.participants.length}>{b.district} ({b.participants.length}) - {event.villages.find(v => b.villageId === v.id).name}</td><td>{b.participants[0].name} {b.participants[0].externalExtra.photoConsent === 'yes' ? "📷" : "🚫"}</td></tr>{prows}</React.Fragment>
+            return <React.Fragment><tr><td rowSpan={b.participants.length}>{b.district} ({b.participants.length}) - {event.villages.find(v => b.villageId === v.id).name}</td><td>{b.participants[0].name}</td><td>{b.participants[0].externalExtra.photoConsent === 'yes' ? "📷" : "🚫"}</td></tr>{prows}</React.Fragment>
         })
 
         const departing = bookings.map(b => {
@@ -166,6 +166,7 @@ export default class SignIn extends React.Component<any, any> {
                     <tr>
                         <th>Booking</th>
                         <th>Participants</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
