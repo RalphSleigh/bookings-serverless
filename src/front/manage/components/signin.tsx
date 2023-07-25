@@ -82,14 +82,14 @@ export default class SignIn extends React.Component<any, any> {
         }).filter(b => b.participants.length > 0)
 
 
-        const headers = ["booking", "participant","action","date"]
+        const headers = ["booking", "participant","village", "photo", "action","date"]
 
         const exportedData = [
             ...arriving.reduce((a,c) =>{
-                return [...a, ...c.participants.map(p => [c.district, p.name, "ARRIVE", currentDay.day.format('YYYY-MM-DD')]) ]
+                return [...a, ...c.participants.map(p => [c.district, p.name, event.villages.find(v => c.villageId === v.id).name, p.externalExtra.photoConsent, "ARRIVE", currentDay.day.format('YYYY-MM-DD')]) ]
             }, []),
             ...departing.reduce((a,c) =>{
-                return [...a, ...c.participants.map(p => [c.district, p.name, "DEPART", currentDay.day.format('YYYY-MM-DD')]) ]
+                return [...a, ...c.participants.map(p => [c.district, p.name, event.villages.find(v => c.villageId === v.id).name, p.externalExtra.photoConsent, "DEPART", currentDay.day.format('YYYY-MM-DD')]) ]
             }, [])
         ]
 
