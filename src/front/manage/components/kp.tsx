@@ -95,7 +95,7 @@ export default class KP extends React.Component<any, any> {
                 const no = [[p.externalExtra.dairy, "Dairy"],
                 [p.externalExtra.soya, "Soya"],
                 [p.externalExtra.egg, "Egg"],
-                [p.externalExtra.gluteb, "Gluten"],
+                [p.externalExtra.gluten, "Gluten"],
                 [p.externalExtra.pork, "Pork"],
                 [p.externalExtra.nut, "Nuts"]].filter(i=> i[0]).map(i=>i[1]).join(", ")
 
