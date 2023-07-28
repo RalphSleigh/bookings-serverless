@@ -25,6 +25,7 @@ import {
 import { woodcraft as W } from '../../../shared/woodcraft'
 import ageFactory from "../../age";
 import moment from 'moment';
+import paymentReference from '../../../shared/paymentReference';
 
 export default class Participants extends React.Component<any, any> {
     private ageWidgets: { BookingFormWidget: (props) => JSX.Element; displayAgeParticipant: (p) => string; participantCardField: (p) => JSX.Element; displayAgeCSV: (p) => string; displayAgeMoment: (age, event) => string } | { BookingFormWidget: (props) => JSX.Element; displayAgeParticipant: (p) => any; participantCardField: (p) => JSX.Element; displayAgeCSV: (p) => string; displayAgeMoment: (age, event) => any };
@@ -221,14 +222,16 @@ export default class Participants extends React.Component<any, any> {
         });
 
 
-        const columns = [{
+        const columns: any[] = []
+                
+        columns.push({
             id: "name",
             accessor: row => row,
             Header: "Name",
             sortable: true,
             sortMethod: nameSort,
             Cell: row => row.value.name
-        }];
+        })
 
         if (event.bigCampMode) { // @ts-ignore
             columns.push({accessor: "district", Header: "District", sortable: true});

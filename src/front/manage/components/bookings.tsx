@@ -21,6 +21,7 @@ import {
 }                 from 'reactstrap';
 import ageFactory from "../../age";
 import feeFactory from "../../../shared/fee/feeFactory";
+import paymentReference from '../../../shared/paymentReference'
 
 Moment.locale('en-gb');
 
@@ -82,6 +83,7 @@ export default class Bookings extends React.Component<any, any> {
             b.emergencyName,
             b.emergencyPhone,
             b.note,
+            paymentReference(b.id),
                 '£' + owed,
                 '£' + paid,
                 '£' + (owed - paid),
@@ -90,7 +92,7 @@ export default class Bookings extends React.Component<any, any> {
                 b.updatedAt]
         });
         const fileName = this.props.Event.get('name') + "-Bookings-" + Moment().format('YYYY-MM-DD') + ".csv";
-        csv(fileName, [['id', 'Name', 'District', 'e-mail', 'Phone', 'Participants','Village', 'Payment type', 'Emergency name', 'Emergency Contact', 'Note', 'Money Owed', 'Money Paid', 'Outstanding Balance', 'Camp with', 'Created', 'Updated'], ...exportedData]);
+        csv(fileName, [['id', 'Name', 'District', 'e-mail', 'Phone', 'Participants','Village', 'Payment type', 'Emergency name', 'Emergency Contact', 'Note', 'Reference', 'Money Owed', 'Money Paid', 'Outstanding Balance', 'Camp with', 'Created', 'Updated'], ...exportedData]);
     }
 
     markPaid(id) {
@@ -142,8 +144,19 @@ export default class Bookings extends React.Component<any, any> {
         });
 
 
-        const columns = [];
+        const columns: any[] = [];
         //@ts-ignore
+
+        if (event.bigCampMode) { // @ts-ignore
+            columns.push({
+                id:         'paymentref',
+                accessor:   row => row,
+                Cell:       row => paymentReference(row.id),
+                Header:     "Ref",// @ts-ignore
+                sortable:   true
+            });
+        }
+
         if (event.bigCampMode) columns.push({accessor: "district", Header: "District", sortable: true});
 //@ts-ignore
         columns.push(...[{accessor: "userName", Header: "Name", sortable: true},
