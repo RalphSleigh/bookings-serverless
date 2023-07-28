@@ -154,7 +154,7 @@ export default class Bookings extends React.Component<any, any> {
                 Cell:       row => paymentReference(row.original.b.id),
                 Header:     "Ref",// @ts-ignore
                 sortable:   true,
-                minWidth: 50
+                minWidth: 35
             });
         }
 
