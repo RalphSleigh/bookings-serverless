@@ -151,7 +151,7 @@ export default class Bookings extends React.Component<any, any> {
             columns.push({
                 id:         'paymentref',
                 accessor:   row => row,
-                Cell:       row => paymentReference(row.id),
+                Cell:       row => paymentReference(row.original.b.id),
                 Header:     "Ref",// @ts-ignore
                 sortable:   true
             });
