@@ -153,7 +153,8 @@ export default class Bookings extends React.Component<any, any> {
                 accessor:   row => row,
                 Cell:       row => paymentReference(row.original.b.id),
                 Header:     "Ref",// @ts-ignore
-                sortable:   true
+                sortable:   true,
+                minWidth: 50
             });
         }
 
