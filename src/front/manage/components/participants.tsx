@@ -147,7 +147,6 @@ export default class Participants extends React.Component<any, any> {
         const organisation = event.organisations.find(o => row.original.b.organisationId === o.id);
         const attendance = event.partialDates === "presets" ? event.partialDatesData.find(d => d.mask === row.original.p.days) : null;
 
-
         const startDate = moment.utc(event.startDate).startOf('day');
                 const endDate = moment.utc(event.endDate).startOf('day').add(1, 'days');
                 let days = " "
@@ -160,6 +159,13 @@ export default class Participants extends React.Component<any, any> {
                 }
 
         const attendanceFree = event.partialDates === "free" ? <p><span style={{color:'green'}}>{days}</span></p> : null;
+
+        const no = [[row.original.p.externalExtra.dairy, "Dairy"],
+                [row.original.p.externalExtra.soya, "Soya"],
+                [row.original.p.externalExtra.egg, "Egg"],
+                [row.original.p.externalExtra.gluten, "Gluten"],
+                [row.original.p.externalExtra.pork, "Pork"],
+                [row.original.p.externalExtra.nut, "Nuts"]].filter(i=> i[0]).map(i=>i[1]).join(", ")
 
         return (<Card>
             <CardBody>
@@ -180,8 +186,10 @@ export default class Participants extends React.Component<any, any> {
                         {!event.bigCampMode ? <p><b>Emergency Phone:</b> {row.original.b.emergencyPhone}</p> : null}
                     </Col>
                     <Col sm={4}>
-                        <p><b>Diet:</b> {row.original.diet} </p>
-                        <p><b>Diet Info:</b></p><p>{row.original.p.dietExtra}</p>
+                    {row.original.p.externalExtra.dietContactMe ? <p><b>Has requested to be contacted by allergy kitchen</b></p> : null}
+                    {no? <p><b>No: </b>{no}</p>: null}
+                    {row.original.p.dietExtra ? <><p><b>Requirement:</b></p><p>{row.original.p.dietExtra}</p></> : null }
+                    {row.original.p.externalExtra.dietPreference ? <><p><b>Preference:</b></p><p>{row.original.p.externalExtra.dietPreference}</p></> : null }
                         <p><b>Anything Else:</b></p><p>{row.original.b.note}</p>
                     </Col>
                     <Col sm={4}>

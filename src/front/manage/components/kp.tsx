@@ -32,8 +32,8 @@ export default class KP extends React.Component<any, any> {
     render() {
 
         const event = this.props.Event.toJS();
-        const bookings =this.props.bookings;
-        const participants = this.props.participants;
+        const bookings = this.props.filteredBookings;
+        const participants = this.props.filteredParticipants;
 
         const groups = W.map(w => {
             const people = participants.filter((p) => p.ageGroup === '' ? false : p.ageGroup === w.singular);
