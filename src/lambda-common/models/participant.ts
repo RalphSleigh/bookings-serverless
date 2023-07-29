@@ -53,7 +53,7 @@ export function associate(models: any) {
     models.participant.belongsTo(models.booking);
 
     models.participant.addScope('KP', {
-        attributes: ['id', 'name', 'age', 'diet', 'dietExtra', 'days', 'bookingId'],
+        attributes: ['id', 'name', 'age', 'diet', 'dietExtra', 'days', 'bookingId', 'externalExtra', 'createdAt', 'updatedAt'],
     });
 
     models.participant.addScope('Money', {
